@@ -103,22 +103,49 @@ export default function HomePage() {
               {CONFIG.FULL_NAME}
             </h1>
 
-            {/* Description */}
-            <p
+            {/* Description - Organized & Balanced Hierarchy */}
+            <div
               style={{
-                fontSize: '1.05rem',
-                lineHeight: 1.65,
-                color: 'var(--color-text-muted)',
-                marginBottom: '2rem',
                 maxWidth: '680px',
-                margin: '0 auto 2rem auto',
+                margin: '0 auto 2.2rem auto',
                 textAlign: 'center'
               }}
             >
-              A 9-week open source event organized by {CONFIG.ORGANIZER}, {CONFIG.COLLEGE}.
-              Month 1 is Portfolio Week; Months 2 and 3 are project contributions across community repositories.
-              Open to students of TKMCE and external participants worldwide.
-            </p>
+              <p
+                style={{
+                  fontSize: '1.08rem',
+                  lineHeight: 1.6,
+                  color: 'var(--color-white)',
+                  marginBottom: '0.6rem',
+                  textWrap: 'balance'
+                }}
+              >
+                A 9-week open source event organized by {CONFIG.ORGANIZER}, {CONFIG.COLLEGE}.
+              </p>
+              <p
+                style={{
+                  fontSize: '0.92rem',
+                  lineHeight: 1.65,
+                  color: 'var(--color-text-muted)',
+                  marginBottom: '0.6rem',
+                  textWrap: 'balance'
+                }}
+              >
+                Month 1 is Portfolio Week; Months 2 and 3 are project contributions across community repositories.
+              </p>
+              <p
+                style={{
+                  fontSize: '0.84rem',
+                  lineHeight: 1.5,
+                  color: 'var(--theme-primary)',
+                  fontFamily: 'var(--font-mono)',
+                  margin: 0,
+                  textWrap: 'balance'
+                }}
+              >
+                Open to students of TKMCE and external participants worldwide.
+              </p>
+            </div>
 
             {/* Hero Actions (Countdown Badge + Navigation Buttons) - Centered Stack */}
             <div
