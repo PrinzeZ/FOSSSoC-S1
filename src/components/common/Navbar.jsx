@@ -66,7 +66,7 @@ export default function Navbar() {
             }}
           >
             <img
-              src={`${(import.meta.env.BASE_URL || '/').replace(/\/$/, '')}/logos/foss.jpeg`}
+              src={`${(import.meta.env.BASE_URL || '/').replace(/\/$/, '')}/logos/foss.png`}
               alt="FOSS TKMCE"
               style={{ width: '24px', height: '24px', borderRadius: '2px', objectFit: 'cover' }}
               onError={(e) => { e.currentTarget.style.display = 'none'; }}
