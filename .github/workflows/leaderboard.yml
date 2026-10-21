@@ -1,0 +1,26 @@
+name: Update leaderboard
+on:
+  schedule: [{ cron: "0 */6 * * *" }]
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: write
+concurrency: { group: leaderboard, cancel-in-progress: false }
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: node scripts/leaderboard.js
+        env: { GH_TOKEN: "${{ secrets.SOC_TOKEN }}" }
+      - name: Commit and redeploy if changed
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          git config user.name "soc-bot"; git config user.email "bot@tkmfoss"
+          git add public/data/leaderboard.json
+          if git diff --cached --quiet; then echo "No changes"; exit 0; fi
+          git commit -m "chore: update leaderboard"
+          git push
+          gh workflow run deploy.yml

@@ -235,7 +235,12 @@ export default function ProjectsPage() {
 
                   {repo.stack && (
                     <div style={{ display: 'flex', gap: '0.35rem', flexWrap: 'wrap' }}>
-                      {repo.stack.map((s) => (
+                      {(Array.isArray(repo.stack)
+                        ? repo.stack
+                        : typeof repo.stack === 'string'
+                        ? repo.stack.split(',').map((s) => s.trim()).filter(Boolean)
+                        : []
+                      ).map((s) => (
                         <span
                           key={s}
                           style={{
