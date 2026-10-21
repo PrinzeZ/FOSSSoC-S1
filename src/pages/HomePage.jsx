@@ -437,9 +437,14 @@ export default function HomePage() {
             padding: 1.5rem 0 1rem 0 !important;
           }
           .hero-eyebrow {
-            margin-bottom: 1.1rem !important;
-            font-size: 0.72rem !important;
-            padding: 0.3rem 0.75rem !important;
+            font-size: clamp(0.58rem, 2.5vw, 0.66rem) !important;
+            padding: 0.22rem 0.55rem !important;
+            letter-spacing: 0.02em !important;
+            margin-bottom: 0.85rem !important;
+            border-radius: var(--radius-sm) !important;
+            line-height: 1.25 !important;
+            white-space: nowrap !important;
+            max-width: 100% !important;
           }
           .hero-heading {
             font-size: clamp(1.95rem, 7.5vw, 2.75rem) !important;
