@@ -20,9 +20,6 @@ export default function WinnersPage() {
       <div className="container">
         {/* Header */}
         <div style={{ marginBottom: '2.5rem' }}>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--theme-primary)', marginBottom: '0.4rem' }}>
-            # winners
-          </div>
           <h1 style={{ fontSize: '2.2rem', marginBottom: '0.5rem' }}>Winners</h1>
           <p style={{ maxWidth: '640px', fontSize: '0.95rem' }}>
             Sprint and overall champions for FOSSSoC-S1. Prizes are to be announced.

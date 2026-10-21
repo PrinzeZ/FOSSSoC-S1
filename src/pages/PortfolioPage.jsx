@@ -51,10 +51,7 @@ export default function PortfolioPage() {
     <div className="section-spacing" style={{ position: 'relative', zIndex: 1 }}>
       <div className="container">
         {/* Header */}
-        <div style={{ marginBottom: '3rem' }}>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--theme-primary)', marginBottom: '0.4rem' }}>
-            # month_1_sprint
-          </div>
+        <div style={{ marginBottom: '2.5rem' }}>
           <h1 style={{ fontSize: '2.2rem', marginBottom: '0.5rem' }}>Portfolio Week</h1>
           <p style={{ maxWidth: '640px', fontSize: '0.95rem', marginBottom: '1.2rem' }}>
             Deadline: 31 Oct 2026, 11:59 PM IST. Build and publish your developer portfolio to kick off Season 1.

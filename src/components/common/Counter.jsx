@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react';
 export default function Counter({ value, duration = 1000 }) {
   const numValue = parseInt(value, 10);
 
-  // Counters show a dash when the value is 0 or missing
+  // Display 0 if value is 0 or not yet loaded
   if (value === undefined || value === null || isNaN(numValue) || numValue === 0) {
-    return <span>—</span>;
+    return <span>0</span>;
   }
 
   const [count, setCount] = useState(0);

@@ -28,9 +28,6 @@ export default function TeamSchedulePage() {
         {/* Schedule */}
         <div style={{ marginBottom: '5rem' }}>
           <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--theme-primary)', marginBottom: '0.4rem' }}>
-              # timeline
-            </div>
             <h1 style={{ fontSize: '2.2rem', marginBottom: '0.5rem', textAlign: 'center' }}>Schedule</h1>
             <p style={{ maxWidth: '640px', margin: '0 auto', fontSize: '0.95rem', textAlign: 'center' }}>
               Official dates for FOSSSoC Season 1. Proposed dates are subject to maintainer consensus.
@@ -61,7 +58,7 @@ export default function TeamSchedulePage() {
                     fontWeight: 700
                   }}
                 >
-                  {item.endDate ? `${item.date} – ${item.endDate}` : item.date}
+                  {item.endDate ? `${item.date} to ${item.endDate}` : item.date}
                 </div>
                 <div style={{ flex: 1, minWidth: '240px' }}>
                   <div style={{ fontSize: '1.05rem', fontWeight: 600, color: 'var(--color-white)', marginBottom: '0.2rem', display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
@@ -92,9 +89,6 @@ export default function TeamSchedulePage() {
         {hasTeamEntries && (
           <div style={{ marginBottom: '5rem' }}>
             <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--theme-primary)', marginBottom: '0.4rem' }}>
-                # team
-              </div>
               <h2 style={{ fontSize: '1.8rem', textAlign: 'center' }}>Organizers & Mentors</h2>
             </div>
             <div
@@ -209,9 +203,6 @@ export default function TeamSchedulePage() {
         {/* FAQ - Centered Header and Centered Container */}
         <div style={{ marginBottom: '5rem', maxWidth: '850px', margin: '0 auto 5rem auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--theme-primary)', marginBottom: '0.4rem' }}>
-              # faq
-            </div>
             <h2 style={{ fontSize: '2rem', marginBottom: '0.5rem', textAlign: 'center' }}>
               Frequently Asked Questions
             </h2>

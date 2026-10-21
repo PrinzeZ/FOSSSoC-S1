@@ -7,9 +7,6 @@ export default function RulesPage() {
       <div className="container">
         {/* Header */}
         <div style={{ marginBottom: '2.5rem' }}>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--theme-primary)', marginBottom: '0.4rem' }}>
-            # rules_and_scoring
-          </div>
           <h1 style={{ fontSize: '2.2rem', marginBottom: '0.5rem' }}>Rules & Points</h1>
           <p style={{ maxWidth: '640px', fontSize: '0.95rem' }}>
             Official contribution guidelines and scoring rubric for FOSSSoC-S1.

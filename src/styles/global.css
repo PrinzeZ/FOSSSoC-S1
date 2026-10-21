@@ -23,8 +23,11 @@ body {
   min-height: 100vh;
   line-height: 1.6;
   overflow-x: hidden;
-  background: var(--theme-bg-gradient);
-  background-attachment: fixed;
+  background-color: var(--theme-bg);
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
   transition: var(--transition-theme);
 }
 
@@ -34,13 +37,13 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--color-white);
   font-weight: 700;
   line-height: 1.25;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
 }
 
-h1 { font-size: clamp(2.4rem, 5vw, 3.8rem); font-weight: 800; }
-h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); }
-h3 { font-size: clamp(1.3rem, 2.5vw, 1.8rem); }
-h4 { font-size: 1.2rem; }
+h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 800; letter-spacing: -0.035em; }
+h2 { font-size: clamp(1.6rem, 3.2vw, 2.3rem); letter-spacing: -0.025em; }
+h3 { font-size: clamp(1.2rem, 2.2vw, 1.6rem); }
+h4 { font-size: 1.15rem; }
 
 p {
   color: var(--color-text-muted);
@@ -76,7 +79,7 @@ button {
   border-radius: var(--radius-sm);
 }
 
-/* Glassmorphic Container & Layout */
+/* Architectural Container & Layout */
 .container {
   width: 100%;
   max-width: 1200px;
@@ -85,12 +88,12 @@ button {
 }
 
 .section-spacing {
-  padding: 5rem 0;
+  padding: 4.5rem 0;
 }
 
 @media (max-width: 768px) {
   .section-spacing {
-    padding: 3.5rem 0;
+    padding: 3rem 0;
   }
   .container {
     padding: 0 1rem;
@@ -99,7 +102,7 @@ button {
 
 @media (max-width: 480px) {
   .section-spacing {
-    padding: 2.5rem 0;
+    padding: 2.25rem 0;
   }
   .container {
     padding: 0 0.85rem;
@@ -111,23 +114,24 @@ button {
   }
 }
 
-/* Glass Surface Components */
-.glass-panel {
+/* Solid Technical Surface Components (No Glassmorphism) */
+.glass-panel,
+.tech-card {
   background: var(--theme-surface);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
   border: 1px solid var(--theme-border);
-  border-radius: var(--radius-md);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.36);
-  transition: transform var(--transition-smooth), border-color var(--transition-smooth), box-shadow var(--transition-smooth);
+  border-radius: var(--radius-sm);
+  box-shadow: none;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
 }
 
-.glass-panel:hover {
+.glass-panel:hover,
+.tech-card:hover {
   border-color: var(--theme-border-hover);
-  box-shadow: 0 12px 38px var(--theme-glow), 0 4px 16px rgba(0, 0, 0, 0.4);
+  background: var(--theme-surface-hover);
+  box-shadow: none;
 }
 
-/* Buttons */
+/* Solid Tactile Buttons (No glow, no fade on hover) */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -136,10 +140,10 @@ button {
   padding: 0.55rem 1.25rem;
   min-height: 2.5rem;
   font-family: var(--font-mono);
-  font-weight: 500;
-  font-size: 0.85rem;
-  border-radius: var(--radius-md);
-  transition: all var(--transition-fast);
+  font-weight: 600;
+  font-size: 0.84rem;
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
   position: relative;
   text-decoration: none;
   white-space: nowrap;
@@ -147,19 +151,21 @@ button {
   box-sizing: border-box;
 }
 
+.btn:active {
+  transform: translateY(1px);
+}
+
 .btn-primary {
   background: var(--theme-primary);
-  color: #0b0813;
-  font-weight: 600;
+  color: #090a0f;
+  font-weight: 700;
   border: 1px solid var(--theme-primary);
-  box-shadow: 0 0 14px var(--theme-glow);
 }
 
 .btn-primary:hover {
   background: var(--theme-primary-hover);
   border-color: var(--theme-primary-hover);
-  color: #0b0813;
-  transform: translateY(-1px);
+  color: #090a0f;
 }
 
 .btn-secondary {
@@ -170,31 +176,29 @@ button {
 
 .btn-secondary:hover {
   background: var(--theme-surface-hover);
-  border-color: var(--theme-primary);
-  color: var(--theme-primary);
-  transform: translateY(-1px);
+  border-color: var(--theme-border-hover);
+  color: var(--color-white);
 }
 
 .btn-disabled,
 .btn:disabled,
 .btn[aria-disabled="true"] {
   background: rgba(255, 255, 255, 0.03);
-  color: var(--color-text-muted);
+  color: var(--color-text-subtle);
   border: 1px dashed var(--theme-border);
   cursor: not-allowed;
   pointer-events: none;
-  opacity: 0.85;
+  opacity: 0.7;
 }
 
 .btn-disabled:hover,
 .btn:disabled:hover {
-  transform: none;
   border-color: var(--theme-border);
-  color: var(--color-text-muted);
+  color: var(--color-text-subtle);
 }
 
 .btn-sm {
-  min-height: 2rem;
+  min-height: 2.1rem;
   padding: 0.35rem 0.85rem;
   font-size: 0.8rem;
   border-radius: var(--radius-sm);
@@ -205,10 +209,11 @@ button {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  padding: 0.3rem 0.75rem;
-  font-size: 0.78rem;
+  padding: 0.25rem 0.65rem;
+  font-size: 0.76rem;
   font-weight: 600;
-  border-radius: var(--radius-full);
+  font-family: var(--font-mono);
+  border-radius: var(--radius-sm);
   background: var(--theme-badge-bg);
   color: var(--theme-primary);
   border: 1px solid var(--theme-border);
@@ -218,19 +223,19 @@ button {
 .chip-success {
   background: var(--color-success-bg);
   color: var(--color-success);
-  border-color: rgba(16, 185, 129, 0.3);
+  border-color: rgba(16, 185, 129, 0.25);
 }
 
 .chip-warning {
   background: var(--color-warning-bg);
   color: var(--color-warning);
-  border-color: rgba(245, 158, 11, 0.3);
+  border-color: rgba(245, 158, 11, 0.25);
 }
 
 .chip-muted {
-  background: rgba(156, 163, 175, 0.12);
+  background: rgba(156, 163, 175, 0.08);
   color: var(--color-text-muted);
-  border-color: rgba(156, 163, 175, 0.25);
+  border-color: var(--theme-border);
 }
 
 /* Grids */
@@ -254,19 +259,6 @@ button {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-}
-
-@keyframes bounceSubtle {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(5px);
-  }
-}
-
-.bounce-subtle {
-  animation: bounceSubtle 2s ease-in-out infinite;
 }
 
 /* Ensure page content always fills past full viewport so footer is only reached on scroll down */

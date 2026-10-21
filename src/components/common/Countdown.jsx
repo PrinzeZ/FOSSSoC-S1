@@ -1,20 +1,19 @@
 import React from 'react';
 import { useCountdown } from '../../hooks/useCountdown';
 import { KICKOFF_ISO } from '../../config';
-import { Clock } from 'lucide-react';
 
 export default function Countdown({ targetDate = KICKOFF_ISO }) {
   const commonStyle = {
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: '0.5rem',
-    minHeight: '2.5rem',
-    padding: '0.4rem 1.1rem',
+    gap: '0.65rem',
+    minHeight: '2.4rem',
+    padding: '0.35rem 1rem',
     border: '1px solid var(--theme-border)',
     background: 'var(--theme-card-bg)',
-    borderRadius: 'var(--radius-md)',
-    fontSize: 'clamp(0.76rem, 2.5vw, 0.85rem)',
+    borderRadius: 'var(--radius-sm)',
+    fontSize: '0.82rem',
     fontFamily: 'var(--font-mono)',
     color: 'var(--color-text-muted)',
     maxWidth: '100%',
@@ -25,11 +24,7 @@ export default function Countdown({ targetDate = KICKOFF_ISO }) {
   if (!targetDate) {
     return (
       <div style={commonStyle}>
-        <Clock size={14} color="var(--theme-primary)" style={{ flexShrink: 0, display: 'block' }} />
-        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', lineHeight: 1 }}>
-          <span>Kickoff countdown:</span>
-          <span style={{ color: 'var(--theme-primary)', fontWeight: 600 }}>To be announced</span>
-        </span>
+        <span style={{ color: 'var(--theme-primary)', fontWeight: 600 }}>STATUS: SCHEDULE TBD</span>
       </div>
     );
   }
@@ -38,33 +33,37 @@ export default function Countdown({ targetDate = KICKOFF_ISO }) {
 
   if (isLive) {
     return (
-      <div style={{ ...commonStyle, borderColor: 'var(--theme-primary)' }}>
-        <span style={{ color: 'var(--theme-primary)', fontWeight: 700, lineHeight: 1 }}>● The season is live</span>
+      <div style={{ ...commonStyle, borderColor: 'var(--color-success)' }}>
+        <span style={{ color: 'var(--color-success)', fontWeight: 700, lineHeight: 1 }}>STATUS: SEASON LIVE</span>
       </div>
     );
   }
 
   const units = [
-    { label: 'd', val: days },
-    { label: 'h', val: hours },
-    { label: 'm', val: minutes },
-    { label: 's', val: seconds }
+    { label: 'D', val: days },
+    { label: 'H', val: hours },
+    { label: 'M', val: minutes },
+    { label: 'S', val: seconds }
   ];
 
   return (
     <div style={commonStyle}>
-      <Clock size={14} color="var(--theme-primary)" style={{ flexShrink: 0, display: 'block' }} />
-      <span style={{ color: 'var(--color-text-muted)', fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.04em', lineHeight: 1 }}>
-        Kickoff in:
+      <span style={{ color: 'var(--theme-primary)', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.06em' }}>
+        T-MINUS
       </span>
-      <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', lineHeight: 1 }}>
-        {units.map((unit) => (
-          <span key={unit.label} style={{ color: 'var(--color-white)', fontWeight: 700 }}>
-            {String(unit.val).padStart(2, '0')}
-            <span style={{ color: 'var(--theme-primary)', fontSize: '0.75rem', marginLeft: '1px' }}>
-              {unit.label}
+      <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', lineHeight: 1 }}>
+        {units.map((unit, idx) => (
+          <React.Fragment key={unit.label}>
+            <span style={{ color: 'var(--color-white)', fontWeight: 700 }}>
+              {String(unit.val).padStart(2, '0')}
+              <span style={{ color: 'var(--color-text-subtle)', fontSize: '0.72rem', marginLeft: '2px' }}>
+                {unit.label}
+              </span>
             </span>
-          </span>
+            {idx < units.length - 1 && (
+              <span style={{ color: 'var(--color-text-subtle)', opacity: 0.5 }}>:</span>
+            )}
+          </React.Fragment>
         ))}
       </div>
     </div>

@@ -78,9 +78,6 @@ export default function LeaderboardPage() {
         {/* Header */}
         <div style={{ marginBottom: '2.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
           <div>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--theme-primary)', marginBottom: '0.4rem' }}>
-              # season_standings
-            </div>
             <h1 style={{ fontSize: '2.2rem', marginBottom: '0.5rem' }}>Leaderboard</h1>
             <p style={{ maxWidth: '640px', fontSize: '0.95rem' }}>
               Standings computed from merged pull requests and portfolio evaluations. Click a row to inspect breakdown.
@@ -107,11 +104,10 @@ export default function LeaderboardPage() {
                 height: '7px',
                 borderRadius: '50%',
                 background: 'var(--theme-primary)',
-                boxShadow: '0 0 8px var(--theme-primary)',
                 display: 'inline-block'
               }}
             />
-            <span style={{ color: 'var(--color-text-subtle)' }}>ACTIVE THEME:</span>
+            <span style={{ color: 'var(--color-text-subtle)' }}>THEME:</span>
             <span style={{ color: 'var(--theme-primary)', fontWeight: 700 }}>{currentTheme.themeName}</span>
           </div>
         </div>
@@ -231,7 +227,7 @@ export default function LeaderboardPage() {
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
             <Clock size={12} />
             <span>
-              Updated: {data?.updated ? new Date(data.updated).toLocaleTimeString() : '—'} (auto-refreshes every 5m)
+              Updated: {data?.updated ? new Date(data.updated).toLocaleTimeString() : 'Not synced'} (auto-refreshes every 5m)
             </span>
           </div>
           <div>Rows: {filteredRows.length}</div>

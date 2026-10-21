@@ -148,14 +148,8 @@ export default function SeasonalCanvas() {
 
       ctx.clearRect(0, 0, width, height);
 
-      // October rendering (Fog embers & bats)
+      // October rendering (Clean subtle sparks & bats)
       if (theme === 'october') {
-        const grad = ctx.createRadialGradient(width * 0.5, 0, 10, width * 0.5, 0, height * 0.7);
-        grad.addColorStop(0, 'rgba(157, 78, 221, 0.09)');
-        grad.addColorStop(1, 'transparent');
-        ctx.fillStyle = grad;
-        ctx.fillRect(0, 0, width, height);
-
         for (let p of particles) {
           if (!prefersReducedMotion) {
             p.y += p.vy;
@@ -172,12 +166,9 @@ export default function SeasonalCanvas() {
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
           ctx.fillStyle = p.color;
-          ctx.globalAlpha = Math.max(0.1, Math.min(0.7, p.alpha));
-          ctx.shadowBlur = 8;
-          ctx.shadowColor = p.color;
+          ctx.globalAlpha = Math.max(0.08, Math.min(0.4, p.alpha * 0.7));
           ctx.fill();
         }
-        ctx.shadowBlur = 0;
 
         for (let b of bats) {
           if (!prefersReducedMotion) {
@@ -207,7 +198,7 @@ export default function SeasonalCanvas() {
           ctx.beginPath();
           ctx.arc(p1.x, p1.y, p1.radius, 0, Math.PI * 2);
           ctx.fillStyle = '#00F5D4';
-          ctx.globalAlpha = p1.alpha;
+          ctx.globalAlpha = p1.alpha * 0.7;
           ctx.fill();
 
           for (let j = i + 1; j < particles.length; j++) {
@@ -220,13 +211,13 @@ export default function SeasonalCanvas() {
               ctx.moveTo(p1.x, p1.y);
               ctx.lineTo(p2.x, p2.y);
               ctx.strokeStyle = '#00F5D4';
-              ctx.globalAlpha = (1 - dist / maxDist) * 0.16;
+              ctx.globalAlpha = (1 - dist / maxDist) * 0.12;
               ctx.stroke();
             }
           }
         }
 
-        ctx.font = '12px "IBM Plex Mono", monospace';
+        ctx.font = '12px "JetBrains Mono", monospace';
         ctx.fillStyle = '#00BBF9';
         for (let g of codeGlyphs) {
           if (!prefersReducedMotion) {
@@ -236,19 +227,13 @@ export default function SeasonalCanvas() {
               g.x = Math.random() * width;
             }
           }
-          ctx.globalAlpha = g.alpha;
+          ctx.globalAlpha = g.alpha * 0.6;
           ctx.fillText(g.text, g.x, g.y);
         }
       }
 
-      // December rendering (Snowfall & warm lights glow)
+      // December rendering (Snowfall)
       else if (theme === 'december') {
-        const glow = ctx.createRadialGradient(width * 0.8, height * 0.1, 20, width * 0.8, height * 0.1, 300);
-        glow.addColorStop(0, 'rgba(255, 209, 102, 0.08)');
-        glow.addColorStop(1, 'transparent');
-        ctx.fillStyle = glow;
-        ctx.fillRect(0, 0, width, height);
-
         for (let s of snowflakes) {
           if (!prefersReducedMotion) {
             s.y += s.vy;
