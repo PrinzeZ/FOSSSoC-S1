@@ -5,7 +5,7 @@ import { useLeaderboardData } from '../hooks/useLeaderboardData';
 import Counter from '../components/common/Counter';
 import GitBranchCalendar from '../components/common/GitBranchCalendar';
 import Countdown from '../components/common/Countdown';
-import { ExternalLink, Copy, Check } from 'lucide-react';
+import { ExternalLink, Copy, Check, ArrowRight } from 'lucide-react';
 
 export default function HomePage() {
   const { stats } = useLeaderboardData();
