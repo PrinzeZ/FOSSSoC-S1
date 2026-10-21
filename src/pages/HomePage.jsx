@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { REG_FORM_URL, KICKOFF_ISO } from '../config';
 import { useLeaderboardData } from '../hooks/useLeaderboardData';
 import Counter from '../components/common/Counter';
-import TerminalStatus from '../components/home/TerminalStatus';
 import GitBranchCalendar from '../components/common/GitBranchCalendar';
 import Countdown from '../components/common/Countdown';
-import { ExternalLink, ArrowRight } from 'lucide-react';
+import { ExternalLink, Copy, Check } from 'lucide-react';
 
 export default function HomePage() {
   const { stats } = useLeaderboardData();
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText('git clone https://github.com/tkmfoss/portfolio-template.git');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   const steps = [
     {
@@ -61,39 +67,59 @@ export default function HomePage() {
               alignItems: 'center'
             }}
           >
+            {/* Eyebrow Tag */}
             <div
               style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.55rem',
+                padding: '0.35rem 0.9rem',
+                borderRadius: 'var(--radius-md)',
+                border: '1px solid var(--theme-border)',
+                background: 'rgba(255, 255, 255, 0.03)',
                 fontFamily: 'var(--font-mono)',
-                fontSize: '0.85rem',
-                color: 'var(--theme-primary)',
-                marginBottom: '0.8rem',
-                textTransform: 'uppercase',
-                letterSpacing: '0.06em'
+                fontSize: '0.78rem',
+                color: 'var(--color-text-muted)',
+                marginBottom: '1.25rem',
+                letterSpacing: '0.04em'
               }}
             >
-              FOSS TKMCE // Season 1
+              <span
+                style={{
+                  display: 'inline-block',
+                  width: '6px',
+                  height: '6px',
+                  borderRadius: '50%',
+                  background: 'var(--theme-primary)',
+                  boxShadow: '0 0 8px var(--theme-primary)'
+                }}
+              />
+              <span>FOSS TKMCE // SEASON 01 // 24 OCT – 27 DEC 2026</span>
             </div>
 
+            {/* Main Headline */}
             <h1
               style={{
-                fontSize: 'clamp(2.4rem, 5vw, 3.4rem)',
-                lineHeight: 1.15,
+                fontSize: 'clamp(2.6rem, 5.5vw, 4.2rem)',
+                lineHeight: 1.12,
                 marginBottom: '1.2rem',
                 color: 'var(--color-white)',
-                letterSpacing: '-0.03em',
-                textAlign: 'center'
+                letterSpacing: '-0.035em',
+                textAlign: 'center',
+                fontWeight: 800
               }}
             >
               FOSS Season of Commit
             </h1>
 
+            {/* Description */}
             <p
               style={{
                 fontSize: '1.05rem',
                 lineHeight: 1.65,
                 color: 'var(--color-text-muted)',
                 marginBottom: '2rem',
-                maxWidth: '660px',
+                maxWidth: '680px',
                 margin: '0 auto 2rem auto',
                 textAlign: 'center'
               }}
@@ -111,7 +137,7 @@ export default function HomePage() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 gap: '1rem',
-                marginBottom: '3rem',
+                marginBottom: '2.5rem',
                 width: '100%'
               }}
             >
@@ -158,9 +184,62 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Terminal Status Box - Centered below hero */}
-            <div style={{ width: '100%', maxWidth: '720px', margin: '0 auto', textAlign: 'left' }}>
-              <TerminalStatus />
+            {/* Quickstart Command Bar for Month 1 */}
+            <div
+              style={{
+                width: '100%',
+                maxWidth: '640px',
+                margin: '0 auto',
+                padding: '0.65rem 0.9rem',
+                borderRadius: 'var(--radius-md)',
+                background: 'var(--theme-card-bg)',
+                border: '1px solid var(--theme-border)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: '0.75rem',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.82rem',
+                boxSizing: 'border-box'
+              }}
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.55rem',
+                  overflowX: 'auto',
+                  whiteSpace: 'nowrap',
+                  color: 'var(--color-text-main)'
+                }}
+              >
+                <span style={{ color: 'var(--theme-primary)', fontWeight: 700 }}>$</span>
+                <span>git clone https://github.com/tkmfoss/portfolio-template.git</span>
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexShrink: 0 }}>
+                <button
+                  onClick={handleCopy}
+                  aria-label="Copy clone command"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.35rem',
+                    padding: '0.35rem 0.65rem',
+                    borderRadius: 'var(--radius-sm)',
+                    border: '1px solid var(--theme-border)',
+                    background: copied ? 'rgba(16, 185, 129, 0.15)' : 'rgba(255, 255, 255, 0.05)',
+                    color: copied ? 'var(--color-success)' : 'var(--color-text-muted)',
+                    fontSize: '0.75rem',
+                    fontFamily: 'var(--font-mono)',
+                    cursor: 'pointer',
+                    transition: 'all 0.15s ease'
+                  }}
+                >
+                  {copied ? <Check size={12} /> : <Copy size={12} />}
+                  <span>{copied ? 'Copied' : 'Copy'}</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
