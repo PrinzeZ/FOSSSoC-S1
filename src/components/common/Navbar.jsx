@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { REG_FORM_URL } from '../../config';
+import { CONFIG } from '../../config';
 import { Menu, X, ExternalLink } from 'lucide-react';
 
 export default function Navbar() {
@@ -146,31 +146,28 @@ export default function Navbar() {
           }}
           className="desktop-nav"
         >
-          {REG_FORM_URL ? (
+          {CONFIG.REG_FORM_URL ? (
             <a
-              href={REG_FORM_URL}
+              href={CONFIG.REG_FORM_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-primary btn-sm"
               style={{ whiteSpace: 'nowrap', fontSize: '0.82rem' }}
             >
-              <span>Register</span>
+              <span>[ Register ]</span>
               <ExternalLink size={13} />
             </a>
           ) : (
             <button
               disabled
-              className="btn btn-secondary btn-sm"
+              className="btn btn-disabled btn-sm"
               style={{
                 whiteSpace: 'nowrap',
-                fontSize: '0.78rem',
-                opacity: 0.6,
-                cursor: 'not-allowed',
-                padding: '0.4rem 0.8rem'
+                fontSize: '0.78rem'
               }}
-              title="Registration link coming soon"
+              title="Registration link will be announced soon"
             >
-              Registration link coming soon
+              [ Registration: Soon ]
             </button>
           )}
         </div>
@@ -233,25 +230,25 @@ export default function Navbar() {
             </NavLink>
           ))}
           <div style={{ marginTop: '0.6rem', borderTop: '1px solid var(--theme-border)', paddingTop: '0.8rem' }}>
-            {REG_FORM_URL ? (
+            {CONFIG.REG_FORM_URL ? (
               <a
-                href={REG_FORM_URL}
+                href={CONFIG.REG_FORM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-primary btn-sm"
                 style={{ width: '100%', justifyContent: 'center' }}
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <span>Register</span>
+                <span>[ Register ]</span>
                 <ExternalLink size={14} />
               </a>
             ) : (
               <button
                 disabled
-                className="btn btn-secondary btn-sm"
-                style={{ width: '100%', justifyContent: 'center', opacity: 0.6, cursor: 'not-allowed' }}
+                className="btn btn-disabled btn-sm"
+                style={{ width: '100%', justifyContent: 'center' }}
               >
-                Registration link coming soon
+                [ Registration: Soon ]
               </button>
             )}
           </div>

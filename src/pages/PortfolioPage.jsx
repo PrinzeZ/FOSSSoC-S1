@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { PORTFOLIO_TEMPLATE_URL, DATES, PORTFOLIO_POINTS } from '../config';
+import { TEMPLATE_REPO_URL } from '../config';
+import { POINTS } from '../rules';
 import { useLeaderboardData } from '../hooks/useLeaderboardData';
 import {
   GitFork,
@@ -59,7 +60,7 @@ export default function PortfolioPage() {
             Deadline: 31 Oct 2026, 11:59 PM IST. Build and publish your developer portfolio to kick off Season 1.
           </p>
           <a
-            href={PORTFOLIO_TEMPLATE_URL}
+            href={TEMPLATE_REPO_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-secondary btn-sm"
@@ -109,32 +110,32 @@ export default function PortfolioPage() {
             }}
           >
             <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem', fontFamily: 'var(--font-mono)' }}>
-              Scoring Rubric (Total: 50 pts)
+              Scoring Rubric (Total: {POINTS.portfolio.total} pts)
             </h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.85rem', fontFamily: 'var(--font-mono)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '0.3rem' }}>
                 <span>Fork template</span>
-                <span style={{ color: 'var(--theme-primary)' }}>+5 pts</span>
+                <span style={{ color: 'var(--theme-primary)' }}>+{POINTS.portfolio.fork} pts</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '0.3rem' }}>
-                <span>3+ commits</span>
-                <span style={{ color: 'var(--theme-primary)' }}>+5 pts</span>
+                <span>{POINTS.portfolio.minCommits}+ commits</span>
+                <span style={{ color: 'var(--theme-primary)' }}>+{POINTS.portfolio.commits} pts</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '0.3rem' }}>
                 <span>Live GitHub Pages site</span>
-                <span style={{ color: 'var(--theme-primary)' }}>+10 pts</span>
+                <span style={{ color: 'var(--theme-primary)' }}>+{POINTS.portfolio.liveSite} pts</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '0.3rem' }}>
                 <span>Showcase PR merged</span>
-                <span style={{ color: 'var(--theme-primary)' }}>+10 pts</span>
+                <span style={{ color: 'var(--theme-primary)' }}>+{POINTS.portfolio.showcasePR} pts</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '0.3rem' }}>
                 <span>Mentor rubric</span>
-                <span style={{ color: 'var(--theme-primary)' }}>up to +20 pts</span>
+                <span style={{ color: 'var(--theme-primary)' }}>up to +{POINTS.portfolio.rubricMax} pts</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '0.3rem', fontWeight: 700, color: 'var(--color-white)' }}>
                 <span>Maximum Total</span>
-                <span>50 pts</span>
+                <span>{POINTS.portfolio.total} pts</span>
               </div>
             </div>
           </div>

@@ -1,0 +1,26 @@
+[
+    {
+        "q": "Do I need experience?",
+        "a": "No. Come to the kickoff workshop and start with the Portfolio Week."
+    },
+    {
+        "q": "Can I propose my own issues?",
+        "a": "Yes, in the project months. A mentor must accept it and sets the level. Proposing gives no points."
+    },
+    {
+        "q": "Do repos close at the end of a month?",
+        "a": "No. They stay open for the whole season. A PR counts for the month in which it was opened."
+    },
+    {
+        "q": "Can I use AI tools?",
+        "a": "As a helper only. You must understand and be able to explain everything you submit."
+    },
+    {
+        "q": "Why did I get 0 points?",
+        "a": "Check that your PR links an issue and the labels are right, then appeal to the organizers within 3 days."
+    },
+    {
+        "q": "What does 'not prize-eligible' mean?",
+        "a": "You are below the minimum for a prize. You keep your points and your participation certificate. It is not a disqualification."
+    }
+]

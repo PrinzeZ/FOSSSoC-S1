@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ORG_GITHUB_URL, ORG_WEBSITE_URL } from '../../config';
+import { CONFIG } from '../../config';
 import { Github, Globe } from 'lucide-react';
 
 export default function Footer() {
@@ -28,42 +28,46 @@ export default function Footer() {
           {/* Col 1 */}
           <div>
             <div style={{ fontWeight: 700, color: 'var(--color-white)', fontSize: '1rem', marginBottom: '0.4rem' }}>
-              FOSSSoC-S1
+              {CONFIG.NAME}
             </div>
             <p style={{ fontSize: '0.82rem', color: 'var(--color-text-muted)', lineHeight: 1.6, marginBottom: '0.8rem' }}>
-              FOSS Season of Commit (Season 1). Organized by FOSS TKMCE, T.K.M. College of Engineering, Kollam.
+              {CONFIG.FULL_NAME}. Organized by {CONFIG.ORGANIZER}, {CONFIG.COLLEGE}.
             </p>
-            <div style={{ display: 'flex', gap: '0.6rem' }}>
-              <a
-                href={ORG_GITHUB_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.35rem',
-                  color: 'var(--color-text-muted)',
-                  fontSize: '0.78rem'
-                }}
-              >
-                <Github size={13} />
-                <span>github/tkmfoss</span>
-              </a>
-              <a
-                href={ORG_WEBSITE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.35rem',
-                  color: 'var(--color-text-muted)',
-                  fontSize: '0.78rem'
-                }}
-              >
-                <Globe size={13} />
-                <span>tkmfoss.github.io</span>
-              </a>
+            <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
+              {CONFIG.GITHUB_ORG_URL && (
+                <a
+                  href={CONFIG.GITHUB_ORG_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.35rem',
+                    color: 'var(--color-text-muted)',
+                    fontSize: '0.78rem'
+                  }}
+                >
+                  <Github size={13} />
+                  <span>github/{CONFIG.GITHUB_ORG}</span>
+                </a>
+              )}
+              {CONFIG.ORG_SITE_URL && (
+                <a
+                  href={CONFIG.ORG_SITE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.35rem',
+                    color: 'var(--color-text-muted)',
+                    fontSize: '0.78rem'
+                  }}
+                >
+                  <Globe size={13} />
+                  <span>{CONFIG.ORG_SITE_URL.replace(/^https?:\/\//, '')}</span>
+                </a>
+              )}
             </div>
           </div>
 

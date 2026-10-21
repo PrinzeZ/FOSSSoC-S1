@@ -1,0 +1,99 @@
+{
+    "phases": [
+        {
+            "id": "portfolio",
+            "title": "Portfolio Week",
+            "theme": "Halloween",
+            "start": "2026-10-24",
+            "end": "2026-10-31",
+            "bonusWindow": null
+        },
+        {
+            "id": "november",
+            "title": "Build Month",
+            "theme": "Build Month",
+            "start": "2026-11-01",
+            "end": "2026-11-30",
+            "bonusWindow": [
+                "2026-11-01",
+                "2026-11-07"
+            ]
+        },
+        {
+            "id": "december",
+            "title": "Christmas Eve month",
+            "theme": "Christmas Eve",
+            "start": "2026-12-01",
+            "end": "2026-12-24",
+            "bonusWindow": [
+                "2026-12-01",
+                "2026-12-07"
+            ]
+        }
+    ],
+    "milestones": [
+        {
+            "date": "2026-10-24",
+            "title": "Kickoff workshop",
+            "detail": "Git and GitHub basics, fork the template, first PR",
+            "proposed": false
+        },
+        {
+            "date": "2026-10-31",
+            "title": "Portfolio Week deadline",
+            "detail": "11:59 PM IST",
+            "proposed": false
+        },
+        {
+            "date": "2026-11-01",
+            "endDate": "2026-11-03",
+            "title": "Judging",
+            "detail": "Mentors score portfolios with the rubric",
+            "proposed": false
+        },
+        {
+            "date": "2026-11-04",
+            "title": "October winners announced",
+            "detail": "",
+            "proposed": false
+        },
+        {
+            "date": "2026-11-01",
+            "endDate": "2026-11-07",
+            "title": "First-week bonus (November)",
+            "detail": "+5 on your earliest-opened scored PR in each repo",
+            "proposed": false
+        },
+        {
+            "date": "2026-12-03",
+            "title": "November winners announced",
+            "detail": "",
+            "proposed": false
+        },
+        {
+            "date": "2026-12-01",
+            "endDate": "2026-12-07",
+            "title": "First-week bonus (December)",
+            "detail": "+5 on your earliest-opened scored PR in each repo",
+            "proposed": false
+        },
+        {
+            "date": "2026-12-20",
+            "title": "Last day to open new PRs",
+            "detail": "Reviews continue afterwards",
+            "proposed": true
+        },
+        {
+            "date": "2026-12-24",
+            "title": "Final merge deadline",
+            "detail": "",
+            "proposed": true
+        },
+        {
+            "date": "2026-12-27",
+            "title": "Results and demo day",
+            "detail": "December and overall winners",
+            "proposed": true
+        }
+    ]
+}

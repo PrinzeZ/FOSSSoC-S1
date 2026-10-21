@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLeaderboardData } from '../hooks/useLeaderboardData';
-import { TIER_CONFIG } from '../config';
+import { TIER_CONFIG } from '../rules';
 import {
   Search,
   RefreshCw,

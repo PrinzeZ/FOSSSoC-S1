@@ -1,21 +1,47 @@
 {
   "october": {
-    "theme": "Portfolio Week",
+    "theme": "Halloween",
+    "unlock": "2026-10-24",
     "repos": [
       {
         "name": "portfolio-template",
         "field": "Web",
-        "stack": ["HTML", "CSS", "JavaScript", "GitHub Pages"],
-        "desc": "Official portfolio template for FOSSSoC-S1. Fork, customize profile.json, deploy to GitHub Pages, and submit a showcase PR."
+        "stack": "HTML, CSS, JavaScript",
+        "desc": "Fork it, make it yours, publish it with GitHub Pages, and send your showcase PR.",
+        "url": "https://github.com/tkmfoss/portfolio-template"
       }
     ]
   },
   "november": {
     "theme": "Build Month",
-    "repos": []
+    "unlock": "2026-11-01",
+    "repos": [
+      {
+        "name": "pingpanda",
+        "field": "Web",
+        "stack": "Python CLI",
+        "desc": "Lightweight website health checker: HTTP status codes, response times and connection failures.",
+        "url": "https://github.com/tkmfoss/pingpanda"
+      },
+      {
+        "name": "safeclick-lab",
+        "field": "Cyber",
+        "stack": "Python, FastAPI, React",
+        "desc": "Offline phishing-awareness trainer that explains why emails and URLs are dangerous.",
+        "url": "https://github.com/tkmfoss/safeclick-lab"
+      },
+      {
+        "name": "typing-speed-test",
+        "field": "Frontend",
+        "stack": "JavaScript, HTML/CSS",
+        "desc": "A typing test that ships half-broken on purpose. Fix the logic, then extend it.",
+        "url": "https://github.com/tkmfoss/typing-speed-test"
+      }
+    ]
   },
   "december": {
-    "theme": "Christmas Eve Month",
+    "theme": "Christmas Eve",
+    "unlock": "2026-12-01",
     "repos": []
   }
 }

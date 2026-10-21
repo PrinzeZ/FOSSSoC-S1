@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useProjectsData } from '../hooks/useProjectsData';
-import { UNLOCK_DATES } from '../config';
 import { Lock, Unlock, ExternalLink } from 'lucide-react';
 
 export default function ProjectsPage() {
@@ -10,15 +9,15 @@ export default function ProjectsPage() {
 
   const isMonthLocked = (monthKey) => {
     if (isUnlockedBypass) return false;
-    const unlockDateStr = UNLOCK_DATES[monthKey];
+    const unlockDateStr = data?.[monthKey]?.unlock;
     if (!unlockDateStr) return false;
     return new Date().getTime() < new Date(unlockDateStr).getTime();
   };
 
   const monthConfig = {
-    october: { title: 'October', subtitle: 'Portfolio Week', unlockText: 'Unlocked' },
-    november: { title: 'November', subtitle: 'Build Month', unlockText: 'November 1' },
-    december: { title: 'December', subtitle: 'Christmas Eve Month', unlockText: 'December 1' }
+    october: { title: 'October', subtitle: data?.october?.theme || 'Halloween', unlockText: data?.october?.unlock || '24 Oct 2026' },
+    november: { title: 'November', subtitle: data?.november?.theme || 'Build Month', unlockText: data?.november?.unlock || '1 Nov 2026' },
+    december: { title: 'December', subtitle: data?.december?.theme || 'Christmas Eve', unlockText: data?.december?.unlock || '1 Dec 2026' }
   };
 
   const currentMonthData = data ? data[selectedMonth] : null;

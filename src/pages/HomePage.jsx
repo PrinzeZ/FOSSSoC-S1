@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { REG_FORM_URL, KICKOFF_ISO } from '../config';
+import { CONFIG } from '../config';
 import { useLeaderboardData } from '../hooks/useLeaderboardData';
 import Counter from '../components/common/Counter';
 import GitBranchCalendar from '../components/common/GitBranchCalendar';
@@ -11,8 +11,10 @@ export default function HomePage() {
   const { stats } = useLeaderboardData();
   const [copied, setCopied] = useState(false);
 
+  const cloneCommand = `git clone ${CONFIG.TEMPLATE_REPO_URL}.git`;
+
   const handleCopy = () => {
-    navigator.clipboard.writeText('git clone https://github.com/tkmfoss/portfolio-template.git');
+    navigator.clipboard.writeText(cloneCommand);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -94,7 +96,7 @@ export default function HomePage() {
                   boxShadow: '0 0 8px var(--theme-primary)'
                 }}
               />
-              <span>FOSS TKMCE // SEASON 01 // 24 OCT – 27 DEC 2026</span>
+              <span>{CONFIG.ORGANIZER} // {CONFIG.NAME} // 24 OCT – 27 DEC 2026</span>
             </div>
 
             {/* Main Headline */}
@@ -109,7 +111,7 @@ export default function HomePage() {
                 fontWeight: 800
               }}
             >
-              FOSS Season of Commit
+              {CONFIG.FULL_NAME}
             </h1>
 
             {/* Description */}
@@ -124,7 +126,7 @@ export default function HomePage() {
                 textAlign: 'center'
               }}
             >
-              A 9-week open source event organized by FOSS TKMCE, T.K.M. College of Engineering, Kollam.
+              A 9-week open source event organized by {CONFIG.ORGANIZER}, {CONFIG.COLLEGE}.
               Month 1 is Portfolio Week; Months 2 and 3 are project contributions across community repositories.
               Open to students of TKMCE and external participants worldwide.
             </p>
@@ -142,7 +144,7 @@ export default function HomePage() {
               }}
             >
               {/* Countdown Badge */}
-              <Countdown targetDate={KICKOFF_ISO} />
+              <Countdown targetDate={CONFIG.KICKOFF_ISO} />
 
               {/* Action Buttons Row */}
               <div
@@ -154,9 +156,9 @@ export default function HomePage() {
                   justifyContent: 'center'
                 }}
               >
-                {REG_FORM_URL ? (
+                {CONFIG.REG_FORM_URL ? (
                   <a
-                    href={REG_FORM_URL}
+                    href={CONFIG.REG_FORM_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn btn-primary"
@@ -214,7 +216,7 @@ export default function HomePage() {
                 }}
               >
                 <span style={{ color: 'var(--theme-primary)', fontWeight: 700 }}>$</span>
-                <span>git clone https://github.com/tkmfoss/portfolio-template.git</span>
+                <span>{cloneCommand}</span>
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexShrink: 0 }}>

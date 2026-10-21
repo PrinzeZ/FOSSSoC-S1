@@ -1,5 +1,13 @@
 {
-  "_comment": "Template: add entries when team members are officially announced. Leave empty to hide the section.",
-  "leads": [],
+  "organizers": [
+    {
+      "name": "Rasal Musthafa",
+      "role": "Organizer",
+      "focus": "Website and leaderboard",
+      "github": "ras-al",
+      "department": "CSE",
+      "year": 3
+    }
+  ],
   "mentors": []
 }

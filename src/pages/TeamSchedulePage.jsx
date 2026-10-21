@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useTeamData } from '../hooks/useExtraData';
-import { REG_FORM_URL, VENUE, KICKOFF_TIME, DATES } from '../config';
+import { useTeamData, useScheduleData, useFaqData } from '../hooks/useExtraData';
+import { CONFIG } from '../config';
 import {
   ChevronDown,
   ChevronUp,
@@ -10,91 +10,17 @@ import {
 
 export default function TeamSchedulePage() {
   const { data: teamData } = useTeamData();
+  const { milestones } = useScheduleData();
+  const { data: faqs } = useFaqData();
   const [openFaq, setOpenFaq] = useState(null);
 
   const toggleFaq = (idx) => {
     setOpenFaq(openFaq === idx ? null : idx);
   };
 
-  const scheduleItems = [
-    {
-      date: 'Sat 24 Oct 2026',
-      title: 'Kickoff Workshop',
-      desc: `Venue: ${VENUE || 'To be announced'} | Time: ${KICKOFF_TIME || 'To be announced'}`
-    },
-    {
-      date: '24 to 31 Oct 2026',
-      title: 'Portfolio Week',
-      desc: 'Fork tkmfoss/portfolio-template, edit profile.json, 3+ commits, enable GitHub Pages, submit showcase PR. Deadline: 31 Oct, 11:59 PM IST.'
-    },
-    {
-      date: '1 to 3 Nov 2026',
-      title: 'Judging & Mentor Review',
-      desc: 'Mentor rubric evaluation up to 20 points for live portfolios.'
-    },
-    {
-      date: '4 Nov 2026',
-      title: 'October Winners',
-      desc: 'Announcement of Portfolio Week sprint champions.'
-    },
-    {
-      date: '1 to 30 Nov 2026',
-      title: 'Build Month',
-      desc: 'Open-source contribution sprint. First-week bonus (+5 pts) for earliest-opened scored PR per repo from 1 to 7 Nov.'
-    },
-    {
-      date: '3 Dec 2026',
-      title: 'November Winners',
-      desc: 'Announcement of Build Month winners.'
-    },
-    {
-      date: '1 to 24 Dec 2026',
-      title: 'Christmas Eve Month',
-      desc: 'Final contribution sprint. First-week bonus (+5 pts) for earliest-opened scored PR per repo from 1 to 7 Dec.'
-    },
-    {
-      date: '20 Dec 2026 (proposed)',
-      title: 'Last Day to Open PRs (proposed)',
-      desc: 'Cutoff for opening new pull requests for Season 1.'
-    },
-    {
-      date: '24 Dec 2026 (proposed)',
-      title: 'Final Merge Deadline (proposed)',
-      desc: 'All pending PRs must be merged by maintainers to be credited.'
-    },
-    {
-      date: '27 Dec 2026 (proposed)',
-      title: 'Results and Demo Day (proposed)',
-      desc: 'Closing presentation and final leaderboard prize announcements.'
-    }
-  ];
-
-  const faqs = [
-    {
-      q: 'Who can participate in FOSSSoC-S1?',
-      a: 'Students of T.K.M. College of Engineering across all departments, as well as students and contributors outside TKMCE worldwide. Anyone can participate.'
-    },
-    {
-      q: 'How does Portfolio Week scoring work?',
-      a: 'Total 50 points: fork template (5), 3+ commits (5), live GitHub Pages site (10), showcase PR merged (10), mentor rubric (up to 20).'
-    },
-    {
-      q: 'How do project month contributions work?',
-      a: 'Issues are tagged Easy (10 pts), Medium (25 pts), and Hard (50 pts). First-week bonus gives +5 on your earliest scored PR per repo in 1-7 Nov and 1-7 Dec. Quality bonus adds +5 on maintainer label. Only the first 5 scored PRs per repo count. Points credit strictly after merge.'
-    },
-    {
-      q: 'What does "Not prize-eligible" mean?',
-      a: '"Not prize-eligible" is not "disqualified". It only means you have not met the minimum thresholds required to claim seasonal physical prizes. All contributions remain recorded and valid.'
-    },
-    {
-      q: 'What happens if no one qualifies for a prize category?',
-      a: 'If nobody qualifies according to the threshold rules, no winner is awarded for that category.'
-    }
-  ];
-
-  const leads = teamData?.leads || [];
+  const organizers = teamData?.organizers || teamData?.leads || [];
   const mentors = teamData?.mentors || [];
-  const hasTeamEntries = leads.length > 0 || mentors.length > 0;
+  const hasTeamEntries = organizers.length > 0 || mentors.length > 0;
 
   return (
     <div className="section-spacing" style={{ position: 'relative', zIndex: 1 }}>
@@ -112,7 +38,7 @@ export default function TeamSchedulePage() {
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', maxWidth: '850px', margin: '0 auto' }}>
-            {scheduleItems.map((item, idx) => (
+            {milestones.map((item, idx) => (
               <div
                 key={idx}
                 style={{
@@ -135,15 +61,27 @@ export default function TeamSchedulePage() {
                     fontWeight: 700
                   }}
                 >
-                  {item.date}
+                  {item.endDate ? `${item.date} – ${item.endDate}` : item.date}
                 </div>
                 <div style={{ flex: 1, minWidth: '240px' }}>
-                  <div style={{ fontSize: '1.05rem', fontWeight: 600, color: 'var(--color-white)', marginBottom: '0.2rem' }}>
-                    {item.title}
+                  <div style={{ fontSize: '1.05rem', fontWeight: 600, color: 'var(--color-white)', marginBottom: '0.2rem', display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+                    <span>{item.title}</span>
+                    {item.proposed && (
+                      <span style={{ fontSize: '0.72rem', color: 'var(--color-warning)', border: '1px solid var(--color-warning)', padding: '0.1rem 0.4rem', borderRadius: 'var(--radius-sm)', fontFamily: 'var(--font-mono)' }}>
+                        proposed
+                      </span>
+                    )}
                   </div>
-                  <div style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>
-                    {item.desc}
-                  </div>
+                  {item.detail && (
+                    <div style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>
+                      {item.detail}
+                    </div>
+                  )}
+                  {item.title.toLowerCase().includes('kickoff') && (
+                    <div style={{ fontSize: '0.8rem', color: 'var(--color-text-subtle)', marginTop: '0.35rem', fontFamily: 'var(--font-mono)' }}>
+                      Venue: {CONFIG.VENUE || 'To be announced'} | Time: {CONFIG.KICKOFF_TIME_LABEL || 'To be announced'}
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
@@ -154,7 +92,10 @@ export default function TeamSchedulePage() {
         {hasTeamEntries && (
           <div style={{ marginBottom: '5rem' }}>
             <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-              <h2 style={{ fontSize: '1.8rem', textAlign: 'center' }}>Team</h2>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--theme-primary)', marginBottom: '0.4rem' }}>
+                # team
+              </div>
+              <h2 style={{ fontSize: '1.8rem', textAlign: 'center' }}>Organizers & Mentors</h2>
             </div>
             <div
               style={{
@@ -165,7 +106,7 @@ export default function TeamSchedulePage() {
                 margin: '0 auto'
               }}
             >
-              {[...leads, ...mentors].map((member, idx) => (
+              {[...organizers, ...mentors].map((member, idx) => (
                 <div
                   key={idx}
                   style={{
@@ -175,9 +116,16 @@ export default function TeamSchedulePage() {
                     background: 'var(--theme-card-bg)'
                   }}
                 >
-                  <div style={{ fontWeight: 700, color: 'var(--color-white)' }}>{member.name}</div>
-                  <div style={{ fontSize: '0.8rem', color: 'var(--theme-primary)' }}>{member.role}</div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>{member.department}</div>
+                  <div style={{ fontWeight: 700, color: 'var(--color-white)', fontSize: '1.05rem' }}>{member.name}</div>
+                  <div style={{ fontSize: '0.82rem', color: 'var(--theme-primary)', fontWeight: 600, marginTop: '0.15rem' }}>{member.role}</div>
+                  {member.focus && (
+                    <div style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', marginTop: '0.3rem' }}>{member.focus}</div>
+                  )}
+                  {(member.department || member.year) && (
+                    <div style={{ fontSize: '0.75rem', color: 'var(--color-text-subtle)', marginTop: '0.2rem', fontFamily: 'var(--font-mono)' }}>
+                      {[member.department, member.year ? `Year ${member.year}` : ''].filter(Boolean).join(' • ')}
+                    </div>
+                  )}
                   {member.github && (
                     <a
                       href={`https://github.com/${member.github}`}
@@ -189,7 +137,7 @@ export default function TeamSchedulePage() {
                         gap: '0.3rem',
                         fontSize: '0.78rem',
                         color: 'var(--color-text-muted)',
-                        marginTop: '0.5rem',
+                        marginTop: '0.6rem',
                         fontFamily: 'var(--font-mono)'
                       }}
                     >
@@ -213,7 +161,7 @@ export default function TeamSchedulePage() {
               Frequently Asked Questions
             </h2>
             <p style={{ fontSize: '0.92rem', color: 'var(--color-text-muted)', textAlign: 'center' }}>
-              Common questions on participation, scoring, and workflow.
+              Official answers from FOSS TKMCE organizers.
             </p>
           </div>
 
@@ -287,26 +235,45 @@ export default function TeamSchedulePage() {
           </div>
           <h2 style={{ fontSize: '1.7rem', marginBottom: '0.6rem', textAlign: 'center' }}>Join FOSSSoC-S1</h2>
           <p style={{ fontSize: '0.92rem', color: 'var(--color-text-muted)', marginBottom: '1.5rem', lineHeight: 1.65, maxWidth: '560px', textAlign: 'center' }}>
-            Open to students of TKM College of Engineering and external participants worldwide. Free registration.
+            Open to students of {CONFIG.COLLEGE} and external participants worldwide. Free registration.
           </p>
-          {REG_FORM_URL ? (
-            <a
-              href={REG_FORM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-primary"
-            >
-              <span>[ Register ]</span>
-              <ExternalLink size={14} />
-            </a>
-          ) : (
-            <button
-              disabled
-              className="btn btn-disabled"
-              title="Registration link will be announced soon"
-            >
-              <span>[ Registration: Coming Soon ]</span>
-            </button>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.8rem', justifyContent: 'center' }}>
+            {CONFIG.REG_FORM_URL ? (
+              <a
+                href={CONFIG.REG_FORM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary"
+              >
+                <span>[ Register ]</span>
+                <ExternalLink size={14} />
+              </a>
+            ) : (
+              <button
+                disabled
+                className="btn btn-disabled"
+                title="Registration link will be announced soon"
+              >
+                <span>[ Registration: Coming Soon ]</span>
+              </button>
+            )}
+
+            {CONFIG.COMMUNITY_URL && (
+              <a
+                href={CONFIG.COMMUNITY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-secondary"
+              >
+                <span>[ Join Community ]</span>
+                <ExternalLink size={14} />
+              </a>
+            )}
+          </div>
+          {CONFIG.CONTACT && (
+            <div style={{ marginTop: '1rem', fontSize: '0.8rem', color: 'var(--color-text-muted)', fontFamily: 'var(--font-mono)' }}>
+              Contact: {CONFIG.CONTACT}
+            </div>
           )}
         </div>
       </div>
