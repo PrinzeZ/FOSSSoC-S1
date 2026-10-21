@@ -172,7 +172,7 @@ export default function HomePage() {
 
           {/* Scroll Down Hint at bottom of hero viewport */}
           <a
-            href="#overview"
+            href="#about"
             className="hero-scroll-hint"
             style={{
               marginTop: 'auto',
@@ -193,71 +193,140 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Overview & Briefing Section - Revealed on Scroll Down */}
+      {/* About Section - Spacious, Structured, and Informative */}
       <section
-        id="overview"
+        id="about"
         style={{
-          padding: '3.5rem 0 3rem 0',
+          padding: '4.5rem 0 4rem 0',
           borderBottom: '1px solid var(--theme-border)',
           background: 'rgba(255, 255, 255, 0.015)'
         }}
       >
         <div className="container">
-          <div
-            style={{
-              maxWidth: '720px',
-              margin: '0 auto',
-              textAlign: 'center',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: '2rem'
-            }}
-          >
-            {/* Description - Organized & Balanced Hierarchy */}
+          {/* Section Header */}
+          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
             <div
               style={{
-                textAlign: 'center',
-                padding: '0 0.5rem',
-                maxWidth: '680px'
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.78rem',
+                color: 'var(--theme-primary)',
+                marginBottom: '0.4rem',
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em'
               }}
             >
-              <p
+              # 01 // about_the_initiative
+            </div>
+            <h2 style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.4rem)', marginBottom: '0.85rem' }}>
+              About {CONFIG.NAME}
+            </h2>
+            <p
+              style={{
+                fontSize: 'clamp(0.95rem, 2vw, 1.1rem)',
+                lineHeight: 1.7,
+                color: 'var(--color-text-main)',
+                maxWidth: '820px',
+                margin: '0 auto',
+                fontWeight: 400
+              }}
+            >
+              A 9-week open source initiative organized by <strong style={{ color: 'var(--color-white)' }}>{CONFIG.ORGANIZER}</strong> at <strong style={{ color: 'var(--color-white)' }}>{CONFIG.COLLEGE}</strong>. Built to guide developers through personal portfolio creation, Git collaboration, and contributing to production open-source repositories.
+            </p>
+          </div>
+
+          {/* 3 Pillar Feature Cards - Wide, Long, Generously Spaced */}
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gap: '1.5rem',
+              marginBottom: '3.5rem'
+            }}
+          >
+            {/* Pillar 1 */}
+            <div
+              className="glass-panel"
+              style={{
+                padding: '1.8rem',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.65rem'
+              }}
+            >
+              <div
                 style={{
-                  fontSize: 'clamp(1rem, 3.2vw, 1.15rem)',
-                  lineHeight: 1.6,
-                  color: 'var(--color-white)',
-                  marginBottom: '0.65rem',
-                  textWrap: 'balance',
-                  fontWeight: 600
-                }}
-              >
-                A 9-week open source event organized by {CONFIG.ORGANIZER}, {CONFIG.COLLEGE}.
-              </p>
-              <p
-                style={{
-                  fontSize: 'clamp(0.88rem, 2.6vw, 0.95rem)',
-                  lineHeight: 1.65,
-                  color: 'var(--color-text-muted)',
-                  marginBottom: '0.65rem',
-                  textWrap: 'balance'
-                }}
-              >
-                Month 1 is Portfolio Week; Months 2 and 3 are project contributions across community repositories.
-              </p>
-              <p
-                style={{
-                  fontSize: 'clamp(0.82rem, 2.4vw, 0.86rem)',
-                  lineHeight: 1.5,
-                  color: 'var(--theme-primary)',
                   fontFamily: 'var(--font-mono)',
-                  margin: 0,
-                  textWrap: 'balance'
+                  fontSize: '0.75rem',
+                  color: 'var(--theme-primary)',
+                  letterSpacing: '0.04em'
                 }}
               >
-                Open to students of TKMCE and external participants worldwide.
+                01 / SPRINT_TIMELINE
+              </div>
+              <h3 style={{ fontSize: '1.15rem', color: 'var(--color-white)', fontWeight: 600 }}>
+                9-Week Structured Sprint
+              </h3>
+              <p style={{ fontSize: '0.88rem', color: 'var(--color-text-muted)', lineHeight: 1.65, margin: 0 }}>
+                Running from 24 Oct to 27 Dec 2026. Month 1 is Portfolio Week; Months 2 and 3 are hands-on project contributions across curated community repositories.
               </p>
             </div>
+
+            {/* Pillar 2 */}
+            <div
+              className="glass-panel"
+              style={{
+                padding: '1.8rem',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.65rem'
+              }}
+            >
+              <div
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.75rem',
+                  color: 'var(--theme-primary)',
+                  letterSpacing: '0.04em'
+                }}
+              >
+                02 / PARTICIPATION
+              </div>
+              <h3 style={{ fontSize: '1.15rem', color: 'var(--color-white)', fontWeight: 600 }}>
+                Open to Everyone
+              </h3>
+              <p style={{ fontSize: '0.88rem', color: 'var(--color-text-muted)', lineHeight: 1.65, margin: 0 }}>
+                Open to students of {CONFIG.COLLEGE} as well as external participants worldwide. Everyone is welcome to learn, contribute, and collaborate.
+              </p>
+            </div>
+
+            {/* Pillar 3 */}
+            <div
+              className="glass-panel"
+              style={{
+                padding: '1.8rem',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.65rem'
+              }}
+            >
+              <div
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.75rem',
+                  color: 'var(--theme-primary)',
+                  letterSpacing: '0.04em'
+                }}
+              >
+                03 / RECOGNITION
+              </div>
+              <h3 style={{ fontSize: '1.15rem', color: 'var(--color-white)', fontWeight: 600 }}>
+                Points, Badges & Finale
+              </h3>
+              <p style={{ fontSize: '0.88rem', color: 'var(--color-text-muted)', lineHeight: 1.65, margin: 0 }}>
+                Earn points for merged pull requests, maintain streaks, track live standings on the leaderboard, and present achievements at the Grand Finale on 27 Dec.
+              </p>
+            </div>
+          </div>
 
             {/* Countdown Badge & Secondary Navigation Links */}
             <div
@@ -354,8 +423,7 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
       <style>{`
         .hero-cover-section {
