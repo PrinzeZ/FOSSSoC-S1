@@ -26,24 +26,22 @@ function ScrollToTop() {
 export default function App() {
   const location = useLocation();
   const [isDemo, setIsDemo] = useState(false);
-  const [showIntro, setShowIntro] = useState(() => {
-    // Show intro on initial visit
-    return !sessionStorage.getItem('fosssoc_intro_seen');
-  });
+  const [showIntro, setShowIntro] = useState(true);
 
   const handleIntroComplete = () => {
-    sessionStorage.setItem('fosssoc_intro_seen', 'true');
     setShowIntro(false);
   };
 
   useEffect(() => {
+    // Clear any previous session storage blocking
+    try {
+      sessionStorage.removeItem('fosssoc_intro_seen');
+    } catch {
+      // ignore
+    }
     const search = window.location.search;
     const hash = window.location.hash;
     setIsDemo(search.includes('demo=1') || hash.includes('demo=1'));
-
-    if (search.includes('intro=1') || hash.includes('intro=1')) {
-      setShowIntro(true);
-    }
   }, [location]);
 
   // Listen for global custom replay-intro event
