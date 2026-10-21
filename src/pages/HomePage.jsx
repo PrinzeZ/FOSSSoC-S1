@@ -56,20 +56,22 @@ export default function HomePage() {
 
   return (
     <div style={{ position: 'relative', zIndex: 1 }}>
-      {/* Hero Cover Viewport - Clean, Focused, Uncrowded */}
+      {/* Hero Cover Viewport - Clean, Focused, Uncrowded (Full Viewport Fold) */}
       <section
+        className="hero-cover-section"
         style={{
-          minHeight: 'calc(85svh - 4.5rem)',
+          minHeight: 'calc(100svh - 4.5rem)',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          padding: '3rem 0 2rem 0',
+          padding: '2.5rem 0 1.5rem 0',
           borderBottom: '1px solid var(--theme-border)',
-          position: 'relative'
+          position: 'relative',
+          boxSizing: 'border-box'
         }}
       >
-        <div className="container" style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+        <div className="container" style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
           <div
             style={{
               maxWidth: '820px',
@@ -84,6 +86,7 @@ export default function HomePage() {
           >
             {/* Eyebrow Tag */}
             <div
+              className="hero-eyebrow"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -108,6 +111,7 @@ export default function HomePage() {
 
             {/* Main Headline */}
             <h1
+              className="hero-heading"
               style={{
                 fontSize: 'clamp(2.4rem, 7vw, 4.2rem)',
                 lineHeight: 1.12,
@@ -169,6 +173,7 @@ export default function HomePage() {
           {/* Scroll Down Hint at bottom of hero viewport */}
           <a
             href="#overview"
+            className="hero-scroll-hint"
             style={{
               marginTop: 'auto',
               paddingTop: '2.5rem',
@@ -353,8 +358,33 @@ export default function HomePage() {
       </section>
 
       <style>{`
+        .hero-cover-section {
+          min-height: calc(100vh - 4.5rem);
+          min-height: calc(100dvh - 4.5rem);
+          min-height: calc(100svh - 4.5rem);
+        }
         @media (max-width: 640px) {
-          .hero-desktop-links { display: none !important; }
+          .hero-cover-section {
+            min-height: calc(100svh - 4.5rem) !important;
+            padding: 1.5rem 0 1rem 0 !important;
+          }
+          .hero-eyebrow {
+            margin-bottom: 1.1rem !important;
+            font-size: 0.72rem !important;
+            padding: 0.3rem 0.75rem !important;
+          }
+          .hero-heading {
+            font-size: clamp(1.95rem, 7.5vw, 2.75rem) !important;
+            margin-bottom: 1.25rem !important;
+            line-height: 1.12 !important;
+          }
+          .hero-desktop-links {
+            display: none !important;
+          }
+          .hero-scroll-hint {
+            padding-top: 1.25rem !important;
+            padding-bottom: 0.25rem !important;
+          }
         }
       `}</style>
 
