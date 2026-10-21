@@ -271,28 +271,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Replay Intro Button */}
-            <button
-              onClick={() => window.dispatchEvent(new CustomEvent('replay-intro'))}
-              style={{
-                marginTop: '0.9rem',
-                fontSize: '0.75rem',
-                fontFamily: 'var(--font-mono)',
-                color: 'var(--color-text-subtle)',
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.35rem',
-                padding: '0.3rem 0.6rem',
-                borderRadius: 'var(--radius-sm)'
-              }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--theme-primary)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--color-text-subtle)'; }}
-            >
-              <span>[ &gt;_ replay intro sequence ]</span>
-            </button>
+
           </div>
         </div>
       </section>

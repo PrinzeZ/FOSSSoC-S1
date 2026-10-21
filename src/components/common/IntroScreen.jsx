@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Terminal, ArrowRight, Check } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { CONFIG } from '../../config';
 
 export default function IntroScreen({ onComplete }) {
@@ -8,32 +8,28 @@ export default function IntroScreen({ onComplete }) {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    // Step sequence with realistic terminal cadence
+    // Sequence loads and finishes, but NEVER automatically exits to home screen
     const timers = [
-      setTimeout(() => setStep(1), 300),
+      setTimeout(() => {
+        setStep(1);
+        setProgress(25);
+      }, 250),
       setTimeout(() => {
         setStep(2);
-        setProgress(35);
-      }, 750),
+        setProgress(55);
+      }, 650),
       setTimeout(() => {
         setStep(3);
-        setProgress(70);
-      }, 1250),
+        setProgress(85);
+      }, 1050),
       setTimeout(() => {
         setStep(4);
         setProgress(100);
-      }, 1750),
-      setTimeout(() => {
-        setStep(5);
-      }, 2100),
-      // Auto-transition into Home Screen
-      setTimeout(() => {
-        if (onComplete) onComplete();
-      }, 2800)
+      }, 1450)
     ];
 
     const handleKeyDown = (e) => {
-      if (e.key === 'Enter' || e.key === ' ' || e.key === 'Escape') {
+      if (e.key === 'Enter') {
         if (onComplete) onComplete();
       }
     };
@@ -50,7 +46,7 @@ export default function IntroScreen({ onComplete }) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, scale: 0.98, filter: 'blur(6px)' }}
-      transition={{ duration: 0.4 }}
+      transition={{ duration: 0.35 }}
       style={{
         position: 'fixed',
         inset: 0,
@@ -67,7 +63,7 @@ export default function IntroScreen({ onComplete }) {
         fontFamily: 'var(--font-mono)'
       }}
     >
-      {/* Terminal Container */}
+      {/* Terminal Window */}
       <div
         style={{
           width: '100%',
@@ -79,7 +75,7 @@ export default function IntroScreen({ onComplete }) {
           overflow: 'hidden'
         }}
       >
-        {/* Terminal Header */}
+        {/* Terminal Title Bar */}
         <div
           style={{
             padding: '0.65rem 1rem',
@@ -116,8 +112,8 @@ export default function IntroScreen({ onComplete }) {
         </div>
 
         {/* Terminal Body */}
-        <div style={{ padding: '1.4rem 1.25rem', minHeight: '220px', display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
-          {/* Line 1 */}
+        <div style={{ padding: '1.4rem 1.25rem', minHeight: '230px', display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+          {/* Command */}
           <div style={{ fontSize: '0.82rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <span style={{ color: 'var(--theme-primary)', fontWeight: 700 }}>$</span>
             <span style={{ color: 'var(--color-text-main)' }}>git init {CONFIG.NAME.toLowerCase()} --season 2026</span>
@@ -201,7 +197,7 @@ export default function IntroScreen({ onComplete }) {
                 marginBottom: '0.35rem'
               }}
             >
-              <span>{progress === 100 ? 'LAUNCHING ENVIRONMENT...' : 'LOADING SEASON MODULES...'}</span>
+              <span>{progress === 100 ? 'ENVIRONMENT READY' : 'LOADING SEASON MODULES...'}</span>
               <span>{progress}%</span>
             </div>
             <div
@@ -226,34 +222,38 @@ export default function IntroScreen({ onComplete }) {
           </div>
         </div>
 
-        {/* Action Footer */}
+        {/* Action Footer with prominent Enter button */}
         <div
           style={{
-            padding: '0.75rem 1.25rem',
-            background: 'rgba(255, 255, 255, 0.02)',
+            padding: '0.9rem 1.25rem',
+            background: 'rgba(255, 255, 255, 0.03)',
             borderTop: '1px solid var(--theme-border)',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'space-between'
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: '0.8rem'
           }}
         >
-          <span style={{ fontSize: '0.74rem', color: 'var(--color-text-subtle)' }}>
-            Press Enter or click to enter
+          <span style={{ fontSize: '0.75rem', color: step >= 4 ? 'var(--color-success)' : 'var(--color-text-subtle)', display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
+            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: step >= 4 ? 'var(--color-success)' : 'var(--color-text-subtle)' }} />
+            <span>{step >= 4 ? 'Ready to launch' : 'Loading modules...'}</span>
           </span>
 
           <button
             onClick={onComplete}
-            className="btn btn-primary btn-sm"
+            className="btn btn-primary"
             style={{
-              padding: '0.35rem 0.85rem',
-              fontSize: '0.78rem',
+              padding: '0.55rem 1.25rem',
+              fontSize: '0.84rem',
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '0.35rem'
+              gap: '0.45rem',
+              cursor: 'pointer'
             }}
           >
-            <span>[ Enter Site ]</span>
-            <ArrowRight size={13} />
+            <span>[ Enter Site ↵ ]</span>
+            <ArrowRight size={14} />
           </button>
         </div>
       </div>
