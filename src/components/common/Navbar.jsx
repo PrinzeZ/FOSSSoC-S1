@@ -23,9 +23,13 @@ export default function Navbar() {
         top: 0,
         zIndex: 50,
         width: '100%',
-        background: 'var(--theme-bg)',
+        background: 'rgba(9, 9, 11, 0.92)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
         borderBottom: '1px solid var(--theme-border)',
-        transition: 'border-color var(--transition-fast)'
+        height: '4.5rem',
+        display: 'flex',
+        alignItems: 'center'
       }}
     >
       <div
@@ -34,60 +38,66 @@ export default function Navbar() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          height: '4rem'
+          gap: '1.5rem',
+          width: '100%'
         }}
       >
-        {/* Brand Logo & Name */}
+        {/* Brand Logo & Name - Strictly nowrap */}
         <Link
           to="/"
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '0.6rem',
-            textDecoration: 'none'
+            gap: '0.65rem',
+            textDecoration: 'none',
+            whiteSpace: 'nowrap',
+            flexShrink: 0
           }}
         >
           <div
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '0.4rem',
-              padding: '0.2rem 0.4rem',
+              gap: '0.35rem',
+              padding: '0.2rem 0.35rem',
               borderRadius: 'var(--radius-sm)',
-              border: '1px solid var(--theme-border)'
+              border: '1px solid var(--theme-border)',
+              background: 'rgba(255, 255, 255, 0.03)'
             }}
           >
             <img
               src="/logos/foss.jpeg"
               alt="FOSS TKMCE"
-              style={{ width: '22px', height: '22px', borderRadius: '3px', objectFit: 'cover' }}
+              style={{ width: '24px', height: '24px', borderRadius: '2px', objectFit: 'cover' }}
               onError={(e) => { e.currentTarget.style.display = 'none'; }}
             />
             <img
               src="/logos/tkm.png"
               alt="TKMCE"
-              style={{ width: '22px', height: '22px', borderRadius: '3px', objectFit: 'contain' }}
+              style={{ width: '24px', height: '24px', borderRadius: '2px', objectFit: 'contain' }}
               onError={(e) => { e.currentTarget.style.display = 'none'; }}
             />
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.4rem' }}>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.4rem', whiteSpace: 'nowrap' }}>
             <span
               style={{
                 fontFamily: 'var(--font-mono)',
                 fontWeight: 700,
-                fontSize: '1.1rem',
+                fontSize: '1.15rem',
                 color: 'var(--color-white)',
-                lineHeight: 1
+                lineHeight: 1,
+                whiteSpace: 'nowrap'
               }}
             >
               FOSSSoC-S1
             </span>
             <span
               style={{
-                fontSize: '0.72rem',
+                fontSize: '0.75rem',
                 fontFamily: 'var(--font-mono)',
-                color: 'var(--color-text-muted)'
+                color: 'var(--color-text-subtle)',
+                whiteSpace: 'nowrap'
               }}
             >
               / tkmfoss
@@ -95,9 +105,14 @@ export default function Navbar() {
           </div>
         </Link>
 
-        {/* Desktop Navigation Links */}
+        {/* Desktop Navigation Links - Perfectly centered, nowrap */}
         <nav
-          style={{ display: 'none', alignItems: 'center', gap: '0.5rem' }}
+          style={{
+            display: 'none',
+            alignItems: 'center',
+            gap: '0.4rem',
+            whiteSpace: 'nowrap'
+          }}
           className="desktop-nav"
         >
           {navLinks.map((link) => (
@@ -105,12 +120,15 @@ export default function Navbar() {
               key={link.to}
               to={link.to}
               style={({ isActive }) => ({
-                fontSize: '0.85rem',
+                fontSize: '0.84rem',
                 fontFamily: 'var(--font-mono)',
                 color: isActive ? 'var(--theme-primary)' : 'var(--color-text-muted)',
-                padding: '0.35rem 0.65rem',
+                padding: '0.45rem 0.7rem',
                 borderRadius: 'var(--radius-sm)',
-                borderBottom: isActive ? '2px solid var(--theme-primary)' : '2px solid transparent'
+                whiteSpace: 'nowrap',
+                background: isActive ? 'rgba(255, 255, 255, 0.04)' : 'transparent',
+                borderBottom: isActive ? '2px solid var(--theme-primary)' : '2px solid transparent',
+                transition: 'color 0.15s ease, border-color 0.15s ease'
               })}
             >
               {link.label}
@@ -118,15 +136,23 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Register CTA */}
-        <div style={{ display: 'none', alignItems: 'center' }} className="desktop-nav">
+        {/* Right Action: Register CTA - Strictly nowrap & flex-shrink: 0 */}
+        <div
+          style={{
+            display: 'none',
+            alignItems: 'center',
+            flexShrink: 0,
+            whiteSpace: 'nowrap'
+          }}
+          className="desktop-nav"
+        >
           {REG_FORM_URL ? (
             <a
               href={REG_FORM_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-primary btn-sm"
-              style={{ fontFamily: 'var(--font-mono)', fontSize: '0.82rem' }}
+              style={{ whiteSpace: 'nowrap', fontSize: '0.82rem' }}
             >
               <span>Register</span>
               <ExternalLink size={13} />
@@ -136,10 +162,11 @@ export default function Navbar() {
               disabled
               className="btn btn-secondary btn-sm"
               style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.8rem',
+                whiteSpace: 'nowrap',
+                fontSize: '0.78rem',
                 opacity: 0.6,
-                cursor: 'not-allowed'
+                cursor: 'not-allowed',
+                padding: '0.4rem 0.8rem'
               }}
               title="Registration link coming soon"
             >
@@ -158,11 +185,12 @@ export default function Navbar() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '0.45rem',
+            padding: '0.5rem',
             color: 'var(--color-white)',
             border: '1px solid var(--theme-border)',
             borderRadius: 'var(--radius-sm)',
-            cursor: 'pointer'
+            cursor: 'pointer',
+            flexShrink: 0
           }}
         >
           {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -173,12 +201,18 @@ export default function Navbar() {
       {mobileMenuOpen && (
         <div
           style={{
+            position: 'absolute',
+            top: '4.5rem',
+            left: 0,
+            width: '100%',
             display: 'flex',
             flexDirection: 'column',
-            padding: '1rem 1.2rem',
+            padding: '1.2rem',
             background: 'var(--theme-bg)',
             borderBottom: '1px solid var(--theme-border)',
-            gap: '0.4rem'
+            gap: '0.5rem',
+            zIndex: 60,
+            boxShadow: '0 10px 30px rgba(0,0,0,0.8)'
           }}
         >
           {navLinks.map((link) => (
@@ -190,13 +224,15 @@ export default function Navbar() {
                 fontSize: '0.9rem',
                 fontFamily: 'var(--font-mono)',
                 color: isActive ? 'var(--theme-primary)' : 'var(--color-text-muted)',
-                padding: '0.5rem 0.6rem'
+                padding: '0.6rem 0.8rem',
+                borderRadius: 'var(--radius-sm)',
+                background: isActive ? 'rgba(255, 255, 255, 0.04)' : 'transparent'
               })}
             >
               {link.label}
             </NavLink>
           ))}
-          <div style={{ marginTop: '0.5rem' }}>
+          <div style={{ marginTop: '0.6rem', borderTop: '1px solid var(--theme-border)', paddingTop: '0.8rem' }}>
             {REG_FORM_URL ? (
               <a
                 href={REG_FORM_URL}
@@ -223,7 +259,7 @@ export default function Navbar() {
       )}
 
       <style>{`
-        @media (min-width: 960px) {
+        @media (min-width: 1040px) {
           .desktop-nav { display: flex !important; }
           .mobile-toggle { display: none !important; }
         }

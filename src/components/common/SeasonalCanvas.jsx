@@ -38,9 +38,7 @@ export default function SeasonalCanvas() {
 
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
-    // Particle sets
     const isMobile = width < 768;
-    const baseCount = isMobile ? 22 : 45;
 
     let particles = [];
     let bats = [];
@@ -56,21 +54,20 @@ export default function SeasonalCanvas() {
       snowflakes = [];
 
       if (theme === 'october') {
-        // Fog embers & glowing dust
+        // October: Halloween glowing embers & gliding bats
         const count = isMobile ? 25 : 55;
         for (let i = 0; i < count; i++) {
           particles.push({
             x: Math.random() * width,
             y: Math.random() * height,
-            radius: Math.random() * 2.8 + 0.8,
+            radius: Math.random() * 2.5 + 1,
             vx: (Math.random() - 0.5) * 0.4,
-            vy: -Math.random() * 0.6 - 0.2, // float upwards like embers
+            vy: -Math.random() * 0.6 - 0.2,
             alpha: Math.random() * 0.5 + 0.2,
             flickerSpeed: Math.random() * 0.03 + 0.01,
             color: Math.random() > 0.4 ? '#ff7700' : '#9d4edd'
           });
         }
-        // Bats gliding
         const batCount = isMobile ? 3 : 6;
         for (let i = 0; i < batCount; i++) {
           bats.push({
@@ -78,24 +75,23 @@ export default function SeasonalCanvas() {
             y: Math.random() * (height * 0.5),
             vx: (Math.random() * 1.5 + 0.8) * (Math.random() > 0.5 ? 1 : -1),
             vy: Math.sin(Math.random() * Math.PI) * 0.5,
-            size: Math.random() * 9 + 8,
+            size: Math.random() * 8 + 8,
             wingPhase: Math.random() * Math.PI * 2
           });
         }
       } else if (theme === 'november') {
-        // Circuit nodes
+        // November: Cyan & cobalt circuit nodes with proximity connections & code glyphs
         const count = isMobile ? 28 : 50;
         for (let i = 0; i < count; i++) {
           particles.push({
             x: Math.random() * width,
             y: Math.random() * height,
-            radius: Math.random() * 2.2 + 1,
-            vx: (Math.random() - 0.5) * 0.7,
-            vy: (Math.random() - 0.5) * 0.7,
+            radius: Math.random() * 2 + 1,
+            vx: (Math.random() - 0.5) * 0.6,
+            vy: (Math.random() - 0.5) * 0.6,
             alpha: Math.random() * 0.45 + 0.2
           });
         }
-        // Floating code symbols
         const glyphCount = isMobile ? 6 : 14;
         for (let i = 0; i < glyphCount; i++) {
           codeGlyphs.push({
@@ -104,19 +100,19 @@ export default function SeasonalCanvas() {
             y: Math.random() * height,
             vy: -Math.random() * 0.4 - 0.2,
             alpha: Math.random() * 0.35 + 0.15,
-            size: Math.floor(Math.random() * 5 + 11)
+            size: Math.floor(Math.random() * 4 + 11)
           });
         }
       } else if (theme === 'december') {
-        // Snowflakes
+        // December: Snowflakes drifting with sinusoidal sway & warm golden star glow
         const count = isMobile ? 35 : 75;
         for (let i = 0; i < count; i++) {
           snowflakes.push({
             x: Math.random() * width,
             y: Math.random() * height,
-            radius: Math.random() * 2.8 + 1,
+            radius: Math.random() * 2.5 + 1,
             density: Math.random() * count,
-            vy: Math.random() * 1.2 + 0.6,
+            vy: Math.random() * 1.2 + 0.5,
             vx: Math.random() * 0.6 - 0.3,
             alpha: Math.random() * 0.6 + 0.2
           });
@@ -126,20 +122,17 @@ export default function SeasonalCanvas() {
 
     initParticles();
 
-    // Helper: draw bat silhouette
     function drawBat(b) {
       ctx.save();
       ctx.translate(b.x, b.y);
       if (b.vx < 0) ctx.scale(-1, 1);
-      ctx.fillStyle = 'rgba(157, 78, 221, 0.45)';
+      ctx.fillStyle = 'rgba(157, 78, 221, 0.4)';
 
       const wingFlap = Math.sin(b.wingPhase) * (b.size * 0.6);
       ctx.beginPath();
       ctx.moveTo(0, 0);
-      // Left wing
       ctx.quadraticCurveTo(-b.size * 0.6, -b.size + wingFlap, -b.size, -b.size * 0.2);
       ctx.quadraticCurveTo(-b.size * 0.5, 0, 0, b.size * 0.3);
-      // Right wing
       ctx.quadraticCurveTo(b.size * 0.5, 0, b.size, -b.size * 0.2);
       ctx.quadraticCurveTo(b.size * 0.6, -b.size + wingFlap, 0, 0);
       ctx.fill();
@@ -157,14 +150,12 @@ export default function SeasonalCanvas() {
 
       // October rendering (Fog embers & bats)
       if (theme === 'october') {
-        // Subtle ambient fog gradient at top
         const grad = ctx.createRadialGradient(width * 0.5, 0, 10, width * 0.5, 0, height * 0.7);
-        grad.addColorStop(0, 'rgba(157, 78, 221, 0.08)');
+        grad.addColorStop(0, 'rgba(157, 78, 221, 0.09)');
         grad.addColorStop(1, 'transparent');
         ctx.fillStyle = grad;
         ctx.fillRect(0, 0, width, height);
 
-        // Embers
         for (let p of particles) {
           if (!prefersReducedMotion) {
             p.y += p.vy;
@@ -188,7 +179,6 @@ export default function SeasonalCanvas() {
         }
         ctx.shadowBlur = 0;
 
-        // Bats
         for (let b of bats) {
           if (!prefersReducedMotion) {
             b.x += b.vx;
@@ -201,10 +191,9 @@ export default function SeasonalCanvas() {
         }
       }
 
-      // November rendering (Circuit grid lines & floating code)
+      // November rendering (Circuit grid & proximity lines)
       else if (theme === 'november') {
-        // Draw circuit connections between close nodes
-        ctx.lineWidth = 0.7;
+        ctx.lineWidth = 0.8;
         const maxDist = isMobile ? 80 : 120;
         for (let i = 0; i < particles.length; i++) {
           const p1 = particles[i];
@@ -231,14 +220,13 @@ export default function SeasonalCanvas() {
               ctx.moveTo(p1.x, p1.y);
               ctx.lineTo(p2.x, p2.y);
               ctx.strokeStyle = '#00F5D4';
-              ctx.globalAlpha = (1 - dist / maxDist) * 0.18;
+              ctx.globalAlpha = (1 - dist / maxDist) * 0.16;
               ctx.stroke();
             }
           }
         }
 
-        // Code glyphs
-        ctx.font = '12px "Fira Code", monospace';
+        ctx.font = '12px "IBM Plex Mono", monospace';
         ctx.fillStyle = '#00BBF9';
         for (let g of codeGlyphs) {
           if (!prefersReducedMotion) {
@@ -253,16 +241,14 @@ export default function SeasonalCanvas() {
         }
       }
 
-      // December rendering (Snowfall & warm glow)
+      // December rendering (Snowfall & warm lights glow)
       else if (theme === 'december') {
-        // Ambient golden warm glow near top right
         const glow = ctx.createRadialGradient(width * 0.8, height * 0.1, 20, width * 0.8, height * 0.1, 300);
         glow.addColorStop(0, 'rgba(255, 209, 102, 0.08)');
         glow.addColorStop(1, 'transparent');
         ctx.fillStyle = glow;
         ctx.fillRect(0, 0, width, height);
 
-        // Snowflakes
         for (let s of snowflakes) {
           if (!prefersReducedMotion) {
             s.y += s.vy;

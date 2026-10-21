@@ -2,126 +2,172 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { REG_FORM_URL, KICKOFF_ISO } from '../config';
 import { useLeaderboardData } from '../hooks/useLeaderboardData';
-import Countdown from '../components/common/Countdown';
 import Counter from '../components/common/Counter';
-import { ExternalLink, ChevronRight, ArrowRight } from 'lucide-react';
+import TerminalStatus from '../components/home/TerminalStatus';
+import GitBranchCalendar from '../components/common/GitBranchCalendar';
+import Countdown from '../components/common/Countdown';
+import { ExternalLink, ArrowRight } from 'lucide-react';
 
 export default function HomePage() {
   const { stats } = useLeaderboardData();
 
   const steps = [
     {
-      num: '01',
+      code: '01/PORTFOLIO_WEEK',
       title: 'Portfolio Week',
       dates: '24 to 31 Oct 2026',
       desc: 'Fork tkmfoss/portfolio-template, edit profile.json, make 3+ commits, enable GitHub Pages, and open one showcase PR by 31 Oct 11:59 PM IST.',
       link: '/portfolio',
-      linkText: 'Portfolio rules'
+      action: 'rules and template'
     },
     {
-      num: '02',
+      code: '02/BUILD_MONTH',
       title: 'Build Month',
       dates: '1 to 30 Nov 2026',
-      desc: 'Open-source project contribution sprint. Earn points on merged PRs across issues tagged Easy (10), Medium (25), or Hard (50). +5 first-week bonus in 1-7 Nov.',
+      desc: 'Open-source project contributions. Issues are tagged Easy (10), Medium (25), or Hard (50). Earn +5 first-week bonus for early PRs opened in 1-7 Nov.',
       link: '/projects',
-      linkText: 'Repositories'
+      action: 'browse repositories'
     },
     {
-      num: '03',
+      code: '03/CHRISTMAS_EVE',
       title: 'Christmas Eve Month',
       dates: '1 to 24 Dec 2026',
-      desc: 'Second contribution sprint. +5 first-week bonus in 1-7 Dec. Quality bonus (+5) on maintainer label. Max 5 scored PRs per repository.',
+      desc: 'Second contribution sprint. +5 first-week bonus in 1-7 Dec. Quality bonus (+5) on maintainer label. Max 5 scored PRs per repository. Last PRs open 20 Dec (proposed).',
       link: '/rules',
-      linkText: 'Scoring system'
+      action: 'points breakdown'
     },
     {
-      num: '04',
-      title: 'Results & Demo Day',
+      code: '04/DEMO_DAY',
+      title: 'Results and Demo Day',
       dates: '27 Dec 2026 (proposed)',
-      desc: 'Grand finale and closing ceremony. Top contributors who meet prize-eligibility thresholds receive awards. Prizes are to be announced.',
+      desc: 'Final merge deadline 24 Dec (proposed). Closing ceremony and winners presentation at TKMCE. Threshold qualifiers receive seasonal awards.',
       link: '/leaderboard',
-      linkText: 'Leaderboard'
+      action: 'live standings'
     }
   ];
 
   return (
     <div style={{ position: 'relative', zIndex: 1 }}>
-      {/* Hero */}
-      <section style={{ padding: '3.5rem 0 2.5rem 0' }}>
+      {/* Center-Aligned Hero Section */}
+      <section style={{ padding: '4.5rem 0 3.5rem 0', borderBottom: '1px solid var(--theme-border)' }}>
         <div className="container">
-          <div style={{ maxWidth: '780px', marginBottom: '2rem' }}>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: 'var(--theme-primary)', marginBottom: '0.6rem' }}>
+          <div
+            style={{
+              maxWidth: '820px',
+              margin: '0 auto',
+              textAlign: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center'
+            }}
+          >
+            <div
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.85rem',
+                color: 'var(--theme-primary)',
+                marginBottom: '0.8rem',
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em'
+              }}
+            >
               FOSS TKMCE // Season 1
             </div>
 
-            <h1 style={{ fontSize: 'clamp(2.2rem, 5vw, 3.2rem)', lineHeight: 1.15, marginBottom: '1rem', color: 'var(--color-white)' }}>
+            <h1
+              style={{
+                fontSize: 'clamp(2.4rem, 5vw, 3.4rem)',
+                lineHeight: 1.15,
+                marginBottom: '1.2rem',
+                color: 'var(--color-white)',
+                letterSpacing: '-0.03em',
+                textAlign: 'center'
+              }}
+            >
               FOSS Season of Commit
             </h1>
 
-            <p style={{ fontSize: '1.05rem', color: 'var(--color-text-muted)', lineHeight: 1.6, marginBottom: '1.5rem' }}>
-              Organized by FOSS TKMCE, T.K.M. College of Engineering, Kollam. Open to students of TKMCE and external participants worldwide.
-              Month 1 is Portfolio Week; Months 2 and 3 are open-source project contributions.
+            <p
+              style={{
+                fontSize: '1.05rem',
+                lineHeight: 1.65,
+                color: 'var(--color-text-muted)',
+                marginBottom: '2rem',
+                maxWidth: '660px',
+                margin: '0 auto 2rem auto',
+                textAlign: 'center'
+              }}
+            >
+              A 9-week open source event organized by FOSS TKMCE, T.K.M. College of Engineering, Kollam.
+              Month 1 is Portfolio Week; Months 2 and 3 are project contributions across community repositories.
+              Open to students of TKMCE and external participants worldwide.
             </p>
 
-            <div style={{ marginBottom: '1.8rem' }}>
+            {/* Countdown Badge - Centered */}
+            <div style={{ marginBottom: '1.8rem', display: 'flex', justifyContent: 'center' }}>
               <Countdown targetDate={KICKOFF_ISO} />
             </div>
 
-            {/* CTAs */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.8rem', alignItems: 'center' }}>
+            {/* Action Buttons - Centered */}
+            <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '0.75rem',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: '3rem'
+              }}
+            >
               {REG_FORM_URL ? (
                 <a
                   href={REG_FORM_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-primary"
-                  style={{ fontFamily: 'var(--font-mono)', fontSize: '0.9rem' }}
+                  style={{ padding: '0.65rem 1.4rem' }}
                 >
                   <span>Register</span>
-                  <ExternalLink size={14} />
+                  <ExternalLink size={13} />
                 </a>
               ) : (
-                <button
-                  disabled
-                  className="btn btn-secondary"
-                  style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', opacity: 0.6, cursor: 'not-allowed' }}
-                >
+                <button disabled className="btn" style={{ padding: '0.65rem 1.4rem' }}>
                   Registration link coming soon
                 </button>
               )}
 
-              <Link to="/portfolio" className="btn btn-secondary" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem' }}>
-                <span>Portfolio Week</span>
-                <ChevronRight size={14} />
+              <Link to="/portfolio" className="btn btn-secondary" style={{ padding: '0.65rem 1.3rem' }}>
+                <span>[ Portfolio Week ]</span>
               </Link>
 
-              <Link to="/leaderboard" className="btn btn-secondary" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem' }}>
-                <span>Leaderboard</span>
-                <ChevronRight size={14} />
+              <Link to="/leaderboard" className="btn btn-secondary" style={{ padding: '0.65rem 1.3rem' }}>
+                <span>[ Leaderboard ]</span>
               </Link>
+            </div>
+
+            {/* Terminal Status Box - Centered below hero */}
+            <div style={{ width: '100%', maxWidth: '720px', margin: '0 auto', textAlign: 'left' }}>
+              <TerminalStatus />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Honest Stats Strip: counters show dash when 0 or missing */}
-      <section style={{ padding: '1rem 0 3rem 0' }}>
+      {/* Stats Strip: Monospace counters showing dash for 0 or missing */}
+      <section style={{ padding: '2rem 0', borderBottom: '1px solid var(--theme-border)', background: 'var(--theme-card-bg)' }}>
         <div className="container">
           <div
             style={{
-              padding: '1.5rem',
-              border: '1px solid var(--theme-border)',
-              borderRadius: 'var(--radius-sm)',
-              background: 'var(--theme-card-bg)',
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
               gap: '1.5rem',
-              fontFamily: 'var(--font-mono)'
+              fontFamily: 'var(--font-mono)',
+              textAlign: 'center'
             }}
           >
             <div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>
-                Participants
+              <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                Registered Participants
               </div>
               <div style={{ fontSize: '1.8rem', fontWeight: 700, color: 'var(--color-white)', marginTop: '0.2rem' }}>
                 <Counter value={stats.participants} />
@@ -129,7 +175,7 @@ export default function HomePage() {
             </div>
 
             <div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>
+              <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                 Showcase Portfolios Merged
               </div>
               <div style={{ fontSize: '1.8rem', fontWeight: 700, color: 'var(--color-white)', marginTop: '0.2rem' }}>
@@ -138,7 +184,7 @@ export default function HomePage() {
             </div>
 
             <div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>
+              <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                 Project PRs Merged
               </div>
               <div style={{ fontSize: '1.8rem', fontWeight: 700, color: 'var(--color-white)', marginTop: '0.2rem' }}>
@@ -149,49 +195,71 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4-Step How It Works */}
-      <section style={{ padding: '2rem 0 4rem 0' }}>
+      {/* Git Branch Architecture Calendar */}
+      <section style={{ padding: '3.5rem 0', borderBottom: '1px solid var(--theme-border)' }}>
         <div className="container">
-          <div style={{ marginBottom: '2rem' }}>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--theme-primary)', marginBottom: '0.3rem' }}>
-              # workflow
+          <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', color: 'var(--theme-primary)', marginBottom: '0.3rem' }}>
+              # season_branch_topology
             </div>
-            <h2 style={{ fontSize: '1.8rem' }}>How It Works</h2>
+            <h2 style={{ fontSize: '1.8rem', textAlign: 'center', marginBottom: '0.4rem' }}>Season Calendar</h2>
+            <p style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)', maxWidth: '580px', margin: '0 auto', textAlign: 'center' }}>
+              Git branch visualization showing sprint merges and milestones from kickoff to demo day.
+            </p>
+          </div>
+
+          <GitBranchCalendar />
+        </div>
+      </section>
+
+      {/* 4-Step How It Works */}
+      <section style={{ padding: '4rem 0 5rem 0' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', color: 'var(--theme-primary)', marginBottom: '0.3rem' }}>
+              # workflow_phases
+            </div>
+            <h2 style={{ fontSize: '1.8rem', textAlign: 'center', marginBottom: '0.4rem' }}>How It Works</h2>
+            <p style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)', maxWidth: '540px', margin: '0 auto', textAlign: 'center' }}>
+              Four progressive phases across October, November, and December.
+            </p>
           </div>
 
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-              gap: '1rem'
+              gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+              gap: '1.2rem'
             }}
           >
             {steps.map((step) => (
               <div
-                key={step.num}
+                key={step.code}
                 style={{
-                  padding: '1.5rem',
+                  padding: '1.6rem',
                   border: '1px solid var(--theme-border)',
                   borderRadius: 'var(--radius-sm)',
                   background: 'var(--theme-card-bg)',
                   display: 'flex',
-                  flexDirection: 'column'
+                  flexDirection: 'column',
+                  textAlign: 'left'
                 }}
               >
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.8rem', fontFamily: 'var(--font-mono)' }}>
-                  <span style={{ color: 'var(--theme-primary)', fontWeight: 700, fontSize: '1.2rem' }}>
-                    {step.num}
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.6rem', fontFamily: 'var(--font-mono)' }}>
+                  <span style={{ color: 'var(--theme-primary)', fontWeight: 700, fontSize: '0.82rem' }}>
+                    {step.code}
                   </span>
-                  <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>
-                    {step.dates}
-                  </span>
+                </div>
+
+                <div style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: 'var(--color-text-subtle)', marginBottom: '0.4rem' }}>
+                  {step.dates}
                 </div>
 
                 <h3 style={{ fontSize: '1.15rem', marginBottom: '0.5rem', color: 'var(--color-white)' }}>
                   {step.title}
                 </h3>
 
-                <p style={{ fontSize: '0.88rem', color: 'var(--color-text-muted)', lineHeight: 1.6, marginBottom: '1.2rem', flex: 1 }}>
+                <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', lineHeight: 1.6, marginBottom: '1.4rem', flex: 1 }}>
                   {step.desc}
                 </p>
 
@@ -201,14 +269,14 @@ export default function HomePage() {
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: '0.3rem',
-                    fontSize: '0.8rem',
+                    fontSize: '0.78rem',
                     fontFamily: 'var(--font-mono)',
                     color: 'var(--theme-primary)',
                     marginTop: 'auto'
                   }}
                 >
-                  <span>{step.linkText}</span>
-                  <ArrowRight size={13} />
+                  <span>[{step.action}]</span>
+                  <ArrowRight size={12} />
                 </Link>
               </div>
             ))}

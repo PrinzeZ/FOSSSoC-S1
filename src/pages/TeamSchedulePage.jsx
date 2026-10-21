@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useTeamData } from '../hooks/useExtraData';
-import { REG_FORM_URL, VENUE, KICKOFF_TIME, DATES, CONTACT } from '../config';
+import { REG_FORM_URL, VENUE, KICKOFF_TIME, DATES } from '../config';
 import {
-  Calendar,
   ChevronDown,
   ChevronUp,
   ExternalLink,
@@ -73,7 +72,7 @@ export default function TeamSchedulePage() {
   const faqs = [
     {
       q: 'Who can participate in FOSSSoC-S1?',
-      a: 'Students of T.K.M. College of Engineering across all departments, as well as students and contributors outside TKMCE. Anyone can participate.'
+      a: 'Students of T.K.M. College of Engineering across all departments, as well as students and contributors outside TKMCE worldwide. Anyone can participate.'
     },
     {
       q: 'How does Portfolio Week scoring work?',
@@ -101,16 +100,18 @@ export default function TeamSchedulePage() {
     <div className="section-spacing" style={{ position: 'relative', zIndex: 1 }}>
       <div className="container">
         {/* Schedule */}
-        <div style={{ marginBottom: '4.5rem' }}>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--theme-primary)', marginBottom: '0.4rem' }}>
-            # timeline
+        <div style={{ marginBottom: '5rem' }}>
+          <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--theme-primary)', marginBottom: '0.4rem' }}>
+              # timeline
+            </div>
+            <h1 style={{ fontSize: '2.2rem', marginBottom: '0.5rem', textAlign: 'center' }}>Schedule</h1>
+            <p style={{ maxWidth: '640px', margin: '0 auto', fontSize: '0.95rem', textAlign: 'center' }}>
+              Official dates for FOSSSoC Season 1. Proposed dates are subject to maintainer consensus.
+            </p>
           </div>
-          <h1 style={{ fontSize: '2.2rem', marginBottom: '0.5rem' }}>Schedule</h1>
-          <p style={{ maxWidth: '640px', fontSize: '0.95rem', marginBottom: '2rem' }}>
-            Official dates for FOSSSoC Season 1. Proposed dates are subject to maintainer consensus.
-          </p>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', maxWidth: '850px', margin: '0 auto' }}>
             {scheduleItems.map((item, idx) => (
               <div
                 key={idx}
@@ -151,13 +152,17 @@ export default function TeamSchedulePage() {
 
         {/* Team Section (Only displayed when teamData has entries) */}
         {hasTeamEntries && (
-          <div style={{ marginBottom: '4.5rem' }}>
-            <h2 style={{ fontSize: '1.8rem', marginBottom: '1.5rem' }}>Team</h2>
+          <div style={{ marginBottom: '5rem' }}>
+            <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+              <h2 style={{ fontSize: '1.8rem', textAlign: 'center' }}>Team</h2>
+            </div>
             <div
               style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-                gap: '1rem'
+                gap: '1rem',
+                maxWidth: '850px',
+                margin: '0 auto'
               }}
             >
               {[...leads, ...mentors].map((member, idx) => (
@@ -198,9 +203,20 @@ export default function TeamSchedulePage() {
           </div>
         )}
 
-        {/* FAQ */}
-        <div style={{ marginBottom: '4.5rem', maxWidth: '800px' }}>
-          <h2 style={{ fontSize: '1.8rem', marginBottom: '1.5rem' }}>Frequently Asked Questions</h2>
+        {/* FAQ - Centered Header and Centered Container */}
+        <div style={{ marginBottom: '5rem', maxWidth: '850px', margin: '0 auto 5rem auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--theme-primary)', marginBottom: '0.4rem' }}>
+              # faq
+            </div>
+            <h2 style={{ fontSize: '2rem', marginBottom: '0.5rem', textAlign: 'center' }}>
+              Frequently Asked Questions
+            </h2>
+            <p style={{ fontSize: '0.92rem', color: 'var(--color-text-muted)', textAlign: 'center' }}>
+              Common questions on participation, scoring, and workflow.
+            </p>
+          </div>
+
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
             {faqs.map((faq, idx) => {
               const isOpen = openFaq === idx;
@@ -218,27 +234,28 @@ export default function TeamSchedulePage() {
                     onClick={() => toggleFaq(idx)}
                     style={{
                       width: '100%',
-                      padding: '1rem 1.2rem',
+                      padding: '1.1rem 1.4rem',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'space-between',
                       textAlign: 'left',
                       color: 'var(--color-white)',
-                      fontSize: '0.92rem',
+                      fontSize: '0.95rem',
                       fontWeight: 600,
                       cursor: 'pointer'
                     }}
                   >
                     <span>{faq.q}</span>
-                    {isOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                    {isOpen ? <ChevronUp size={16} color="var(--theme-primary)" /> : <ChevronDown size={16} />}
                   </button>
                   {isOpen && (
                     <div
                       style={{
-                        padding: '0 1.2rem 1rem 1.2rem',
-                        fontSize: '0.85rem',
+                        padding: '0 1.4rem 1.2rem 1.4rem',
+                        fontSize: '0.88rem',
                         color: 'var(--color-text-muted)',
-                        lineHeight: 1.6
+                        lineHeight: 1.65,
+                        borderTop: '1px solid rgba(255, 255, 255, 0.05)'
                       }}
                     >
                       {faq.a}
@@ -250,21 +267,26 @@ export default function TeamSchedulePage() {
           </div>
         </div>
 
-        {/* Register Section */}
+        {/* Register Section - Centered Box & Centered Content */}
         <div
           style={{
-            padding: '2rem',
+            padding: '2.5rem 2rem',
             border: '1px solid var(--theme-border)',
             borderRadius: 'var(--radius-sm)',
             background: 'var(--theme-card-bg)',
-            maxWidth: '650px'
+            maxWidth: '720px',
+            margin: '0 auto',
+            textAlign: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center'
           }}
         >
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--theme-primary)', marginBottom: '0.3rem' }}>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--theme-primary)', marginBottom: '0.4rem' }}>
             # registration
           </div>
-          <h2 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>Join FOSSSoC-S1</h2>
-          <p style={{ fontSize: '0.88rem', color: 'var(--color-text-muted)', marginBottom: '1.2rem', lineHeight: 1.6 }}>
+          <h2 style={{ fontSize: '1.7rem', marginBottom: '0.6rem', textAlign: 'center' }}>Join FOSSSoC-S1</h2>
+          <p style={{ fontSize: '0.92rem', color: 'var(--color-text-muted)', marginBottom: '1.5rem', lineHeight: 1.65, maxWidth: '560px', textAlign: 'center' }}>
             Open to students of TKM College of Engineering and external participants worldwide. Free registration.
           </p>
           {REG_FORM_URL ? (
@@ -273,7 +295,7 @@ export default function TeamSchedulePage() {
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-primary"
-              style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem' }}
+              style={{ fontFamily: 'var(--font-mono)', fontSize: '0.88rem', padding: '0.65rem 1.5rem' }}
             >
               <span>Register</span>
               <ExternalLink size={14} />
@@ -282,7 +304,7 @@ export default function TeamSchedulePage() {
             <button
               disabled
               className="btn btn-secondary"
-              style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', opacity: 0.6, cursor: 'not-allowed' }}
+              style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', opacity: 0.6, cursor: 'not-allowed', padding: '0.65rem 1.5rem' }}
             >
               Registration link coming soon
             </button>
