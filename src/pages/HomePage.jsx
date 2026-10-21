@@ -74,7 +74,6 @@ export default function HomePage() {
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '0.55rem',
                 padding: '0.35rem 0.9rem',
                 borderRadius: 'var(--radius-md)',
                 border: '1px solid var(--theme-border)',
@@ -86,16 +85,6 @@ export default function HomePage() {
                 letterSpacing: '0.04em'
               }}
             >
-              <span
-                style={{
-                  display: 'inline-block',
-                  width: '6px',
-                  height: '6px',
-                  borderRadius: '50%',
-                  background: 'var(--theme-primary)',
-                  boxShadow: '0 0 8px var(--theme-primary)'
-                }}
-              />
               <span>{CONFIG.ORGANIZER} // {CONFIG.NAME} // 24 OCT – 27 DEC 2026</span>
             </div>
 
