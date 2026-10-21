@@ -74,15 +74,20 @@ export default function HomePage() {
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
+                justifyContent: 'center',
+                textAlign: 'center',
+                flexWrap: 'wrap',
                 padding: '0.35rem 0.9rem',
                 borderRadius: 'var(--radius-md)',
                 border: '1px solid var(--theme-border)',
                 background: 'rgba(255, 255, 255, 0.03)',
                 fontFamily: 'var(--font-mono)',
-                fontSize: '0.78rem',
+                fontSize: 'clamp(0.72rem, 2.5vw, 0.78rem)',
                 color: 'var(--color-text-muted)',
                 marginBottom: '1.25rem',
-                letterSpacing: '0.04em'
+                letterSpacing: '0.04em',
+                maxWidth: '100%',
+                boxSizing: 'border-box'
               }}
             >
               <span>{CONFIG.ORGANIZER} // {CONFIG.NAME} // 24 OCT – 27 DEC 2026</span>
@@ -91,13 +96,14 @@ export default function HomePage() {
             {/* Main Headline */}
             <h1
               style={{
-                fontSize: 'clamp(2.6rem, 5.5vw, 4.2rem)',
+                fontSize: 'clamp(2.1rem, 6.5vw, 4rem)',
                 lineHeight: 1.12,
                 marginBottom: '1.2rem',
                 color: 'var(--color-white)',
                 letterSpacing: '-0.035em',
                 textAlign: 'center',
-                fontWeight: 800
+                fontWeight: 800,
+                wordBreak: 'break-word'
               }}
             >
               {CONFIG.FULL_NAME}
@@ -108,12 +114,13 @@ export default function HomePage() {
               style={{
                 maxWidth: '680px',
                 margin: '0 auto 2.2rem auto',
-                textAlign: 'center'
+                textAlign: 'center',
+                padding: '0 0.5rem'
               }}
             >
               <p
                 style={{
-                  fontSize: '1.08rem',
+                  fontSize: 'clamp(0.98rem, 3vw, 1.08rem)',
                   lineHeight: 1.6,
                   color: 'var(--color-white)',
                   marginBottom: '0.6rem',
@@ -124,7 +131,7 @@ export default function HomePage() {
               </p>
               <p
                 style={{
-                  fontSize: '0.92rem',
+                  fontSize: 'clamp(0.85rem, 2.5vw, 0.92rem)',
                   lineHeight: 1.65,
                   color: 'var(--color-text-muted)',
                   marginBottom: '0.6rem',
@@ -135,7 +142,7 @@ export default function HomePage() {
               </p>
               <p
                 style={{
-                  fontSize: '0.84rem',
+                  fontSize: 'clamp(0.78rem, 2.2vw, 0.84rem)',
                   lineHeight: 1.5,
                   color: 'var(--theme-primary)',
                   fontFamily: 'var(--font-mono)',
@@ -169,7 +176,8 @@ export default function HomePage() {
                   flexWrap: 'wrap',
                   gap: '0.75rem',
                   alignItems: 'center',
-                  justifyContent: 'center'
+                  justifyContent: 'center',
+                  width: '100%'
                 }}
               >
                 {CONFIG.REG_FORM_URL ? (
@@ -226,13 +234,16 @@ export default function HomePage() {
                   display: 'flex',
                   alignItems: 'center',
                   gap: '0.55rem',
+                  flex: 1,
+                  minWidth: 0,
                   overflowX: 'auto',
                   whiteSpace: 'nowrap',
-                  color: 'var(--color-text-main)'
+                  color: 'var(--color-text-main)',
+                  WebkitOverflowScrolling: 'touch'
                 }}
               >
-                <span style={{ color: 'var(--theme-primary)', fontWeight: 700 }}>$</span>
-                <span>{cloneCommand}</span>
+                <span style={{ color: 'var(--theme-primary)', fontWeight: 700, flexShrink: 0 }}>$</span>
+                <span style={{ whiteSpace: 'nowrap' }}>{cloneCommand}</span>
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexShrink: 0 }}>
@@ -259,18 +270,41 @@ export default function HomePage() {
                 </button>
               </div>
             </div>
+
+            {/* Replay Intro Button */}
+            <button
+              onClick={() => window.dispatchEvent(new CustomEvent('replay-intro'))}
+              style={{
+                marginTop: '0.9rem',
+                fontSize: '0.75rem',
+                fontFamily: 'var(--font-mono)',
+                color: 'var(--color-text-subtle)',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.35rem',
+                padding: '0.3rem 0.6rem',
+                borderRadius: 'var(--radius-sm)'
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--theme-primary)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--color-text-subtle)'; }}
+            >
+              <span>[ &gt;_ replay intro sequence ]</span>
+            </button>
           </div>
         </div>
       </section>
 
-      {/* Stats Strip: Monospace counters showing dash for 0 or missing */}
+      {/* Stats Strip: Monospace counters showing dash for 0 or missing - Mobile friendly 2x2 grid */}
       <section style={{ padding: '2rem 0', borderBottom: '1px solid var(--theme-border)', background: 'var(--theme-card-bg)' }}>
         <div className="container">
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-              gap: '1.5rem',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(135px, 1fr))',
+              gap: '1.25rem',
               fontFamily: 'var(--font-mono)',
               textAlign: 'center'
             }}

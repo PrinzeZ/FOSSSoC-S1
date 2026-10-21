@@ -229,6 +229,7 @@ export default function LeaderboardPage() {
             border: '1px solid var(--theme-border)',
             borderRadius: 'var(--radius-sm)',
             overflowX: 'auto',
+            WebkitOverflowScrolling: 'touch',
             background: 'var(--theme-card-bg)'
           }}
         >

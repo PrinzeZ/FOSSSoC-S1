@@ -93,6 +93,7 @@ export default function Navbar() {
               FOSSSoC-S1
             </span>
             <span
+              className="navbar-brand-sub"
               style={{
                 fontSize: '0.75rem',
                 fontFamily: 'var(--font-mono)',
@@ -259,6 +260,9 @@ export default function Navbar() {
         @media (min-width: 1040px) {
           .desktop-nav { display: flex !important; }
           .mobile-toggle { display: none !important; }
+        }
+        @media (max-width: 440px) {
+          .navbar-brand-sub { display: none !important; }
         }
       `}</style>
     </header>

@@ -8,16 +8,17 @@ export default function Countdown({ targetDate = KICKOFF_ISO }) {
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: '0.6rem',
+    gap: '0.5rem',
     minHeight: '2.5rem',
-    padding: '0 1.25rem',
+    padding: '0.4rem 1.1rem',
     border: '1px solid var(--theme-border)',
     background: 'var(--theme-card-bg)',
     borderRadius: 'var(--radius-md)',
-    fontSize: '0.85rem',
+    fontSize: 'clamp(0.76rem, 2.5vw, 0.85rem)',
     fontFamily: 'var(--font-mono)',
     color: 'var(--color-text-muted)',
-    whiteSpace: 'nowrap',
+    maxWidth: '100%',
+    flexWrap: 'wrap',
     boxSizing: 'border-box'
   };
 

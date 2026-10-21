@@ -97,6 +97,20 @@ button {
   }
 }
 
+@media (max-width: 480px) {
+  .section-spacing {
+    padding: 2.5rem 0;
+  }
+  .container {
+    padding: 0 0.85rem;
+  }
+  .btn {
+    padding: 0.5rem 0.95rem;
+    font-size: 0.82rem;
+    min-height: 2.35rem;
+  }
+}
+
 /* Glass Surface Components */
 .glass-panel {
   background: var(--theme-surface);

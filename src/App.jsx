@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Navbar from './components/common/Navbar';
 import Footer from './components/common/Footer';
 import SeasonalCanvas from './components/common/SeasonalCanvas';
+import IntroScreen from './components/common/IntroScreen';
 
 import HomePage from './pages/HomePage';
 import PortfolioPage from './pages/PortfolioPage';
@@ -25,12 +26,32 @@ function ScrollToTop() {
 export default function App() {
   const location = useLocation();
   const [isDemo, setIsDemo] = useState(false);
+  const [showIntro, setShowIntro] = useState(() => {
+    // Show intro on initial visit
+    return !sessionStorage.getItem('fosssoc_intro_seen');
+  });
+
+  const handleIntroComplete = () => {
+    sessionStorage.setItem('fosssoc_intro_seen', 'true');
+    setShowIntro(false);
+  };
 
   useEffect(() => {
     const search = window.location.search;
     const hash = window.location.hash;
     setIsDemo(search.includes('demo=1') || hash.includes('demo=1'));
+
+    if (search.includes('intro=1') || hash.includes('intro=1')) {
+      setShowIntro(true);
+    }
   }, [location]);
+
+  // Listen for global custom replay-intro event
+  useEffect(() => {
+    const handleReplay = () => setShowIntro(true);
+    window.addEventListener('replay-intro', handleReplay);
+    return () => window.removeEventListener('replay-intro', handleReplay);
+  }, []);
 
   return (
     <div
@@ -42,6 +63,10 @@ export default function App() {
         overflowX: 'hidden'
       }}
     >
+      <AnimatePresence>
+        {showIntro && <IntroScreen onComplete={handleIntroComplete} />}
+      </AnimatePresence>
+
       <ScrollToTop />
 
       {/* Visible DEMO DATA banner when ?demo=1 is active */}

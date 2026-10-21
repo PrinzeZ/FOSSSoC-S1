@@ -30,7 +30,10 @@ export default function GitBranchCalendar() {
             (Season Branch Architecture)
           </span>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap', fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>
+          <span className="calendar-scroll-hint" style={{ color: 'var(--theme-primary)', fontSize: '0.72rem' }}>
+            [ swipe horizontally ← → ]
+          </span>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
             <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--color-white)' }} />
             <span>main</span>
@@ -45,6 +48,13 @@ export default function GitBranchCalendar() {
           </span>
         </div>
       </div>
+
+      <style>{`
+        .calendar-scroll-hint { display: none; }
+        @media (max-width: 768px) {
+          .calendar-scroll-hint { display: inline-block !important; }
+        }
+      `}</style>
 
       <div style={{ minWidth: '980px' }}>
         <svg viewBox="0 0 1080 220" width="100%" height="220" fill="none">
