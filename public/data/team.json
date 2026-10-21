@@ -2,9 +2,10 @@
   "organizers": [
     {
       "name": "Rasal Musthafa",
-      "role": "Organizer",
+      "role": "Maintainer",
       "focus": "Website and leaderboard",
       "github": "ras-al",
+      "avatar": "https://avatars.githubusercontent.com/ras-al",
       "department": "CSE",
       "year": 3
     }

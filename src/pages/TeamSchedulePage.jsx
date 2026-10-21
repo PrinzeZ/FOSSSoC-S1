@@ -100,53 +100,108 @@ export default function TeamSchedulePage() {
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-                gap: '1rem',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                gap: '1.2rem',
                 maxWidth: '850px',
                 margin: '0 auto'
               }}
             >
-              {[...organizers, ...mentors].map((member, idx) => (
-                <div
-                  key={idx}
-                  style={{
-                    padding: '1.2rem',
-                    border: '1px solid var(--theme-border)',
-                    borderRadius: 'var(--radius-sm)',
-                    background: 'var(--theme-card-bg)'
-                  }}
-                >
-                  <div style={{ fontWeight: 700, color: 'var(--color-white)', fontSize: '1.05rem' }}>{member.name}</div>
-                  <div style={{ fontSize: '0.82rem', color: 'var(--theme-primary)', fontWeight: 600, marginTop: '0.15rem' }}>{member.role}</div>
-                  {member.focus && (
-                    <div style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', marginTop: '0.3rem' }}>{member.focus}</div>
-                  )}
-                  {(member.department || member.year) && (
-                    <div style={{ fontSize: '0.75rem', color: 'var(--color-text-subtle)', marginTop: '0.2rem', fontFamily: 'var(--font-mono)' }}>
-                      {[member.department, member.year ? `Year ${member.year}` : ''].filter(Boolean).join(' • ')}
+              {[...organizers, ...mentors].map((member, idx) => {
+                const rawAvatar =
+                  member.avatar ||
+                  member.image ||
+                  (member.github ? `https://avatars.githubusercontent.com/${member.github}` : null);
+                
+                const avatarUrl = rawAvatar
+                  ? rawAvatar.startsWith('http://') || rawAvatar.startsWith('https://') || rawAvatar.startsWith('data:')
+                    ? rawAvatar
+                    : `${(import.meta.env.BASE_URL || '/').replace(/\/$/, '')}/${rawAvatar.replace(/^\//, '')}`
+                  : null;
+
+                return (
+                  <div
+                    key={idx}
+                    style={{
+                      padding: '1.3rem',
+                      border: '1px solid var(--theme-border)',
+                      borderRadius: 'var(--radius-sm)',
+                      background: 'var(--theme-card-bg)',
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      gap: '1.2rem'
+                    }}
+                  >
+                    {avatarUrl && (
+                      <div
+                        style={{
+                          width: '68px',
+                          height: '68px',
+                          borderRadius: 'var(--radius-sm)',
+                          overflow: 'hidden',
+                          border: '1px solid var(--theme-border)',
+                          background: 'rgba(255, 255, 255, 0.04)',
+                          flexShrink: 0
+                        }}
+                      >
+                        <img
+                          src={avatarUrl}
+                          alt={member.name}
+                          loading="lazy"
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            display: 'block'
+                          }}
+                          onError={(e) => {
+                            e.currentTarget.parentElement.style.display = 'none';
+                          }}
+                        />
+                      </div>
+                    )}
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ fontWeight: 700, color: 'var(--color-white)', fontSize: '1.1rem', lineHeight: 1.25 }}>
+                        {member.name}
+                      </div>
+                      <div style={{ fontSize: '0.82rem', color: 'var(--theme-primary)', fontWeight: 600, marginTop: '0.2rem' }}>
+                        {member.role}
+                      </div>
+                      {member.focus && (
+                        <div style={{ fontSize: '0.82rem', color: 'var(--color-text-muted)', marginTop: '0.35rem' }}>
+                          {member.focus}
+                        </div>
+                      )}
+                      {(member.department || member.year) && (
+                        <div style={{ fontSize: '0.75rem', color: 'var(--color-text-subtle)', marginTop: '0.25rem', fontFamily: 'var(--font-mono)' }}>
+                          {[member.department, member.year ? `Year ${member.year}` : ''].filter(Boolean).join(' • ')}
+                        </div>
+                      )}
+                      {member.github && (
+                        <a
+                          href={`https://github.com/${member.github}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '0.35rem',
+                            fontSize: '0.78rem',
+                            color: 'var(--color-text-muted)',
+                            marginTop: '0.65rem',
+                            fontFamily: 'var(--font-mono)',
+                            textDecoration: 'none'
+                          }}
+                          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--theme-primary)'; }}
+                          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--color-text-muted)'; }}
+                        >
+                          <Github size={13} />
+                          <span>@{member.github}</span>
+                        </a>
+                      )}
                     </div>
-                  )}
-                  {member.github && (
-                    <a
-                      href={`https://github.com/${member.github}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '0.3rem',
-                        fontSize: '0.78rem',
-                        color: 'var(--color-text-muted)',
-                        marginTop: '0.6rem',
-                        fontFamily: 'var(--font-mono)'
-                      }}
-                    >
-                      <Github size={13} />
-                      <span>@{member.github}</span>
-                    </a>
-                  )}
-                </div>
-              ))}
+                  </div>
+                );
+              })}
             </div>
           </div>
         )}

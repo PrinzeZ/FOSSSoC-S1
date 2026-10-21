@@ -66,13 +66,13 @@ export default function Navbar() {
             }}
           >
             <img
-              src="/logos/foss.jpeg"
+              src={`${(import.meta.env.BASE_URL || '/').replace(/\/$/, '')}/logos/foss.jpeg`}
               alt="FOSS TKMCE"
               style={{ width: '24px', height: '24px', borderRadius: '2px', objectFit: 'cover' }}
               onError={(e) => { e.currentTarget.style.display = 'none'; }}
             />
             <img
-              src="/logos/tkm.png"
+              src={`${(import.meta.env.BASE_URL || '/').replace(/\/$/, '')}/logos/tkm.png`}
               alt="TKMCE"
               style={{ width: '24px', height: '24px', borderRadius: '2px', objectFit: 'contain' }}
               onError={(e) => { e.currentTarget.style.display = 'none'; }}
