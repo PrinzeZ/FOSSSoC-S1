@@ -1,0 +1,48 @@
+{
+  "leads": [
+    {
+      "name": "Arun K. S.",
+      "role": "Staff Advisor & Faculty In-charge",
+      "department": "Computer Science & Engineering",
+      "github": "tkmfoss"
+    },
+    {
+      "name": "Rasal Musthafa",
+      "role": "Overall Coordinator & Platform Lead",
+      "department": "Computer Science & Engineering",
+      "github": "rasalkpk"
+    },
+    {
+      "name": "Nandana B.",
+      "role": "Community & Operations Lead",
+      "department": "Electronics & Communication",
+      "github": "nandanab"
+    }
+  ],
+  "mentors": [
+    {
+      "name": "Adarsh S.",
+      "role": "Web Dev & React Mentor",
+      "department": "Computer Science & Engineering",
+      "github": "adarsh-s"
+    },
+    {
+      "name": "Bilal Ahmed",
+      "role": "Systems & DevOps Mentor",
+      "department": "Computer Science & Engineering",
+      "github": "bilalahmed"
+    },
+    {
+      "name": "Gayathri M.",
+      "role": "Mobile & Flutter Mentor",
+      "department": "Electronics & Communication",
+      "github": "gayathri-m"
+    },
+    {
+      "name": "Vivek Raj",
+      "role": "IoT & Firmware Mentor",
+      "department": "Electrical & Electronics",
+      "github": "vivekraj-ee"
+    }
+  ]
+}

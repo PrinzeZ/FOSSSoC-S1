@@ -1,0 +1,389 @@
+{
+  "updated": "2026-10-21T10:30:00+05:30",
+  "thresholds": {
+    "october": { "total": 35, "rubric": 10 },
+    "month": { "points": 50, "prs": 2, "mediumPlus": 1 },
+    "overall": { "points": 120, "months": 2, "repos": 2 }
+  },
+  "users": [
+    {
+      "user": "karthik-menon",
+      "name": "Karthik Menon",
+      "department": "Computer Science & Engineering",
+      "year": 3,
+      "total": 135,
+      "tier": "core",
+      "portfolio": {
+        "fork": 5,
+        "commits": 5,
+        "live": 10,
+        "showcase": 10,
+        "auto": 30,
+        "rubric": 18,
+        "total": 48,
+        "eligible": true
+      },
+      "projects": {
+        "total": 87,
+        "merged": 4,
+        "pending": 1,
+        "prs": [
+          {
+            "repo": "campus-connect",
+            "number": 42,
+            "title": "feat: add websocket notifications for event alerts",
+            "url": "https://github.com/tkmfoss/campus-connect/pull/42",
+            "level": "hard",
+            "base": 50,
+            "firstWeek": 5,
+            "quality": 5,
+            "capped": false,
+            "points": 60,
+            "opened": "2026-11-03",
+            "merged": "2026-11-05",
+            "month": "2026-11"
+          },
+          {
+            "repo": "campus-connect",
+            "number": 48,
+            "title": "fix: sanitize user markdown inputs in event descriptions",
+            "url": "https://github.com/tkmfoss/campus-connect/pull/48",
+            "level": "medium",
+            "base": 25,
+            "firstWeek": 0,
+            "quality": 2,
+            "capped": false,
+            "points": 27,
+            "opened": "2026-11-12",
+            "merged": "2026-11-14",
+            "month": "2026-11"
+          },
+          {
+            "repo": "foss-bot",
+            "number": 19,
+            "title": "feat: slash command for checking participant stats",
+            "url": "https://github.com/tkmfoss/foss-bot/pull/19",
+            "level": "medium",
+            "base": 25,
+            "firstWeek": 0,
+            "quality": 0,
+            "capped": false,
+            "points": 25,
+            "opened": "2026-12-04",
+            "merged": "2026-12-06",
+            "month": "2026-12"
+          },
+          {
+            "repo": "foss-bot",
+            "number": 23,
+            "title": "docs: update API documentation and deployment instructions",
+            "url": "https://github.com/tkmfoss/foss-bot/pull/23",
+            "level": "easy",
+            "base": 10,
+            "firstWeek": 0,
+            "quality": 0,
+            "capped": false,
+            "points": 10,
+            "opened": "2026-12-08",
+            "merged": "2026-12-10",
+            "month": "2026-12"
+          },
+          {
+            "repo": "campus-connect",
+            "number": 55,
+            "title": "refactor: extract date formatter utility",
+            "url": "https://github.com/tkmfoss/campus-connect/pull/55",
+            "level": "easy",
+            "base": 10,
+            "firstWeek": 0,
+            "quality": 0,
+            "capped": true,
+            "points": 0,
+            "opened": "2026-11-20",
+            "merged": "2026-11-22",
+            "month": "2026-11"
+          }
+        ]
+      },
+      "months": {
+        "2026-10": { "points": 48, "prs": 1, "mediumPlus": 0, "eligible": true },
+        "2026-11": { "points": 87, "prs": 2, "mediumPlus": 2, "eligible": true },
+        "2026-12": { "points": 35, "prs": 2, "mediumPlus": 1, "eligible": false }
+      },
+      "overall": { "points": 170, "activeMonths": 3, "repos": 2, "eligible": true }
+    },
+    {
+      "user": "ananya-s",
+      "name": "Ananya Sharma",
+      "department": "Electronics & Communication",
+      "year": 2,
+      "total": 112,
+      "tier": "contributor",
+      "portfolio": {
+        "fork": 5,
+        "commits": 5,
+        "live": 10,
+        "showcase": 10,
+        "auto": 30,
+        "rubric": 16,
+        "total": 46,
+        "eligible": true
+      },
+      "projects": {
+        "total": 66,
+        "merged": 3,
+        "pending": 2,
+        "prs": [
+          {
+            "repo": "tkm-bus-tracker",
+            "number": 15,
+            "title": "feat: GPS polling debounce and live bus icon rotation",
+            "url": "https://github.com/tkmfoss/tkm-bus-tracker/pull/15",
+            "level": "hard",
+            "base": 50,
+            "firstWeek": 5,
+            "quality": 5,
+            "capped": false,
+            "points": 60,
+            "opened": "2026-11-04",
+            "merged": "2026-11-06",
+            "month": "2026-11"
+          },
+          {
+            "repo": "tkm-bus-tracker",
+            "number": 21,
+            "title": "fix: prevent unnecessary re-render on map pan",
+            "url": "https://github.com/tkmfoss/tkm-bus-tracker/pull/21",
+            "level": "easy",
+            "base": 10,
+            "firstWeek": 0,
+            "quality": 0,
+            "capped": false,
+            "points": 10,
+            "opened": "2026-11-18",
+            "merged": "2026-11-19",
+            "month": "2026-11"
+          }
+        ]
+      },
+      "months": {
+        "2026-10": { "points": 46, "prs": 1, "mediumPlus": 0, "eligible": true },
+        "2026-11": { "points": 70, "prs": 2, "mediumPlus": 1, "eligible": true },
+        "2026-12": { "points": 0, "prs": 0, "mediumPlus": 0, "eligible": false }
+      },
+      "overall": { "points": 116, "activeMonths": 2, "repos": 1, "eligible": false }
+    },
+    {
+      "user": "rahul-v",
+      "name": "Rahul Verma",
+      "department": "Mechanical Engineering",
+      "year": 4,
+      "total": 95,
+      "tier": "contributor",
+      "portfolio": {
+        "fork": 5,
+        "commits": 5,
+        "live": 10,
+        "showcase": 10,
+        "auto": 30,
+        "rubric": 12,
+        "total": 42,
+        "eligible": true
+      },
+      "projects": {
+        "total": 53,
+        "merged": 2,
+        "pending": 0,
+        "prs": [
+          {
+            "repo": "open-lab-inventory",
+            "number": 31,
+            "title": "feat: export equipment audit log to CSV",
+            "url": "https://github.com/tkmfoss/open-lab-inventory/pull/31",
+            "level": "medium",
+            "base": 25,
+            "firstWeek": 0,
+            "quality": 3,
+            "capped": false,
+            "points": 28,
+            "opened": "2026-11-15",
+            "merged": "2026-11-18",
+            "month": "2026-11"
+          },
+          {
+            "repo": "open-lab-inventory",
+            "number": 34,
+            "title": "feat: barcode scanner integration via html5-qrcode",
+            "url": "https://github.com/tkmfoss/open-lab-inventory/pull/34",
+            "level": "medium",
+            "base": 25,
+            "firstWeek": 0,
+            "quality": 0,
+            "capped": false,
+            "points": 25,
+            "opened": "2026-11-22",
+            "merged": "2026-11-25",
+            "month": "2026-11"
+          }
+        ]
+      },
+      "months": {
+        "2026-10": { "points": 42, "prs": 1, "mediumPlus": 0, "eligible": true },
+        "2026-11": { "points": 53, "prs": 2, "mediumPlus": 2, "eligible": true },
+        "2026-12": { "points": 0, "prs": 0, "mediumPlus": 0, "eligible": false }
+      },
+      "overall": { "points": 95, "activeMonths": 2, "repos": 1, "eligible": false }
+    },
+    {
+      "user": "fathima-noor",
+      "name": "Fathima Noor",
+      "department": "Computer Science & Engineering",
+      "year": 2,
+      "total": 78,
+      "tier": "participant",
+      "portfolio": {
+        "fork": 5,
+        "commits": 5,
+        "live": 10,
+        "showcase": 10,
+        "auto": 30,
+        "rubric": null,
+        "total": 30,
+        "eligible": false
+      },
+      "projects": {
+        "total": 48,
+        "merged": 2,
+        "pending": 1,
+        "prs": [
+          {
+            "repo": "campus-connect",
+            "number": 51,
+            "title": "feat: dark mode toggle persistence in localStorage",
+            "url": "https://github.com/tkmfoss/campus-connect/pull/51",
+            "level": "medium",
+            "base": 25,
+            "firstWeek": 0,
+            "quality": 0,
+            "capped": false,
+            "points": 25,
+            "opened": "2026-11-10",
+            "merged": "2026-11-13",
+            "month": "2026-11"
+          },
+          {
+            "repo": "tkm-notes-hub",
+            "number": 8,
+            "title": "feat: pdf preview thumbnail generator",
+            "url": "https://github.com/tkmfoss/tkm-notes-hub/pull/8",
+            "level": "easy",
+            "base": 10,
+            "firstWeek": 5,
+            "quality": 5,
+            "capped": false,
+            "points": 20,
+            "opened": "2026-12-02",
+            "merged": "2026-12-05",
+            "month": "2026-12"
+          }
+        ]
+      },
+      "months": {
+        "2026-10": { "points": 30, "prs": 1, "mediumPlus": 0, "eligible": false },
+        "2026-11": { "points": 25, "prs": 1, "mediumPlus": 1, "eligible": false },
+        "2026-12": { "points": 20, "prs": 1, "mediumPlus": 0, "eligible": false }
+      },
+      "overall": { "points": 75, "activeMonths": 3, "repos": 2, "eligible": false }
+    },
+    {
+      "user": "arjun-krishna",
+      "name": "Arjun Krishna",
+      "department": "Electrical & Electronics",
+      "year": 1,
+      "total": 50,
+      "tier": "participant",
+      "portfolio": {
+        "fork": 5,
+        "commits": 5,
+        "live": 10,
+        "showcase": 10,
+        "auto": 30,
+        "rubric": 15,
+        "total": 45,
+        "eligible": true
+      },
+      "projects": {
+        "total": 10,
+        "merged": 1,
+        "pending": 0,
+        "prs": [
+          {
+            "repo": "foss-bot",
+            "number": 27,
+            "title": "fix: handle edge case when user has no discord avatar",
+            "url": "https://github.com/tkmfoss/foss-bot/pull/27",
+            "level": "easy",
+            "base": 10,
+            "firstWeek": 0,
+            "quality": 0,
+            "capped": false,
+            "points": 10,
+            "opened": "2026-12-11",
+            "merged": "2026-12-13",
+            "month": "2026-12"
+          }
+        ]
+      },
+      "months": {
+        "2026-10": { "points": 45, "prs": 1, "mediumPlus": 0, "eligible": true },
+        "2026-11": { "points": 0, "prs": 0, "mediumPlus": 0, "eligible": false },
+        "2026-12": { "points": 10, "prs": 1, "mediumPlus": 0, "eligible": false }
+      },
+      "overall": { "points": 55, "activeMonths": 2, "repos": 1, "eligible": false }
+    }
+  ],
+  "hall": [
+    {
+      "github": "karthik-menon",
+      "name": "Karthik Menon",
+      "site": "https://karthik-menon.github.io/portfolio",
+      "department": "Computer Science & Engineering",
+      "year": 3
+    },
+    {
+      "github": "ananya-s",
+      "name": "Ananya Sharma",
+      "site": "https://ananya-sharma.dev",
+      "department": "Electronics & Communication",
+      "year": 2
+    },
+    {
+      "github": "rahul-v",
+      "name": "Rahul Verma",
+      "site": "https://rahulverma-tkm.github.io",
+      "department": "Mechanical Engineering",
+      "year": 4
+    },
+    {
+      "github": "arjun-krishna",
+      "name": "Arjun Krishna",
+      "site": "https://arjunkrishna.web.app",
+      "department": "Electrical & Electronics",
+      "year": 1
+    },
+    {
+      "github": "devika-nair",
+      "name": "Devika Nair",
+      "site": "https://devika-nair.me",
+      "department": "Civil Engineering",
+      "year": 2
+    },
+    {
+      "github": "siddharth-r",
+      "name": "Siddharth Ramesh",
+      "site": "https://sid-ramesh.github.io/showcase",
+      "department": "Chemical Engineering",
+      "year": 3
+    }
+  ]
+}
