@@ -246,8 +246,9 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* 3 Pillar Feature Cards - Wide, Long, Generously Spaced */}
+          {/* 3 Pillar Feature Cards - 2 Columns Top, 1 Below on Mobile */}
           <div
+            className="about-pillars-grid"
             style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
@@ -257,7 +258,7 @@ export default function HomePage() {
           >
             {/* Pillar 1 */}
             <div
-              className="glass-panel"
+              className="glass-panel about-pillar-card"
               style={{
                 padding: '1.8rem',
                 display: 'flex',
@@ -266,6 +267,7 @@ export default function HomePage() {
               }}
             >
               <div
+                className="about-pillar-code"
                 style={{
                   fontFamily: 'var(--font-mono)',
                   fontSize: '0.75rem',
@@ -275,17 +277,17 @@ export default function HomePage() {
               >
                 01 / SPRINT_TIMELINE
               </div>
-              <h3 style={{ fontSize: '1.15rem', color: 'var(--color-white)', fontWeight: 600 }}>
+              <h3 className="about-pillar-title" style={{ fontSize: '1.15rem', color: 'var(--color-white)', fontWeight: 600 }}>
                 9-Week Structured Sprint
               </h3>
-              <p style={{ fontSize: '0.88rem', color: 'var(--color-text-muted)', lineHeight: 1.65, margin: 0 }}>
+              <p className="about-pillar-desc" style={{ fontSize: '0.88rem', color: 'var(--color-text-muted)', lineHeight: 1.65, margin: 0 }}>
                 Running from 24 Oct to 27 Dec 2026. Month 1 is Portfolio Week; Months 2 and 3 are hands-on project contributions across curated community repositories.
               </p>
             </div>
 
             {/* Pillar 2 */}
             <div
-              className="glass-panel"
+              className="glass-panel about-pillar-card"
               style={{
                 padding: '1.8rem',
                 display: 'flex',
@@ -294,6 +296,7 @@ export default function HomePage() {
               }}
             >
               <div
+                className="about-pillar-code"
                 style={{
                   fontFamily: 'var(--font-mono)',
                   fontSize: '0.75rem',
@@ -303,17 +306,17 @@ export default function HomePage() {
               >
                 02 / PARTICIPATION
               </div>
-              <h3 style={{ fontSize: '1.15rem', color: 'var(--color-white)', fontWeight: 600 }}>
+              <h3 className="about-pillar-title" style={{ fontSize: '1.15rem', color: 'var(--color-white)', fontWeight: 600 }}>
                 Open to Everyone
               </h3>
-              <p style={{ fontSize: '0.88rem', color: 'var(--color-text-muted)', lineHeight: 1.65, margin: 0 }}>
+              <p className="about-pillar-desc" style={{ fontSize: '0.88rem', color: 'var(--color-text-muted)', lineHeight: 1.65, margin: 0 }}>
                 Open to students of {CONFIG.COLLEGE} as well as external participants worldwide. Everyone is welcome to learn, contribute, and collaborate.
               </p>
             </div>
 
-            {/* Pillar 3 */}
+            {/* Pillar 3 - Spans both columns on mobile */}
             <div
-              className="glass-panel"
+              className="glass-panel about-pillar-card about-pillar-card-wide"
               style={{
                 padding: '1.8rem',
                 display: 'flex',
@@ -322,6 +325,7 @@ export default function HomePage() {
               }}
             >
               <div
+                className="about-pillar-code"
                 style={{
                   fontFamily: 'var(--font-mono)',
                   fontSize: '0.75rem',
@@ -331,10 +335,10 @@ export default function HomePage() {
               >
                 03 / RECOGNITION
               </div>
-              <h3 style={{ fontSize: '1.15rem', color: 'var(--color-white)', fontWeight: 600 }}>
+              <h3 className="about-pillar-title" style={{ fontSize: '1.15rem', color: 'var(--color-white)', fontWeight: 600 }}>
                 Points, Badges & Finale
               </h3>
-              <p style={{ fontSize: '0.88rem', color: 'var(--color-text-muted)', lineHeight: 1.65, margin: 0 }}>
+              <p className="about-pillar-desc" style={{ fontSize: '0.88rem', color: 'var(--color-text-muted)', lineHeight: 1.65, margin: 0 }}>
                 Earn points for merged pull requests, maintain streaks, track live standings on the leaderboard, and present achievements at the Grand Finale on 27 Dec.
               </p>
             </div>
@@ -469,6 +473,59 @@ export default function HomePage() {
           .hero-scroll-hint {
             bottom: 0.85rem !important;
           }
+
+          /* About Pillars: 2 columns top, 1 below on mobile */
+          .about-pillars-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 0.75rem !important;
+            margin-bottom: 2.25rem !important;
+          }
+          .about-pillar-card {
+            padding: 1.1rem 0.95rem !important;
+            gap: 0.45rem !important;
+          }
+          .about-pillar-card-wide {
+            grid-column: span 2 !important;
+          }
+          .about-pillar-code {
+            font-size: 0.65rem !important;
+          }
+          .about-pillar-title {
+            font-size: 0.92rem !important;
+            line-height: 1.25 !important;
+          }
+          .about-pillar-desc {
+            font-size: 0.74rem !important;
+            line-height: 1.42 !important;
+          }
+
+          /* How It Works: 2 columns on mobile */
+          .how-it-works-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 0.75rem !important;
+          }
+          .how-it-works-card {
+            padding: 1.1rem 0.95rem !important;
+          }
+          .how-it-works-code {
+            font-size: 0.72rem !important;
+          }
+          .how-it-works-dates {
+            font-size: 0.65rem !important;
+            margin-bottom: 0.25rem !important;
+          }
+          .how-it-works-title {
+            font-size: 0.92rem !important;
+            margin-bottom: 0.35rem !important;
+          }
+          .how-it-works-desc {
+            font-size: 0.73rem !important;
+            line-height: 1.4 !important;
+            margin-bottom: 0.85rem !important;
+          }
+          .how-it-works-link {
+            font-size: 0.72rem !important;
+          }
         }
       `}</style>
 
@@ -545,6 +602,7 @@ export default function HomePage() {
           </div>
 
           <div
+            className="how-it-works-grid"
             style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
@@ -554,6 +612,7 @@ export default function HomePage() {
             {steps.map((step) => (
               <div
                 key={step.code}
+                className="how-it-works-card"
                 style={{
                   padding: '1.6rem',
                   border: '1px solid var(--theme-border)',
@@ -565,25 +624,26 @@ export default function HomePage() {
                 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.6rem', fontFamily: 'var(--font-mono)' }}>
-                  <span style={{ color: 'var(--theme-primary)', fontWeight: 700, fontSize: '0.82rem' }}>
+                  <span className="how-it-works-code" style={{ color: 'var(--theme-primary)', fontWeight: 700, fontSize: '0.82rem' }}>
                     {step.code}
                   </span>
                 </div>
 
-                <div style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: 'var(--color-text-subtle)', marginBottom: '0.4rem' }}>
+                <div className="how-it-works-dates" style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: 'var(--color-text-subtle)', marginBottom: '0.4rem' }}>
                   {step.dates}
                 </div>
 
-                <h3 style={{ fontSize: '1.15rem', marginBottom: '0.5rem', color: 'var(--color-white)' }}>
+                <h3 className="how-it-works-title" style={{ fontSize: '1.15rem', marginBottom: '0.5rem', color: 'var(--color-white)' }}>
                   {step.title}
                 </h3>
 
-                <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', lineHeight: 1.6, marginBottom: '1.4rem', flex: 1 }}>
+                <p className="how-it-works-desc" style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', lineHeight: 1.6, marginBottom: '1.4rem', flex: 1 }}>
                   {step.desc}
                 </p>
 
                 <Link
                   to={step.link}
+                  className="how-it-works-link"
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
