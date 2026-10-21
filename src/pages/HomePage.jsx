@@ -5,7 +5,7 @@ import { useLeaderboardData } from '../hooks/useLeaderboardData';
 import Counter from '../components/common/Counter';
 import GitBranchCalendar from '../components/common/GitBranchCalendar';
 import Countdown from '../components/common/Countdown';
-import { ExternalLink, Copy, Check, ArrowRight } from 'lucide-react';
+import { ExternalLink, Copy, Check, ArrowRight, ChevronDown } from 'lucide-react';
 
 export default function HomePage() {
   const { stats } = useLeaderboardData();
@@ -56,17 +56,30 @@ export default function HomePage() {
 
   return (
     <div style={{ position: 'relative', zIndex: 1 }}>
-      {/* Center-Aligned Hero Section */}
-      <section style={{ padding: '4.5rem 0 3.5rem 0', borderBottom: '1px solid var(--theme-border)' }}>
-        <div className="container">
+      {/* Hero Cover Viewport - Clean, Focused, Uncrowded */}
+      <section
+        style={{
+          minHeight: 'calc(85svh - 4.5rem)',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: '3rem 0 2rem 0',
+          borderBottom: '1px solid var(--theme-border)',
+          position: 'relative'
+        }}
+      >
+        <div className="container" style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
           <div
             style={{
               maxWidth: '820px',
-              margin: '0 auto',
+              margin: 'auto',
               textAlign: 'center',
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'center'
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '100%'
             }}
           >
             {/* Eyebrow Tag */}
@@ -84,7 +97,7 @@ export default function HomePage() {
                 fontFamily: 'var(--font-mono)',
                 fontSize: 'clamp(0.72rem, 2.5vw, 0.78rem)',
                 color: 'var(--color-text-muted)',
-                marginBottom: '1.25rem',
+                marginBottom: '1.5rem',
                 letterSpacing: '0.04em',
                 maxWidth: '100%',
                 boxSizing: 'border-box'
@@ -96,9 +109,9 @@ export default function HomePage() {
             {/* Main Headline */}
             <h1
               style={{
-                fontSize: 'clamp(2.1rem, 6.5vw, 4rem)',
+                fontSize: 'clamp(2.4rem, 7vw, 4.2rem)',
                 lineHeight: 1.12,
-                marginBottom: '1.2rem',
+                marginBottom: '1.75rem',
                 color: 'var(--color-white)',
                 letterSpacing: '-0.035em',
                 textAlign: 'center',
@@ -109,32 +122,119 @@ export default function HomePage() {
               {CONFIG.FULL_NAME}
             </h1>
 
+            {/* Hero Primary Actions (Register CTA) */}
+            <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '0.75rem',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              {CONFIG.REG_FORM_URL ? (
+                <a
+                  href={CONFIG.REG_FORM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-primary"
+                  style={{ padding: '0.65rem 1.6rem', fontSize: '0.9rem' }}
+                >
+                  <span>[ Register Now ]</span>
+                  <ExternalLink size={14} />
+                </a>
+              ) : (
+                <button
+                  disabled
+                  className="btn btn-disabled"
+                  style={{ padding: '0.65rem 1.6rem', fontSize: '0.9rem' }}
+                  title="Registration link will be announced soon"
+                >
+                  <span>[ Registration: Coming Soon ]</span>
+                </button>
+              )}
+
+              {/* Quick links shown alongside on wider screens */}
+              <div className="hero-desktop-links" style={{ display: 'inline-flex', gap: '0.75rem' }}>
+                <Link to="/portfolio" className="btn btn-secondary" style={{ padding: '0.65rem 1.25rem' }}>
+                  <span>[ Portfolio Week ]</span>
+                </Link>
+                <Link to="/leaderboard" className="btn btn-secondary" style={{ padding: '0.65rem 1.25rem' }}>
+                  <span>[ Leaderboard ]</span>
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Scroll Down Hint at bottom of hero viewport */}
+          <a
+            href="#overview"
+            style={{
+              marginTop: 'auto',
+              paddingTop: '2.5rem',
+              display: 'inline-flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '0.35rem',
+              color: 'var(--color-text-subtle)',
+              fontSize: '0.75rem',
+              fontFamily: 'var(--font-mono)',
+              textDecoration: 'none'
+            }}
+          >
+            <span>scroll down to explore</span>
+            <ChevronDown size={15} className="bounce-subtle" color="var(--theme-primary)" />
+          </a>
+        </div>
+      </section>
+
+      {/* Overview & Briefing Section - Revealed on Scroll Down */}
+      <section
+        id="overview"
+        style={{
+          padding: '3.5rem 0 3rem 0',
+          borderBottom: '1px solid var(--theme-border)',
+          background: 'rgba(255, 255, 255, 0.015)'
+        }}
+      >
+        <div className="container">
+          <div
+            style={{
+              maxWidth: '720px',
+              margin: '0 auto',
+              textAlign: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '2rem'
+            }}
+          >
             {/* Description - Organized & Balanced Hierarchy */}
             <div
               style={{
-                maxWidth: '680px',
-                margin: '0 auto 2.2rem auto',
                 textAlign: 'center',
-                padding: '0 0.5rem'
+                padding: '0 0.5rem',
+                maxWidth: '680px'
               }}
             >
               <p
                 style={{
-                  fontSize: 'clamp(0.98rem, 3vw, 1.08rem)',
+                  fontSize: 'clamp(1rem, 3.2vw, 1.15rem)',
                   lineHeight: 1.6,
                   color: 'var(--color-white)',
-                  marginBottom: '0.6rem',
-                  textWrap: 'balance'
+                  marginBottom: '0.65rem',
+                  textWrap: 'balance',
+                  fontWeight: 600
                 }}
               >
                 A 9-week open source event organized by {CONFIG.ORGANIZER}, {CONFIG.COLLEGE}.
               </p>
               <p
                 style={{
-                  fontSize: 'clamp(0.85rem, 2.5vw, 0.92rem)',
+                  fontSize: 'clamp(0.88rem, 2.6vw, 0.95rem)',
                   lineHeight: 1.65,
                   color: 'var(--color-text-muted)',
-                  marginBottom: '0.6rem',
+                  marginBottom: '0.65rem',
                   textWrap: 'balance'
                 }}
               >
@@ -142,7 +242,7 @@ export default function HomePage() {
               </p>
               <p
                 style={{
-                  fontSize: 'clamp(0.78rem, 2.2vw, 0.84rem)',
+                  fontSize: 'clamp(0.82rem, 2.4vw, 0.86rem)',
                   lineHeight: 1.5,
                   color: 'var(--theme-primary)',
                   fontFamily: 'var(--font-mono)',
@@ -154,58 +254,36 @@ export default function HomePage() {
               </p>
             </div>
 
-            {/* Hero Actions (Countdown Badge + Navigation Buttons) - Centered Stack */}
+            {/* Countdown Badge & Secondary Navigation Links */}
             <div
               style={{
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                justifyContent: 'center',
                 gap: '1rem',
-                marginBottom: '2.5rem',
                 width: '100%'
               }}
             >
-              {/* Countdown Badge */}
               <Countdown targetDate={CONFIG.KICKOFF_ISO} />
 
-              {/* Action Buttons Row */}
               <div
                 style={{
                   display: 'flex',
                   flexWrap: 'wrap',
-                  gap: '0.75rem',
+                  gap: '0.65rem',
                   alignItems: 'center',
                   justifyContent: 'center',
                   width: '100%'
                 }}
               >
-                {CONFIG.REG_FORM_URL ? (
-                  <a
-                    href={CONFIG.REG_FORM_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn-primary"
-                  >
-                    <span>[ Register ]</span>
-                    <ExternalLink size={13} />
-                  </a>
-                ) : (
-                  <button
-                    disabled
-                    className="btn btn-disabled"
-                    title="Registration link will be announced soon"
-                  >
-                    <span>[ Registration: Coming Soon ]</span>
-                  </button>
-                )}
-
-                <Link to="/portfolio" className="btn btn-secondary">
+                <Link to="/portfolio" className="btn btn-secondary btn-sm">
                   <span>[ Portfolio Week ]</span>
                 </Link>
-
-                <Link to="/leaderboard" className="btn btn-secondary">
+                <Link to="/leaderboard" className="btn btn-secondary btn-sm">
                   <span>[ Leaderboard ]</span>
+                </Link>
+                <Link to="/projects" className="btn btn-secondary btn-sm">
+                  <span>[ Browse Projects ]</span>
                 </Link>
               </div>
             </div>
@@ -270,11 +348,15 @@ export default function HomePage() {
                 </button>
               </div>
             </div>
-
-
           </div>
         </div>
       </section>
+
+      <style>{`
+        @media (max-width: 640px) {
+          .hero-desktop-links { display: none !important; }
+        }
+      `}</style>
 
       {/* Stats Strip: Monospace counters showing dash for 0 or missing - Mobile friendly 2x2 grid */}
       <section style={{ padding: '2rem 0', borderBottom: '1px solid var(--theme-border)', background: 'var(--theme-card-bg)' }}>

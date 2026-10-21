@@ -255,3 +255,16 @@ button {
     scroll-behavior: auto !important;
   }
 }
+
+@keyframes bounceSubtle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+}
+
+.bounce-subtle {
+  animation: bounceSubtle 2s ease-in-out infinite;
+}
