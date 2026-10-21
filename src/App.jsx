@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import Navbar from './components/common/Navbar';
@@ -15,7 +15,6 @@ import WinnersPage from './pages/WinnersPage';
 import TeamSchedulePage from './pages/TeamSchedulePage';
 import NotFoundPage from './pages/NotFoundPage';
 
-// Scroll to top on route change
 function ScrollToTop() {
   const { pathname } = useLocation();
   useEffect(() => {
@@ -26,6 +25,13 @@ function ScrollToTop() {
 
 export default function App() {
   const location = useLocation();
+  const [isDemo, setIsDemo] = useState(false);
+
+  useEffect(() => {
+    const search = window.location.search;
+    const hash = window.location.hash;
+    setIsDemo(search.includes('demo=1') || hash.includes('demo=1'));
+  }, [location]);
 
   return (
     <div
@@ -38,21 +44,56 @@ export default function App() {
       }}
     >
       <ScrollToTop />
-      {/* Hand-written 2D seasonal canvas background */}
+
+      {/* Visible DEMO DATA banner when ?demo=1 is active */}
+      {isDemo && (
+        <div
+          role="alert"
+          style={{
+            background: 'var(--color-warning)',
+            color: '#000000',
+            textAlign: 'center',
+            padding: '0.4rem 1rem',
+            fontSize: '0.8rem',
+            fontFamily: 'var(--font-mono)',
+            fontWeight: 700,
+            letterSpacing: '0.08em',
+            zIndex: 100,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '0.6rem'
+          }}
+        >
+          <span>[DEMO DATA ACTIVE] Showing generated mock participants for preview testing.</span>
+          <a
+            href={window.location.href.replace(/(\?|&)demo=1/, '')}
+            style={{
+              textDecoration: 'underline',
+              color: '#000000',
+              fontWeight: 800
+            }}
+          >
+            Exit demo mode
+          </a>
+        </div>
+      )}
+
+      {/* Seasonal Canvas */}
       <SeasonalCanvas />
 
       {/* Top Navbar */}
       <Navbar />
 
-      {/* Main Page Area with AnimatePresence route transitions */}
+      {/* Main Page Area */}
       <main style={{ flex: 1 }}>
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.28, ease: 'easeOut' }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
             <Routes location={location} key={location.pathname}>
               <Route path="/" element={<HomePage />} />
@@ -72,7 +113,7 @@ export default function App() {
       {/* Floating Theme Switcher */}
       <ThemeSwitcher />
 
-      {/* Organization Footer */}
+      {/* Footer */}
       <Footer />
     </div>
   );

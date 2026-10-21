@@ -1,368 +1,240 @@
 import React, { useState } from 'react';
-import { PORTFOLIO_TEMPLATE_URL, PORTFOLIO_DEADLINE_ISO, PORTFOLIO_POINTS } from '../constants/config';
+import { PORTFOLIO_TEMPLATE_URL, DATES, PORTFOLIO_POINTS } from '../config';
 import { useLeaderboardData } from '../hooks/useLeaderboardData';
-import { useCountdown } from '../hooks/useCountdown';
 import {
-  FolderGit2,
   GitFork,
-  GitCommit,
-  Globe,
-  GitPullRequest,
-  Award,
   ExternalLink,
-  Check,
-  Clock,
   Search,
-  Sparkles,
-  AlertCircle,
-  ShieldCheck,
-  User
+  Globe
 } from 'lucide-react';
 
 export default function PortfolioPage() {
-  const { data, loading, error } = useLeaderboardData();
-  const deadlineCountdown = useCountdown(PORTFOLIO_DEADLINE_ISO);
+  const { data, loading } = useLeaderboardData();
   const [searchTerm, setSearchTerm] = useState('');
   const [hallFilter, setHallFilter] = useState('');
 
   const users = data?.users || [];
   const hall = data?.hall || [];
 
-  // Filter portfolio board users
   const filteredUsers = users.filter((u) => {
     const q = searchTerm.toLowerCase();
     return (
-      u.name.toLowerCase().includes(q) ||
-      u.user.toLowerCase().includes(q) ||
+      (u.name && u.name.toLowerCase().includes(q)) ||
+      (u.user && u.user.toLowerCase().includes(q)) ||
       (u.department && u.department.toLowerCase().includes(q))
     );
   });
 
-  // Filter hall of portfolios (only valid https:// links)
   const filteredHall = hall.filter((item) => {
-    // CRITICAL: Only render links that start with https://
     if (!item.site || typeof item.site !== 'string' || !item.site.startsWith('https://')) {
       return false;
     }
     const q = hallFilter.toLowerCase();
     return (
-      item.name.toLowerCase().includes(q) ||
-      item.department.toLowerCase().includes(q) ||
-      item.github.toLowerCase().includes(q)
+      (item.name && item.name.toLowerCase().includes(q)) ||
+      (item.department && item.department.toLowerCase().includes(q)) ||
+      (item.github && item.github.toLowerCase().includes(q))
     );
   });
+
+  const steps = [
+    'Fork tkmfoss/portfolio-template to your GitHub account',
+    'Edit profile.json with your bio, projects, and skills',
+    'Make 3 or more meaningful git commits',
+    'Enable GitHub Pages in your repository settings',
+    'Open one pull request adding showcase/<username>.json',
+    'Submit before the deadline: 31 Oct 2026, 11:59 PM IST'
+  ];
 
   return (
     <div className="section-spacing" style={{ position: 'relative', zIndex: 1 }}>
       <div className="container">
-        {/* Header & Deadline Banner */}
-        <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
-          <div
-            className="chip chip-warning"
-            style={{ marginBottom: '1rem', padding: '0.45rem 1.1rem' }}
-          >
-            <Clock size={15} />
-            <span>
-              Deadline: 31 Oct 2026, 11:59 PM IST
-              {!deadlineCountdown.isLive && (
-                <> ({deadlineCountdown.days}d {deadlineCountdown.hours}h {deadlineCountdown.minutes}m remaining)</>
-              )}
-            </span>
+        {/* Header */}
+        <div style={{ marginBottom: '3rem' }}>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--theme-primary)', marginBottom: '0.4rem' }}>
+            # month_1_sprint
           </div>
-
-          <h1 style={{ marginBottom: '1rem' }}>Portfolio Week</h1>
-          <p style={{ maxWidth: '720px', margin: '0 auto 2rem auto', fontSize: '1.05rem' }}>
-            Month 1 is all about crafting your public developer persona. Fork our responsive portfolio template,
-            personalize your bio and projects, publish to GitHub Pages, and submit your showcase pull request.
+          <h1 style={{ fontSize: '2.2rem', marginBottom: '0.5rem' }}>Portfolio Week</h1>
+          <p style={{ maxWidth: '640px', fontSize: '0.95rem', marginBottom: '1.2rem' }}>
+            Deadline: 31 Oct 2026, 11:59 PM IST. Build and publish your developer portfolio to kick off Season 1.
           </p>
-
           <a
             href={PORTFOLIO_TEMPLATE_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn btn-primary"
-            style={{ padding: '0.85rem 1.8rem' }}
+            className="btn btn-secondary btn-sm"
+            style={{ fontFamily: 'var(--font-mono)', fontSize: '0.82rem' }}
           >
-            <GitFork size={18} />
-            <span>Fork Portfolio Template</span>
-            <ExternalLink size={15} />
+            <GitFork size={14} />
+            <span>tkmfoss/portfolio-template</span>
+            <ExternalLink size={12} />
           </a>
         </div>
 
-        {/* 50 Points Breakdown Table */}
+        {/* Steps & Points */}
         <div
-          className="glass-panel"
           style={{
-            padding: '2.5rem 2rem',
-            marginBottom: '4rem',
-            background: 'var(--theme-card-bg)',
-            borderRadius: 'var(--radius-lg)'
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: '1.5rem',
+            marginBottom: '3.5rem'
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1.5rem' }}>
-            <Award size={24} color="var(--theme-primary)" />
-            <h2 style={{ fontSize: '1.5rem' }}>Points Breakdown (Total: 50 pts)</h2>
-          </div>
-
+          {/* Steps */}
           <div
             style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-              gap: '1.2rem'
+              padding: '1.5rem',
+              border: '1px solid var(--theme-border)',
+              borderRadius: 'var(--radius-sm)',
+              background: 'var(--theme-card-bg)'
             }}
           >
-            <div
-              style={{
-                padding: '1.2rem',
-                borderRadius: 'var(--radius-md)',
-                background: 'rgba(255, 255, 255, 0.03)',
-                border: '1px solid var(--theme-border)'
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                <span style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>Action 1</span>
-                <span className="chip" style={{ fontWeight: 800 }}>+{PORTFOLIO_POINTS.fork} pts</span>
-              </div>
-              <h4 style={{ fontSize: '1.05rem', marginBottom: '0.3rem' }}>Fork Template</h4>
-              <p style={{ fontSize: '0.82rem' }}>Fork tkmfoss/portfolio-template to your GitHub profile.</p>
-            </div>
+            <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem', fontFamily: 'var(--font-mono)' }}>
+              Execution Steps
+            </h3>
+            <ol style={{ paddingLeft: '1.2rem', fontSize: '0.88rem', lineHeight: 1.8, color: 'var(--color-text-muted)' }}>
+              {steps.map((s, idx) => (
+                <li key={idx}><span style={{ color: 'var(--color-text-main)' }}>{s}</span></li>
+              ))}
+            </ol>
+          </div>
 
-            <div
-              style={{
-                padding: '1.2rem',
-                borderRadius: 'var(--radius-md)',
-                background: 'rgba(255, 255, 255, 0.03)',
-                border: '1px solid var(--theme-border)'
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                <span style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>Action 2</span>
-                <span className="chip" style={{ fontWeight: 800 }}>+{PORTFOLIO_POINTS.commits} pts</span>
+          {/* Points Table */}
+          <div
+            style={{
+              padding: '1.5rem',
+              border: '1px solid var(--theme-border)',
+              borderRadius: 'var(--radius-sm)',
+              background: 'var(--theme-card-bg)'
+            }}
+          >
+            <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem', fontFamily: 'var(--font-mono)' }}>
+              Scoring Rubric (Total: 50 pts)
+            </h3>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.85rem', fontFamily: 'var(--font-mono)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '0.3rem' }}>
+                <span>Fork template</span>
+                <span style={{ color: 'var(--theme-primary)' }}>+5 pts</span>
               </div>
-              <h4 style={{ fontSize: '1.05rem', marginBottom: '0.3rem' }}>3+ Meaningful Commits</h4>
-              <p style={{ fontSize: '0.82rem' }}>Add your bio, tech stack, avatar, and projects across 3+ commits.</p>
-            </div>
-
-            <div
-              style={{
-                padding: '1.2rem',
-                borderRadius: 'var(--radius-md)',
-                background: 'rgba(255, 255, 255, 0.03)',
-                border: '1px solid var(--theme-border)'
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                <span style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>Action 3</span>
-                <span className="chip" style={{ fontWeight: 800 }}>+{PORTFOLIO_POINTS.live} pts</span>
+              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '0.3rem' }}>
+                <span>3+ commits</span>
+                <span style={{ color: 'var(--theme-primary)' }}>+5 pts</span>
               </div>
-              <h4 style={{ fontSize: '1.05rem', marginBottom: '0.3rem' }}>Live Site Deployment</h4>
-              <p style={{ fontSize: '0.82rem' }}>Deploy via GitHub Pages with an active public HTTPS URL.</p>
-            </div>
-
-            <div
-              style={{
-                padding: '1.2rem',
-                borderRadius: 'var(--radius-md)',
-                background: 'rgba(255, 255, 255, 0.03)',
-                border: '1px solid var(--theme-border)'
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                <span style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>Action 4</span>
-                <span className="chip" style={{ fontWeight: 800 }}>+{PORTFOLIO_POINTS.showcase} pts</span>
+              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '0.3rem' }}>
+                <span>Live GitHub Pages site</span>
+                <span style={{ color: 'var(--theme-primary)' }}>+10 pts</span>
               </div>
-              <h4 style={{ fontSize: '1.05rem', marginBottom: '0.3rem' }}>Showcase PR Merged</h4>
-              <p style={{ fontSize: '0.82rem' }}>Submit and get your showcase entry PR merged to the main repo.</p>
-            </div>
-
-            <div
-              style={{
-                padding: '1.2rem',
-                borderRadius: 'var(--radius-md)',
-                background: 'rgba(255, 119, 0, 0.06)',
-                border: '1px solid var(--theme-primary)'
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                <span style={{ fontSize: '0.85rem', color: 'var(--theme-primary)' }}>Review</span>
-                <span className="chip chip-success" style={{ fontWeight: 800 }}>Up to +{PORTFOLIO_POINTS.rubricMax} pts</span>
+              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '0.3rem' }}>
+                <span>Showcase PR merged</span>
+                <span style={{ color: 'var(--theme-primary)' }}>+10 pts</span>
               </div>
-              <h4 style={{ fontSize: '1.05rem', marginBottom: '0.3rem' }}>Mentor Rubric</h4>
-              <p style={{ fontSize: '0.82rem' }}>Evaluated for visual polish, responsiveness, accessibility, and content depth.</p>
+              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '0.3rem' }}>
+                <span>Mentor rubric</span>
+                <span style={{ color: 'var(--theme-primary)' }}>up to +20 pts</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '0.3rem', fontWeight: 700, color: 'var(--color-white)' }}>
+                <span>Maximum Total</span>
+                <span>50 pts</span>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Section: Live Portfolio Board */}
-        <div style={{ marginBottom: '5rem' }}>
-          <div
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: '1rem',
-              marginBottom: '1.8rem'
-            }}
-          >
-            <div>
-              <h2 style={{ fontSize: '1.8rem', marginBottom: '0.3rem' }}>Portfolio Verification Board</h2>
-              <p style={{ fontSize: '0.9rem' }}>
-                Live verification checks for all registered participants from leaderboard.json.
-              </p>
-            </div>
-
-            {/* Search Filter */}
+        {/* Submissions Board */}
+        <div style={{ marginBottom: '4rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.2rem', flexWrap: 'wrap', gap: '0.8rem' }}>
+            <h2 style={{ fontSize: '1.4rem' }}>Submissions Board</h2>
             <div
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.6rem',
-                padding: '0.6rem 1rem',
-                background: 'var(--theme-card-bg)',
+                gap: '0.5rem',
+                padding: '0.35rem 0.75rem',
                 border: '1px solid var(--theme-border)',
-                borderRadius: 'var(--radius-md)',
-                minWidth: '260px'
+                borderRadius: 'var(--radius-sm)',
+                background: 'rgba(0,0,0,0.2)'
               }}
             >
-              <Search size={16} color="var(--color-text-muted)" />
+              <Search size={13} color="var(--color-text-muted)" />
               <input
                 type="text"
-                placeholder="Search participant..."
+                placeholder="filter by user..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 style={{
                   background: 'none',
                   border: 'none',
                   color: 'var(--color-white)',
-                  fontSize: '0.9rem',
+                  fontSize: '0.82rem',
+                  fontFamily: 'var(--font-mono)',
                   outline: 'none',
-                  width: '100%'
+                  width: '180px'
                 }}
               />
             </div>
           </div>
 
-          {loading ? (
-            <div className="glass-panel" style={{ padding: '3rem', textAlign: 'center' }}>
-              <p>Loading portfolio submissions...</p>
-            </div>
-          ) : filteredUsers.length === 0 ? (
-            <div className="glass-panel" style={{ padding: '3rem', textAlign: 'center' }}>
-              <p>No participant matching "{searchTerm}".</p>
+          {users.length === 0 ? (
+            <div
+              style={{
+                padding: '3rem 1.5rem',
+                border: '1px solid var(--theme-border)',
+                borderRadius: 'var(--radius-sm)',
+                background: 'var(--theme-card-bg)',
+                textAlign: 'center',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.88rem'
+              }}
+            >
+              No submissions yet. Portfolio Week begins 24 Oct 2026.
             </div>
           ) : (
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-                gap: '1.2rem'
+                gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+                gap: '1rem'
               }}
             >
-              {filteredUsers.map((user) => {
-                const port = user.portfolio || {};
-                const isForkDone = port.fork > 0;
-                const isCommitsDone = port.commits > 0;
-                const isLiveDone = port.live > 0;
-                const isShowcaseDone = port.showcase > 0;
-                const isEligible = port.eligible;
-
+              {filteredUsers.map((u) => {
+                const port = u.portfolio || {};
                 return (
                   <div
-                    key={user.user}
-                    className="glass-panel"
+                    key={u.user}
                     style={{
-                      padding: '1.4rem',
+                      padding: '1rem',
+                      border: '1px solid var(--theme-border)',
+                      borderRadius: 'var(--radius-sm)',
                       background: 'var(--theme-card-bg)',
-                      borderRadius: 'var(--radius-md)',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '1rem'
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '0.82rem'
                     }}
                   >
-                    {/* User header */}
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                        <img
-                          src={`https://github.com/${user.user}.png?size=80`}
-                          alt={user.name}
-                          style={{ width: '42px', height: '42px', borderRadius: '50%', objectFit: 'cover' }}
-                          onError={(e) => {
-                            e.currentTarget.style.display = 'none';
-                          }}
-                        />
-                        <div>
-                          <h4 style={{ fontSize: '1rem', marginBottom: '0.1rem' }}>{user.name}</h4>
-                          <span style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)' }}>
-                            @{user.user}
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* Prize Eligible Badge */}
-                      {isEligible && (
-                        <span className="chip chip-success" title="Meets portfolio prize threshold">
-                          <ShieldCheck size={13} />
-                          <span>Prize-Eligible</span>
-                        </span>
-                      )}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.6rem' }}>
+                      <span style={{ color: 'var(--color-white)', fontWeight: 600 }}>{u.name}</span>
+                      <span style={{ color: 'var(--color-text-muted)' }}>@{u.user}</span>
                     </div>
-
-                    {/* Check Chips */}
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
-                      <span className={`chip ${isForkDone ? 'chip-success' : 'chip-muted'}`}>
-                        {isForkDone ? <Check size={12} /> : null}
-                        <span>Fork {isForkDone ? '+5' : '0/5'}</span>
+                    <div style={{ display: 'flex', gap: '0.3rem', flexWrap: 'wrap', marginBottom: '0.8rem', fontSize: '0.72rem' }}>
+                      <span style={{ border: '1px solid var(--theme-border)', padding: '0.1rem 0.4rem' }}>
+                        fork: {port.fork ? '5' : '0'}/5
                       </span>
-                      <span className={`chip ${isCommitsDone ? 'chip-success' : 'chip-muted'}`}>
-                        {isCommitsDone ? <Check size={12} /> : null}
-                        <span>3+ Commits {isCommitsDone ? '+5' : '0/5'}</span>
+                      <span style={{ border: '1px solid var(--theme-border)', padding: '0.1rem 0.4rem' }}>
+                        commits: {port.commits ? '5' : '0'}/5
                       </span>
-                      <span className={`chip ${isLiveDone ? 'chip-success' : 'chip-muted'}`}>
-                        {isLiveDone ? <Check size={12} /> : null}
-                        <span>Live Site {isLiveDone ? '+10' : '0/10'}</span>
+                      <span style={{ border: '1px solid var(--theme-border)', padding: '0.1rem 0.4rem' }}>
+                        live: {port.live ? '10' : '0'}/10
                       </span>
-                      <span className={`chip ${isShowcaseDone ? 'chip-success' : 'chip-muted'}`}>
-                        {isShowcaseDone ? <Check size={12} /> : null}
-                        <span>Showcase PR {isShowcaseDone ? '+10' : '0/10'}</span>
+                      <span style={{ border: '1px solid var(--theme-border)', padding: '0.1rem 0.4rem' }}>
+                        showcase: {port.showcase ? '10' : '0'}/10
                       </span>
                     </div>
-
-                    {/* Score summary row */}
-                    <div
-                      style={{
-                        marginTop: 'auto',
-                        paddingTop: '0.8rem',
-                        borderTop: '1px solid rgba(255, 255, 255, 0.07)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        fontSize: '0.85rem'
-                      }}
-                    >
-                      <div>
-                        <span style={{ color: 'var(--color-text-muted)' }}>Mentor Rubric: </span>
-                        <strong style={{ color: port.rubric !== null ? 'var(--theme-primary)' : 'var(--color-text-subtle)' }}>
-                          {port.rubric !== null ? `${port.rubric}/20` : 'Pending'}
-                        </strong>
-                      </div>
-
-                      <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.3rem' }}>
-                        <span style={{ color: 'var(--color-text-muted)' }}>Total:</span>
-                        <span
-                          style={{
-                            fontFamily: 'var(--font-display)',
-                            fontSize: '1.2rem',
-                            fontWeight: 800,
-                            color: 'var(--color-white)'
-                          }}
-                        >
-                          {port.total || 0}
-                          <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', fontWeight: 500 }}>
-                            /50
-                          </span>
-                        </span>
-                      </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '0.5rem' }}>
+                      <span style={{ color: 'var(--color-text-muted)' }}>
+                        Rubric: {port.rubric !== null ? `${port.rubric}/20` : 'pending'}
+                      </span>
+                      <span style={{ color: 'var(--theme-primary)', fontWeight: 700 }}>
+                        {port.total || 0}/50 pts
+                      </span>
                     </div>
                   </div>
                 );
@@ -371,124 +243,86 @@ export default function PortfolioPage() {
           )}
         </div>
 
-        {/* Section: Hall of Portfolios Gallery */}
+        {/* Hall of Portfolios */}
         <div>
-          <div
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: '1rem',
-              marginBottom: '1.8rem'
-            }}
-          >
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.3rem' }}>
-                <Sparkles size={20} color="var(--theme-primary)" />
-                <h2 style={{ fontSize: '1.8rem' }}>Hall of Portfolios</h2>
-              </div>
-              <p style={{ fontSize: '0.9rem' }}>
-                Explore live published portfolios created by students during Season 1.
-              </p>
-            </div>
-
-            {/* Filter */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.2rem', flexWrap: 'wrap', gap: '0.8rem' }}>
+            <h2 style={{ fontSize: '1.4rem' }}>Hall of Portfolios</h2>
             <div
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.6rem',
-                padding: '0.6rem 1rem',
-                background: 'var(--theme-card-bg)',
+                gap: '0.5rem',
+                padding: '0.35rem 0.75rem',
                 border: '1px solid var(--theme-border)',
-                borderRadius: 'var(--radius-md)',
-                minWidth: '240px'
+                borderRadius: 'var(--radius-sm)',
+                background: 'rgba(0,0,0,0.2)'
               }}
             >
-              <Search size={16} color="var(--color-text-muted)" />
+              <Search size={13} color="var(--color-text-muted)" />
               <input
                 type="text"
-                placeholder="Filter showcases..."
+                placeholder="filter hall..."
                 value={hallFilter}
                 onChange={(e) => setHallFilter(e.target.value)}
                 style={{
                   background: 'none',
                   border: 'none',
                   color: 'var(--color-white)',
-                  fontSize: '0.9rem',
+                  fontSize: '0.82rem',
+                  fontFamily: 'var(--font-mono)',
                   outline: 'none',
-                  width: '100%'
+                  width: '180px'
                 }}
               />
             </div>
           </div>
 
-          {filteredHall.length === 0 ? (
-            <div className="glass-panel" style={{ padding: '3.5rem', textAlign: 'center' }}>
-              <p>No verified showcase portfolios matching current criteria.</p>
+          {hall.length === 0 ? (
+            <div
+              style={{
+                padding: '3rem 1.5rem',
+                border: '1px solid var(--theme-border)',
+                borderRadius: 'var(--radius-sm)',
+                background: 'var(--theme-card-bg)',
+                textAlign: 'center',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.88rem'
+              }}
+            >
+              No portfolios published in the hall yet.
             </div>
           ) : (
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-                gap: '1.5rem'
+                gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+                gap: '1rem'
               }}
             >
               {filteredHall.map((item, idx) => (
                 <div
-                  key={item.github || idx}
-                  className="glass-panel"
+                  key={idx}
                   style={{
-                    padding: '1.5rem',
+                    padding: '1.2rem',
+                    border: '1px solid var(--theme-border)',
+                    borderRadius: 'var(--radius-sm)',
                     background: 'var(--theme-card-bg)',
-                    borderRadius: 'var(--radius-md)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '1rem'
+                    fontFamily: 'var(--font-mono)'
                   }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
-                    <img
-                      src={`https://github.com/${item.github}.png?size=80`}
-                      alt={item.name}
-                      style={{
-                        width: '46px',
-                        height: '46px',
-                        borderRadius: '50%',
-                        border: '2px solid var(--theme-border)'
-                      }}
-                      onError={(e) => {
-                        e.currentTarget.style.display = 'none';
-                      }}
-                    />
-                    <div>
-                      <h4 style={{ fontSize: '1.05rem', marginBottom: '0.15rem' }}>{item.name}</h4>
-                      <div style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)' }}>
-                        {item.department} {item.year ? `• Year ${item.year}` : ''}
-                      </div>
-                    </div>
+                  <div style={{ color: 'var(--color-white)', fontWeight: 600, fontSize: '0.95rem' }}>{item.name}</div>
+                  <div style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)', marginBottom: '0.8rem' }}>
+                    {item.department} {item.year ? `• Year ${item.year}` : ''}
                   </div>
-
-                  {/* Visit Site Button - Strictly validated to start with https:// */}
                   <a
                     href={item.site}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn btn-secondary btn-sm"
-                    style={{
-                      marginTop: 'auto',
-                      width: '100%',
-                      justifyContent: 'space-between',
-                      borderColor: 'var(--theme-border)'
-                    }}
+                    style={{ width: '100%', justifyContent: 'space-between', fontSize: '0.78rem' }}
                   >
-                    <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                      <Globe size={14} color="var(--theme-primary)" />
-                      <span>Visit site</span>
-                    </span>
-                    <ExternalLink size={14} />
+                    <span>Visit site</span>
+                    <ExternalLink size={12} />
                   </a>
                 </div>
               ))}

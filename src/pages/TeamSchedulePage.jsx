@@ -1,22 +1,16 @@
 import React, { useState } from 'react';
 import { useTeamData } from '../hooks/useExtraData';
-import { REG_FORM_URL } from '../constants/config';
+import { REG_FORM_URL, VENUE, KICKOFF_TIME, DATES, CONTACT } from '../config';
 import {
   Calendar,
-  Users,
-  HelpCircle,
   ChevronDown,
   ChevronUp,
   ExternalLink,
-  Github,
-  Clock,
-  Sparkles,
-  CheckCircle2,
-  Terminal
+  Github
 } from 'lucide-react';
 
 export default function TeamSchedulePage() {
-  const { data: teamData, loading: teamLoading } = useTeamData();
+  const { data: teamData } = useTeamData();
   const [openFaq, setOpenFaq] = useState(null);
 
   const toggleFaq = (idx) => {
@@ -25,339 +19,226 @@ export default function TeamSchedulePage() {
 
   const scheduleItems = [
     {
-      period: 'Oct 24 – Oct 31, 2026',
-      badge: 'Month 1',
-      title: 'Portfolio Week & Kickoff',
-      desc: 'Official kickoff. Students fork the responsive portfolio template, customize bio and skills, deploy to GitHub Pages, and submit showcase PRs.'
+      date: 'Sat 24 Oct 2026',
+      title: 'Kickoff Workshop',
+      desc: `Venue: ${VENUE || 'To be announced'} | Time: ${KICKOFF_TIME || 'To be announced'}`
     },
     {
-      period: 'Nov 1 – Nov 7, 2026',
-      badge: 'Bonus Week',
-      title: 'November Sprint Kickoff & First-Week Bonus',
-      desc: 'Repositories unlock for Campus & Community utilities. Earliest-opened scored PRs on each repository earn +5 first-week bonus points.'
+      date: '24 to 31 Oct 2026',
+      title: 'Portfolio Week',
+      desc: 'Fork tkmfoss/portfolio-template, edit profile.json, 3+ commits, enable GitHub Pages, submit showcase PR. Deadline: 31 Oct, 11:59 PM IST.'
     },
     {
-      period: 'Nov 8 – Nov 30, 2026',
-      badge: 'Month 2',
-      title: 'Campus Projects Contribution Sprint',
-      desc: 'Collaborate with mentors across web portals, bus trackers, and lab inventory tools. Up to 5 scored PRs per repo.'
+      date: '1 to 3 Nov 2026',
+      title: 'Judging & Mentor Review',
+      desc: 'Mentor rubric evaluation up to 20 points for live portfolios.'
     },
     {
-      period: 'Dec 1 – Dec 7, 2026',
-      badge: 'Bonus Week',
-      title: 'December Sprint Kickoff & First-Week Bonus',
-      desc: 'Deep tech, AI/ML, and IoT repos unlock. Earliest-opened PRs during the first week earn +5 first-week bonus points.'
+      date: '4 Nov 2026',
+      title: 'October Winners',
+      desc: 'Announcement of Portfolio Week sprint champions.'
     },
     {
-      period: 'Dec 8 – Dec 24, 2026',
-      badge: 'Month 3',
-      title: 'Deep Tech Sprint & Mentor Reviews',
-      desc: 'Final hack sprint and code reviews. Finalize contributions to meet the 120-point overall prize eligibility threshold.'
+      date: '1 to 30 Nov 2026',
+      title: 'Build Month',
+      desc: 'Open-source contribution sprint. First-week bonus (+5 pts) for earliest-opened scored PR per repo from 1 to 7 Nov.'
     },
     {
-      period: 'Dec 27, 2026',
-      badge: 'Grand Finale',
-      title: 'Season 1 Grand Finale & Awards',
-      desc: 'Closing ceremony at TKMCE. Presentation of winners, distribution of physical certificates, swags, and prizes.'
+      date: '3 Dec 2026',
+      title: 'November Winners',
+      desc: 'Announcement of Build Month winners.'
+    },
+    {
+      date: '1 to 24 Dec 2026',
+      title: 'Christmas Eve Month',
+      desc: 'Final contribution sprint. First-week bonus (+5 pts) for earliest-opened scored PR per repo from 1 to 7 Dec.'
+    },
+    {
+      date: '20 Dec 2026 (proposed)',
+      title: 'Last Day to Open PRs (proposed)',
+      desc: 'Cutoff for opening new pull requests for Season 1.'
+    },
+    {
+      date: '24 Dec 2026 (proposed)',
+      title: 'Final Merge Deadline (proposed)',
+      desc: 'All pending PRs must be merged by maintainers to be credited.'
+    },
+    {
+      date: '27 Dec 2026 (proposed)',
+      title: 'Results and Demo Day (proposed)',
+      desc: 'Closing presentation and final leaderboard prize announcements.'
     }
   ];
 
   const faqs = [
     {
-      q: 'Who is eligible to participate in FOSSSoC-S1?',
-      a: 'Any student enrolled at TKM College of Engineering across any department and any semester (1st through 4th year) is eligible to participate.'
+      q: 'Who can participate in FOSSSoC-S1?',
+      a: 'Students of T.K.M. College of Engineering across all departments, as well as students and contributors outside TKMCE. Anyone can participate.'
     },
     {
-      q: 'I have never made an open-source commit before. Can I participate?',
-      a: 'Absolutely! Month 1 (Portfolio Week) is specifically designed as a guided onboarding experience to teach you forking, cloning, committing, and creating pull requests with mentor guidance.'
+      q: 'How does Portfolio Week scoring work?',
+      a: 'Total 50 points: fork template (5), 3+ commits (5), live GitHub Pages site (10), showcase PR merged (10), mentor rubric (up to 20).'
     },
     {
-      q: 'What does "capped, 0 pts" mean on a pull request?',
-      a: 'To encourage learning across multiple tools and repositories, only the first 5 scored pull requests per repository count towards points. Subsequent PRs are still merged and praised, but labeled as capped.'
+      q: 'How do project month contributions work?',
+      a: 'Issues are tagged Easy (10 pts), Medium (25 pts), and Hard (50 pts). First-week bonus gives +5 on your earliest scored PR per repo in 1-7 Nov and 1-7 Dec. Quality bonus adds +5 on maintainer label. Only the first 5 scored PRs per repo count. Points credit strictly after merge.'
     },
     {
-      q: 'What if I open a PR in late November, but it gets merged in December?',
-      a: 'Points are credited based on the month the pull request was opened, as long as it gets merged before the final season deadline.'
+      q: 'What does "Not prize-eligible" mean?',
+      a: '"Not prize-eligible" is not "disqualified". It only means you have not met the minimum thresholds required to claim seasonal physical prizes. All contributions remain recorded and valid.'
     },
     {
-      q: 'Does "Not prize-eligible" mean I am disqualified?',
-      a: 'No! Prize-eligibility only reflects whether you currently meet the criteria to win top physical prizes. Every participant who contributes receives an official verified certificate.'
-    },
-    {
-      q: 'Are projects done in teams or individually?',
-      a: 'All contributions, pull requests, and portfolio submissions are made individually from your personal GitHub account.'
+      q: 'What happens if no one qualifies for a prize category?',
+      a: 'If nobody qualifies according to the threshold rules, no winner is awarded for that category.'
     }
   ];
 
   const leads = teamData?.leads || [];
   const mentors = teamData?.mentors || [];
+  const hasTeamEntries = leads.length > 0 || mentors.length > 0;
 
   return (
     <div className="section-spacing" style={{ position: 'relative', zIndex: 1 }}>
       <div className="container">
-        {/* Section 1: Season Schedule */}
-        <div style={{ marginBottom: '5rem' }}>
-          <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
-            <div className="chip" style={{ marginBottom: '1rem', padding: '0.45rem 1.1rem' }}>
-              <Calendar size={15} />
-              <span>Event Timeline</span>
-            </div>
-            <h1 style={{ marginBottom: '1rem' }}>Season Schedule</h1>
-            <p style={{ maxWidth: '680px', margin: '0 auto', fontSize: '1.05rem' }}>
-              Key dates and milestones from kickoff through Portfolio Week to the Grand Finale.
-            </p>
+        {/* Schedule */}
+        <div style={{ marginBottom: '4.5rem' }}>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--theme-primary)', marginBottom: '0.4rem' }}>
+            # timeline
           </div>
+          <h1 style={{ fontSize: '2.2rem', marginBottom: '0.5rem' }}>Schedule</h1>
+          <p style={{ maxWidth: '640px', fontSize: '0.95rem', marginBottom: '2rem' }}>
+            Official dates for FOSSSoC Season 1. Proposed dates are subject to maintainer consensus.
+          </p>
 
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '1.2rem',
-              maxWidth: '850px',
-              margin: '0 auto'
-            }}
-          >
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
             {scheduleItems.map((item, idx) => (
               <div
                 key={idx}
-                className="glass-panel"
                 style={{
-                  padding: '1.6rem 1.8rem',
+                  padding: '1.2rem',
+                  border: '1px solid var(--theme-border)',
+                  borderRadius: 'var(--radius-sm)',
                   background: 'var(--theme-card-bg)',
-                  borderRadius: 'var(--radius-md)',
                   display: 'flex',
-                  alignItems: 'flex-start',
+                  alignItems: 'baseline',
                   gap: '1.5rem',
                   flexWrap: 'wrap'
                 }}
               >
-                <div style={{ minWidth: '150px' }}>
-                  <span className="chip" style={{ fontSize: '0.75rem', marginBottom: '0.4rem' }}>
-                    {item.badge}
-                  </span>
-                  <div style={{ fontSize: '0.85rem', color: 'var(--theme-primary)', fontWeight: 600 }}>
-                    {item.period}
-                  </div>
+                <div
+                  style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.85rem',
+                    color: 'var(--theme-primary)',
+                    minWidth: '200px',
+                    fontWeight: 700
+                  }}
+                >
+                  {item.date}
                 </div>
-
                 <div style={{ flex: 1, minWidth: '240px' }}>
-                  <h3 style={{ fontSize: '1.2rem', marginBottom: '0.4rem' }}>{item.title}</h3>
-                  <p style={{ fontSize: '0.9rem', lineHeight: 1.6 }}>{item.desc}</p>
+                  <div style={{ fontSize: '1.05rem', fontWeight: 600, color: 'var(--color-white)', marginBottom: '0.2rem' }}>
+                    {item.title}
+                  </div>
+                  <div style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>
+                    {item.desc}
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Section 2: Team & Mentors */}
-        <div style={{ marginBottom: '5.5rem' }}>
-          <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
-            <div className="chip" style={{ marginBottom: '1rem', padding: '0.45rem 1.1rem' }}>
-              <Users size={15} />
-              <span>Organizing Committee & Mentors</span>
-            </div>
-            <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem' }}>Meet the Team</h2>
-            <p style={{ maxWidth: '650px', margin: '0 auto', fontSize: '1rem' }}>
-              Faculty advisors, community coordinators, and technical mentors supporting your open-source voyage.
-            </p>
-          </div>
-
-          {/* Leads */}
-          <h3 style={{ fontSize: '1.35rem', marginBottom: '1.5rem', color: 'var(--color-white)', textAlign: 'center' }}>
-            Organizing Leads
-          </h3>
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-              gap: '1.5rem',
-              marginBottom: '3rem'
-            }}
-          >
-            {leads.map((lead) => (
-              <div
-                key={lead.name}
-                className="glass-panel"
-                style={{
-                  padding: '1.8rem',
-                  background: 'var(--theme-card-bg)',
-                  borderRadius: 'var(--radius-md)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  textAlign: 'center',
-                  gap: '0.8rem'
-                }}
-              >
-                <img
-                  src={`https://github.com/${lead.github}.png?size=100`}
-                  alt={lead.name}
+        {/* Team Section (Only displayed when teamData has entries) */}
+        {hasTeamEntries && (
+          <div style={{ marginBottom: '4.5rem' }}>
+            <h2 style={{ fontSize: '1.8rem', marginBottom: '1.5rem' }}>Team</h2>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+                gap: '1rem'
+              }}
+            >
+              {[...leads, ...mentors].map((member, idx) => (
+                <div
+                  key={idx}
                   style={{
-                    width: '64px',
-                    height: '64px',
-                    borderRadius: '50%',
-                    border: '2px solid var(--theme-border)'
-                  }}
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                  }}
-                />
-                <div>
-                  <h4 style={{ fontSize: '1.1rem', marginBottom: '0.2rem' }}>{lead.name}</h4>
-                  <div style={{ fontSize: '0.85rem', color: 'var(--theme-primary)', fontWeight: 600 }}>
-                    {lead.role}
-                  </div>
-                  <div style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)', marginTop: '0.2rem' }}>
-                    {lead.department}
-                  </div>
-                </div>
-
-                <a
-                  href={`https://github.com/${lead.github}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '0.35rem',
-                    fontSize: '0.82rem',
-                    color: 'var(--color-text-muted)',
-                    marginTop: 'auto'
+                    padding: '1.2rem',
+                    border: '1px solid var(--theme-border)',
+                    borderRadius: 'var(--radius-sm)',
+                    background: 'var(--theme-card-bg)'
                   }}
                 >
-                  <Github size={14} />
-                  <span>@{lead.github}</span>
-                </a>
-              </div>
-            ))}
-          </div>
-
-          {/* Mentors */}
-          <h3 style={{ fontSize: '1.35rem', marginBottom: '1.5rem', color: 'var(--color-white)', textAlign: 'center' }}>
-            Technical Mentors
-          </h3>
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-              gap: '1.5rem'
-            }}
-          >
-            {mentors.map((mentor) => (
-              <div
-                key={mentor.name}
-                className="glass-panel"
-                style={{
-                  padding: '1.8rem',
-                  background: 'var(--theme-card-bg)',
-                  borderRadius: 'var(--radius-md)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  textAlign: 'center',
-                  gap: '0.8rem'
-                }}
-              >
-                <img
-                  src={`https://github.com/${mentor.github}.png?size=100`}
-                  alt={mentor.name}
-                  style={{
-                    width: '60px',
-                    height: '60px',
-                    borderRadius: '50%',
-                    border: '2px solid var(--theme-border)'
-                  }}
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                  }}
-                />
-                <div>
-                  <h4 style={{ fontSize: '1.05rem', marginBottom: '0.2rem' }}>{mentor.name}</h4>
-                  <div style={{ fontSize: '0.82rem', color: 'var(--theme-secondary)', fontWeight: 600 }}>
-                    {mentor.role}
-                  </div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', marginTop: '0.2rem' }}>
-                    {mentor.department}
-                  </div>
+                  <div style={{ fontWeight: 700, color: 'var(--color-white)' }}>{member.name}</div>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--theme-primary)' }}>{member.role}</div>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>{member.department}</div>
+                  {member.github && (
+                    <a
+                      href={`https://github.com/${member.github}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.3rem',
+                        fontSize: '0.78rem',
+                        color: 'var(--color-text-muted)',
+                        marginTop: '0.5rem',
+                        fontFamily: 'var(--font-mono)'
+                      }}
+                    >
+                      <Github size={13} />
+                      <span>@{member.github}</span>
+                    </a>
+                  )}
                 </div>
-
-                <a
-                  href={`https://github.com/${mentor.github}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '0.35rem',
-                    fontSize: '0.82rem',
-                    color: 'var(--color-text-muted)',
-                    marginTop: 'auto'
-                  }}
-                >
-                  <Github size={14} />
-                  <span>@{mentor.github}</span>
-                </a>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Section 3: FAQ Accordion */}
-        <div style={{ marginBottom: '5rem', maxWidth: '850px', margin: '0 auto 5rem auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-            <div className="chip" style={{ marginBottom: '1rem', padding: '0.45rem 1.1rem' }}>
-              <HelpCircle size={15} />
-              <span>Got Questions?</span>
+              ))}
             </div>
-            <h2 style={{ fontSize: '2.2rem', marginBottom: '0.8rem' }}>Frequently Asked Questions</h2>
-            <p style={{ fontSize: '1rem' }}>
-              Find quick answers to common questions about eligibility, scoring, and workflow.
-            </p>
           </div>
+        )}
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+        {/* FAQ */}
+        <div style={{ marginBottom: '4.5rem', maxWidth: '800px' }}>
+          <h2 style={{ fontSize: '1.8rem', marginBottom: '1.5rem' }}>Frequently Asked Questions</h2>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
             {faqs.map((faq, idx) => {
               const isOpen = openFaq === idx;
               return (
                 <div
                   key={idx}
-                  className="glass-panel"
                   style={{
+                    border: '1px solid var(--theme-border)',
+                    borderRadius: 'var(--radius-sm)',
                     background: 'var(--theme-card-bg)',
-                    borderRadius: 'var(--radius-md)',
-                    overflow: 'hidden',
-                    border: isOpen ? '1px solid var(--theme-primary)' : '1px solid var(--theme-border)'
+                    overflow: 'hidden'
                   }}
                 >
                   <button
                     onClick={() => toggleFaq(idx)}
-                    aria-expanded={isOpen}
                     style={{
                       width: '100%',
-                      padding: '1.2rem 1.5rem',
+                      padding: '1rem 1.2rem',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'space-between',
-                      gap: '1rem',
                       textAlign: 'left',
                       color: 'var(--color-white)',
-                      fontSize: '1rem',
+                      fontSize: '0.92rem',
                       fontWeight: 600,
                       cursor: 'pointer'
                     }}
                   >
                     <span>{faq.q}</span>
-                    {isOpen ? <ChevronUp size={18} color="var(--theme-primary)" /> : <ChevronDown size={18} />}
+                    {isOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                   </button>
-
                   {isOpen && (
                     <div
                       style={{
-                        padding: '0 1.5rem 1.4rem 1.5rem',
-                        fontSize: '0.92rem',
-                        lineHeight: 1.6,
+                        padding: '0 1.2rem 1rem 1.2rem',
+                        fontSize: '0.85rem',
                         color: 'var(--color-text-muted)',
-                        borderTop: '1px solid rgba(255, 255, 255, 0.05)'
+                        lineHeight: 1.6
                       }}
                     >
                       {faq.a}
@@ -369,34 +250,43 @@ export default function TeamSchedulePage() {
           </div>
         </div>
 
-        {/* Section 4: Final Register Callout */}
+        {/* Register Section */}
         <div
-          className="glass-panel"
           style={{
-            padding: '3.5rem 2rem',
-            textAlign: 'center',
+            padding: '2rem',
+            border: '1px solid var(--theme-border)',
+            borderRadius: 'var(--radius-sm)',
             background: 'var(--theme-card-bg)',
-            borderRadius: 'var(--radius-lg)',
-            border: '1px solid var(--theme-border-hover)'
+            maxWidth: '650px'
           }}
         >
-          <h2 style={{ fontSize: '2.2rem', marginBottom: '1rem' }}>
-            Ready to Build Your Open Source Legacy?
-          </h2>
-          <p style={{ maxWidth: '620px', margin: '0 auto 2rem auto', fontSize: '1rem' }}>
-            Registrations are completely free. Sign up to get matched with repositories, attend kickoff sessions,
-            and participate in Portfolio Week.
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--theme-primary)', marginBottom: '0.3rem' }}>
+            # registration
+          </div>
+          <h2 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>Join FOSSSoC-S1</h2>
+          <p style={{ fontSize: '0.88rem', color: 'var(--color-text-muted)', marginBottom: '1.2rem', lineHeight: 1.6 }}>
+            Open to students of TKM College of Engineering and external participants worldwide. Free registration.
           </p>
-          <a
-            href={REG_FORM_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-primary"
-            style={{ padding: '0.9rem 2.2rem', fontSize: '1.05rem' }}
-          >
-            <span>Register for FOSSSoC-S1</span>
-            <ExternalLink size={16} />
-          </a>
+          {REG_FORM_URL ? (
+            <a
+              href={REG_FORM_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary"
+              style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem' }}
+            >
+              <span>Register</span>
+              <ExternalLink size={14} />
+            </a>
+          ) : (
+            <button
+              disabled
+              className="btn btn-secondary"
+              style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', opacity: 0.6, cursor: 'not-allowed' }}
+            >
+              Registration link coming soon
+            </button>
+          )}
         </div>
       </div>
     </div>

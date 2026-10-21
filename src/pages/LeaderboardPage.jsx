@@ -1,27 +1,19 @@
 import React, { useState } from 'react';
 import { useLeaderboardData } from '../hooks/useLeaderboardData';
-import { TIER_CONFIG } from '../constants/config';
+import { TIER_CONFIG } from '../config';
 import {
-  Trophy,
   Search,
   RefreshCw,
   ExternalLink,
   ShieldCheck,
   Clock,
-  Sparkles,
   X,
-  GitPullRequest,
-  CheckCircle2,
-  AlertTriangle,
-  Flame,
-  Award,
-  ChevronRight,
-  UserCheck
+  AlertTriangle
 } from 'lucide-react';
 
 export default function LeaderboardPage() {
-  const { data, loading, error, lastRefreshed, refetch, isDemoMode } = useLeaderboardData();
-  const [activeTab, setActiveTab] = useState('overall'); // 'overall' | 'october' | 'november' | 'december'
+  const { data, loading, error, refetch, isDemoMode } = useLeaderboardData();
+  const [activeTab, setActiveTab] = useState('overall');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedUser, setSelectedUser] = useState(null);
 
@@ -32,7 +24,7 @@ export default function LeaderboardPage() {
     overall: { points: 120, months: 2, repos: 2 }
   };
 
-  // Compute row data depending on the active tab
+  // Compute row data
   const rows = users.map((u) => {
     let tabPoints = 0;
     let tabPrs = 0;
@@ -66,15 +58,13 @@ export default function LeaderboardPage() {
     };
   });
 
-  // Sort by tabPoints descending
   rows.sort((a, b) => b.tabPoints - a.tabPoints);
 
-  // Filter by search query
   const filteredRows = rows.filter((r) => {
     const q = searchQuery.toLowerCase();
     return (
-      r.name.toLowerCase().includes(q) ||
-      r.user.toLowerCase().includes(q) ||
+      (r.name && r.name.toLowerCase().includes(q)) ||
+      (r.user && r.user.toLowerCase().includes(q)) ||
       (r.department && r.department.toLowerCase().includes(q))
     );
   });
@@ -83,36 +73,24 @@ export default function LeaderboardPage() {
     <div className="section-spacing" style={{ position: 'relative', zIndex: 1 }}>
       <div className="container">
         {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-          <div className="chip" style={{ marginBottom: '1rem', padding: '0.45rem 1.1rem' }}>
-            <Trophy size={15} />
-            <span>Season 1 Standings</span>
+        <div style={{ marginBottom: '2.5rem' }}>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--theme-primary)', marginBottom: '0.4rem' }}>
+            # season_standings
           </div>
-          <h1 style={{ marginBottom: '1rem' }}>Live Leaderboard</h1>
-          <p style={{ maxWidth: '680px', margin: '0 auto 1.5rem auto', fontSize: '1.05rem' }}>
-            Live performance tracking across Portfolio Week and Project Contribution Sprints.
-            Click any row to open the full contributor breakdown and pull request log.
+          <h1 style={{ fontSize: '2.2rem', marginBottom: '0.5rem' }}>Leaderboard</h1>
+          <p style={{ maxWidth: '640px', fontSize: '0.95rem' }}>
+            Standings computed from merged pull requests and portfolio evaluations. Click a row to inspect breakdown.
           </p>
-
-          {isDemoMode && (
-            <div
-              className="chip chip-warning"
-              style={{ padding: '0.4rem 1rem', fontSize: '0.8rem' }}
-            >
-              <Sparkles size={14} />
-              <span>Viewing Generated Sample Data (?demo=1)</span>
-            </div>
-          )}
         </div>
 
-        {/* Tab Controls, Search, and Auto-Refresh status bar */}
+        {/* Tab Controls, Search & Refresh */}
         <div
-          className="glass-panel"
           style={{
-            padding: '1.2rem',
+            padding: '1rem',
             background: 'var(--theme-card-bg)',
-            borderRadius: 'var(--radius-lg)',
-            marginBottom: '1.8rem',
+            border: '1px solid var(--theme-border)',
+            borderRadius: 'var(--radius-sm)',
+            marginBottom: '1.5rem',
             display: 'flex',
             flexWrap: 'wrap',
             alignItems: 'center',
@@ -134,15 +112,15 @@ export default function LeaderboardPage() {
                   key={t.id}
                   onClick={() => setActiveTab(t.id)}
                   style={{
-                    padding: '0.55rem 1.1rem',
-                    borderRadius: 'var(--radius-md)',
-                    fontSize: '0.88rem',
+                    padding: '0.45rem 0.9rem',
+                    borderRadius: 'var(--radius-sm)',
+                    fontSize: '0.85rem',
+                    fontFamily: 'var(--font-mono)',
                     fontWeight: isActive ? 700 : 500,
-                    background: isActive ? 'var(--theme-primary)' : 'rgba(255, 255, 255, 0.05)',
-                    color: isActive ? '#0b0813' : 'var(--color-text-muted)',
-                    border: isActive ? '1px solid var(--theme-primary)' : '1px solid var(--theme-border)',
-                    cursor: 'pointer',
-                    transition: 'all var(--transition-fast)'
+                    background: isActive ? 'var(--theme-primary)' : 'transparent',
+                    color: isActive ? '#000000' : 'var(--color-text-muted)',
+                    border: '1px solid ' + (isActive ? 'var(--theme-primary)' : 'var(--theme-border)'),
+                    cursor: 'pointer'
                   }}
                 >
                   {t.label}
@@ -151,31 +129,32 @@ export default function LeaderboardPage() {
             })}
           </div>
 
-          {/* Right controls: Search & Refresh */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', flexWrap: 'wrap' }}>
+          {/* Right: Search & Refresh */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
             <div
               style={{
                 display: 'flex',
                 alignItems: 'center',
                 gap: '0.5rem',
-                padding: '0.5rem 0.9rem',
-                background: 'rgba(255, 255, 255, 0.04)',
+                padding: '0.4rem 0.8rem',
+                background: 'rgba(0,0,0,0.2)',
                 border: '1px solid var(--theme-border)',
-                borderRadius: 'var(--radius-md)',
+                borderRadius: 'var(--radius-sm)',
                 minWidth: '220px'
               }}
             >
-              <Search size={15} color="var(--color-text-muted)" />
+              <Search size={14} color="var(--color-text-muted)" />
               <input
                 type="text"
-                placeholder="Search participant..."
+                placeholder="filter by user..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 style={{
                   background: 'none',
                   border: 'none',
                   color: 'var(--color-white)',
-                  fontSize: '0.88rem',
+                  fontSize: '0.85rem',
+                  fontFamily: 'var(--font-mono)',
                   outline: 'none',
                   width: '100%'
                 }}
@@ -184,84 +163,93 @@ export default function LeaderboardPage() {
 
             <button
               onClick={() => refetch()}
-              title="Refresh Leaderboard (auto-refreshes every 5 mins)"
+              title="Refresh Leaderboard"
               style={{
                 display: 'flex',
                 alignItems: 'center',
                 gap: '0.4rem',
-                padding: '0.5rem 0.8rem',
-                background: 'rgba(255, 255, 255, 0.05)',
+                padding: '0.45rem 0.75rem',
                 border: '1px solid var(--theme-border)',
-                borderRadius: 'var(--radius-md)',
+                borderRadius: 'var(--radius-sm)',
                 color: 'var(--color-text-muted)',
-                fontSize: '0.82rem',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.8rem',
                 cursor: 'pointer'
               }}
             >
-              <RefreshCw size={14} className={loading ? 'spin' : ''} />
-              <span>Refresh</span>
+              <RefreshCw size={13} className={loading ? 'spin' : ''} />
+              <span>refresh</span>
             </button>
           </div>
         </div>
 
-        {/* Last updated timestamp indicator */}
+        {/* Timestamp */}
         <div
           style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            fontSize: '0.78rem',
+            fontSize: '0.75rem',
+            fontFamily: 'var(--font-mono)',
             color: 'var(--color-text-subtle)',
-            marginBottom: '1rem',
-            padding: '0 0.5rem'
+            marginBottom: '1rem'
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-            <Clock size={13} />
+            <Clock size={12} />
             <span>
-              Last updated:{' '}
-              {data?.updated ? new Date(data.updated).toLocaleTimeString() : 'Just now'} (Auto-refreshes every 5 mins)
+              Updated: {data?.updated ? new Date(data.updated).toLocaleTimeString() : '—'} (auto-refreshes every 5m)
             </span>
           </div>
-          <div>Showing {filteredRows.length} participants</div>
+          <div>Rows: {filteredRows.length}</div>
         </div>
 
-        {/* Error State */}
+        {/* Error */}
         {error && (
           <div
-            className="glass-panel"
             style={{
-              padding: '2rem',
-              textAlign: 'center',
+              padding: '1.5rem',
               border: '1px solid var(--color-danger)',
-              marginBottom: '2rem'
+              marginBottom: '1.5rem',
+              background: 'var(--color-danger-bg)',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.85rem'
             }}
           >
-            <AlertTriangle size={32} color="var(--color-danger)" style={{ margin: '0 auto 0.8rem auto' }} />
-            <h3 style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>Unable to load leaderboard</h3>
-            <p style={{ fontSize: '0.9rem', marginBottom: '1.2rem' }}>{error}</p>
-            <button onClick={() => refetch()} className="btn btn-primary btn-sm">
-              Try Again
-            </button>
+            <div style={{ color: 'var(--color-danger)', fontWeight: 700, marginBottom: '0.3rem' }}>
+              Error loading leaderboard
+            </div>
+            <div>{error}</div>
           </div>
         )}
 
-        {/* Leaderboard Table */}
+        {/* Table / Honest Empty State */}
         <div
-          className="glass-panel"
           style={{
+            border: '1px solid var(--theme-border)',
+            borderRadius: 'var(--radius-sm)',
             overflowX: 'auto',
-            background: 'var(--theme-card-bg)',
-            borderRadius: 'var(--radius-lg)'
+            background: 'var(--theme-card-bg)'
           }}
         >
           {loading && !data ? (
-            <div style={{ padding: '4rem', textAlign: 'center' }}>
-              <p>Loading leaderboard standings...</p>
+            <div style={{ padding: '3.5rem', textAlign: 'center', fontFamily: 'var(--font-mono)', fontSize: '0.9rem' }}>
+              $ git shortlog --summary --numbered
+              <div style={{ marginTop: '0.5rem', color: 'var(--color-text-muted)' }}>fetching data...</div>
+            </div>
+          ) : users.length === 0 ? (
+            /* Honest empty state */
+            <div style={{ padding: '4rem 2rem', textAlign: 'center', fontFamily: 'var(--font-mono)' }}>
+              <div style={{ fontSize: '1rem', color: 'var(--color-white)', marginBottom: '0.5rem' }}>
+                No contributors yet. Registration is open until 24 Oct.
+              </div>
+              <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', maxWidth: '480px', margin: '0 auto' }}>
+                Pull request submissions and scoring begin with Portfolio Week on 24 October 2026.
+              </p>
             </div>
           ) : filteredRows.length === 0 ? (
-            <div style={{ padding: '4rem', textAlign: 'center' }}>
-              <p>No participant matches "{searchQuery}".</p>
+            <div style={{ padding: '3rem', textAlign: 'center', fontFamily: 'var(--font-mono)', color: 'var(--color-text-muted)' }}>
+              No matches for search query.
             </div>
           ) : (
             <table
@@ -269,7 +257,8 @@ export default function LeaderboardPage() {
                 width: '100%',
                 borderCollapse: 'collapse',
                 textAlign: 'left',
-                fontSize: '0.92rem'
+                fontSize: '0.88rem',
+                fontFamily: 'var(--font-mono)'
               }}
             >
               <thead>
@@ -278,17 +267,16 @@ export default function LeaderboardPage() {
                     borderBottom: '1px solid var(--theme-border)',
                     background: 'rgba(255, 255, 255, 0.02)',
                     color: 'var(--color-text-muted)',
-                    fontSize: '0.78rem',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.06em'
+                    fontSize: '0.75rem',
+                    textTransform: 'uppercase'
                   }}
                 >
-                  <th style={{ padding: '1rem 1.2rem', width: '60px' }}>Rank</th>
-                  <th style={{ padding: '1rem 1.2rem' }}>Participant</th>
-                  <th style={{ padding: '1rem 1.2rem' }}>Tier</th>
-                  <th style={{ padding: '1rem 1.2rem', textAlign: 'center' }}>PRs</th>
-                  <th style={{ padding: '1rem 1.2rem', textAlign: 'right' }}>Points</th>
-                  <th style={{ padding: '1rem 1.2rem', textAlign: 'center' }}>Prize Status</th>
+                  <th style={{ padding: '0.8rem 1rem', width: '60px' }}>Rank</th>
+                  <th style={{ padding: '0.8rem 1rem' }}>User</th>
+                  <th style={{ padding: '0.8rem 1rem' }}>Tier</th>
+                  <th style={{ padding: '0.8rem 1rem', textAlign: 'center' }}>PRs</th>
+                  <th style={{ padding: '0.8rem 1rem', textAlign: 'right' }}>Points</th>
+                  <th style={{ padding: '0.8rem 1rem', textAlign: 'center' }}>Eligibility</th>
                 </tr>
               </thead>
               <tbody>
@@ -302,127 +290,64 @@ export default function LeaderboardPage() {
                       key={row.user}
                       onClick={() => setSelectedUser(row)}
                       style={{
-                        borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
-                        cursor: 'pointer',
-                        transition: 'background var(--transition-fast)'
+                        borderBottom: '1px solid rgba(255, 255, 255, 0.04)',
+                        cursor: 'pointer'
                       }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.background = 'var(--theme-surface-hover)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.background = 'transparent';
-                      }}
+                      onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)'; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
                     >
-                      {/* Rank */}
-                      <td style={{ padding: '1rem 1.2rem' }}>
-                        <span
-                          style={{
-                            fontFamily: 'var(--font-display)',
-                            fontWeight: 800,
-                            fontSize: rank <= 3 ? '1.25rem' : '1rem',
-                            color:
-                              rank === 1
-                                ? '#FFD166'
-                                : rank === 2
-                                ? '#E2E8F0'
-                                : rank === 3
-                                ? '#CD7F32'
-                                : 'var(--color-text-muted)'
-                          }}
-                        >
-                          {rank === 1 ? '🥇 1' : rank === 2 ? '🥈 2' : rank === 3 ? '🥉 3' : `#${rank}`}
-                        </span>
+                      <td style={{ padding: '0.8rem 1rem', color: rank <= 3 ? 'var(--theme-primary)' : 'var(--color-text-muted)' }}>
+                        #{rank}
                       </td>
 
-                      {/* Participant: Avatar + Name + @username */}
-                      <td style={{ padding: '1rem 1.2rem' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+                      <td style={{ padding: '0.8rem 1rem' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
                           <img
-                            src={`https://github.com/${row.user}.png?size=80`}
-                            alt={row.name}
+                            src={`https://github.com/${row.user}.png?size=48`}
+                            alt={row.user}
                             style={{
-                              width: '40px',
-                              height: '40px',
-                              borderRadius: '50%',
-                              objectFit: 'cover',
-                              border: '1px solid var(--theme-border)'
+                              width: '24px',
+                              height: '24px',
+                              borderRadius: '2px',
+                              objectFit: 'cover'
                             }}
-                            onError={(e) => {
-                              e.currentTarget.style.display = 'none';
-                            }}
+                            onError={(e) => { e.currentTarget.style.display = 'none'; }}
                           />
-                          <div style={{ display: 'flex', flexDirection: 'column' }}>
-                            <span style={{ fontWeight: 700, color: 'var(--color-white)' }}>
-                              {row.name}
-                            </span>
-                            <span style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)' }}>
-                              @{row.user} {row.department ? `• ${row.department}` : ''}
+                          <div>
+                            <span style={{ color: 'var(--color-white)', fontWeight: 600 }}>{row.name}</span>
+                            <span style={{ color: 'var(--color-text-muted)', marginLeft: '0.4rem', fontSize: '0.78rem' }}>
+                              @{row.user}
                             </span>
                           </div>
                         </div>
                       </td>
 
-                      {/* Tier Badge */}
-                      <td style={{ padding: '1rem 1.2rem' }}>
-                        <span
-                          className="chip"
-                          style={{
-                            color: tierInfo.color,
-                            borderColor: 'rgba(255, 255, 255, 0.1)',
-                            fontSize: '0.75rem'
-                          }}
-                        >
-                          {tierInfo.label}
+                      <td style={{ padding: '0.8rem 1rem' }}>
+                        <span style={{ color: tierInfo.color, fontSize: '0.78rem' }}>
+                          [{tierInfo.label}]
                         </span>
                       </td>
 
-                      {/* Merged PRs + Pending badge */}
-                      <td style={{ padding: '1rem 1.2rem', textAlign: 'center' }}>
-                        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
-                          <span style={{ fontWeight: 600 }}>{row.tabPrs}</span>
-                          {pendingPrs > 0 && activeTab !== 'october' && (
-                            <span
-                              className="chip chip-warning"
-                              style={{ fontSize: '0.7rem', padding: '0.15rem 0.45rem' }}
-                              title={`${pendingPrs} pull request(s) under mentor review`}
-                            >
-                              +{pendingPrs} pending
-                            </span>
-                          )}
-                        </div>
+                      <td style={{ padding: '0.8rem 1rem', textAlign: 'center' }}>
+                        {row.tabPrs}
+                        {pendingPrs > 0 && activeTab !== 'october' && (
+                          <span style={{ color: 'var(--color-warning)', fontSize: '0.75rem', marginLeft: '0.3rem' }}>
+                            (+{pendingPrs})
+                          </span>
+                        )}
                       </td>
 
-                      {/* Points */}
-                      <td style={{ padding: '1rem 1.2rem', textAlign: 'right' }}>
-                        <span
-                          style={{
-                            fontFamily: 'var(--font-display)',
-                            fontSize: '1.25rem',
-                            fontWeight: 800,
-                            color: 'var(--theme-primary)'
-                          }}
-                        >
-                          {row.tabPoints}
-                        </span>
-                        <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', marginLeft: '0.2rem' }}>
-                          pts
-                        </span>
+                      <td style={{ padding: '0.8rem 1rem', textAlign: 'right', fontWeight: 700, color: 'var(--theme-primary)' }}>
+                        {row.tabPoints}
                       </td>
 
-                      {/* Prize Eligible Badge */}
-                      <td style={{ padding: '1rem 1.2rem', textAlign: 'center' }}>
+                      <td style={{ padding: '0.8rem 1rem', textAlign: 'center' }}>
                         {row.tabEligible ? (
-                          <span className="chip chip-success" style={{ fontSize: '0.74rem' }}>
-                            <ShieldCheck size={13} />
-                            <span>Prize-Eligible</span>
+                          <span style={{ color: 'var(--color-success)', fontSize: '0.78rem' }}>
+                            Eligible
                           </span>
                         ) : (
-                          <span
-                            style={{
-                              fontSize: '0.75rem',
-                              color: 'var(--color-text-subtle)'
-                            }}
-                          >
+                          <span style={{ color: 'var(--color-text-subtle)', fontSize: '0.78rem' }}>
                             In progress
                           </span>
                         )}
@@ -436,11 +361,10 @@ export default function LeaderboardPage() {
         </div>
       </div>
 
-      {/* Slide-over Profile Drawer Panel */}
+      {/* Profile Drawer */}
       {selectedUser && (
         <div
           role="dialog"
-          aria-modal="true"
           style={{
             position: 'fixed',
             top: 0,
@@ -450,294 +374,85 @@ export default function LeaderboardPage() {
             zIndex: 100,
             display: 'flex',
             justifyContent: 'flex-end',
-            background: 'rgba(0, 0, 0, 0.7)',
-            backdropFilter: 'blur(6px)'
+            background: 'rgba(0, 0, 0, 0.7)'
           }}
           onClick={() => setSelectedUser(null)}
         >
           <div
             style={{
               width: '100%',
-              maxWidth: '650px',
+              maxWidth: '600px',
               height: '100%',
-              background: '#0b0813',
+              background: 'var(--theme-bg)',
               borderLeft: '1px solid var(--theme-border)',
-              display: 'flex',
-              flexDirection: 'column',
-              boxShadow: '-10px 0 40px rgba(0, 0, 0, 0.8)',
               overflowY: 'auto',
-              padding: '2rem'
+              padding: '1.8rem',
+              fontFamily: 'var(--font-mono)'
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Drawer Header */}
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'flex-start',
-                justifyContent: 'space-between',
-                marginBottom: '1.5rem',
-                borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-                paddingBottom: '1.5rem'
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                <img
-                  src={`https://github.com/${selectedUser.user}.png?size=100`}
-                  alt={selectedUser.name}
-                  style={{
-                    width: '64px',
-                    height: '64px',
-                    borderRadius: '50%',
-                    border: '2px solid var(--theme-primary)'
-                  }}
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                  }}
-                />
-                <div>
-                  <h3 style={{ fontSize: '1.4rem', marginBottom: '0.2rem' }}>{selectedUser.name}</h3>
-                  <a
-                    href={`https://github.com/${selectedUser.user}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '0.3rem',
-                      color: 'var(--theme-primary)',
-                      fontSize: '0.85rem'
-                    }}
-                  >
-                    <span>@{selectedUser.user}</span>
-                    <ExternalLink size={13} />
-                  </a>
-                  <div style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', marginTop: '0.2rem' }}>
-                    {selectedUser.department} {selectedUser.year ? `• Year ${selectedUser.year}` : ''}
-                  </div>
-                </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem', borderBottom: '1px solid var(--theme-border)', paddingBottom: '1rem' }}>
+              <div>
+                <div style={{ fontSize: '1.2rem', color: 'var(--color-white)', fontWeight: 700 }}>{selectedUser.name}</div>
+                <a
+                  href={`https://github.com/${selectedUser.user}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: 'var(--theme-primary)', fontSize: '0.85rem', display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}
+                >
+                  @{selectedUser.user} <ExternalLink size={12} />
+                </a>
               </div>
-
               <button
                 onClick={() => setSelectedUser(null)}
-                aria-label="Close contributor profile"
-                style={{
-                  color: 'var(--color-text-muted)',
-                  padding: '0.4rem',
-                  borderRadius: 'var(--radius-sm)',
-                  cursor: 'pointer'
-                }}
+                style={{ padding: '0.3rem', color: 'var(--color-text-muted)', cursor: 'pointer' }}
               >
-                <X size={22} />
+                <X size={18} />
               </button>
             </div>
 
-            {/* Prize Eligibility Progress Bars */}
-            <div style={{ marginBottom: '2rem' }}>
-              <h4 style={{ fontSize: '1rem', marginBottom: '0.8rem', color: 'var(--color-white)' }}>
-                Prize Eligibility Thresholds
-              </h4>
-
-              {/* October Threshold Progress */}
-              <div
-                style={{
-                  background: 'rgba(255, 255, 255, 0.03)',
-                  padding: '0.9rem',
-                  borderRadius: 'var(--radius-md)',
-                  marginBottom: '0.7rem',
-                  border: '1px solid var(--theme-border)'
-                }}
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.82rem', marginBottom: '0.4rem' }}>
-                  <span>October Portfolio: {selectedUser.portfolio?.total || 0} / {thresholds.october.total} pts</span>
-                  <span style={{ color: selectedUser.portfolio?.eligible ? 'var(--color-success)' : 'var(--color-text-muted)' }}>
-                    {selectedUser.portfolio?.eligible ? 'Eligible ✓' : 'In Progress'}
-                  </span>
-                </div>
-                <div style={{ width: '100%', height: '6px', background: 'rgba(255, 255, 255, 0.1)', borderRadius: '3px', overflow: 'hidden' }}>
-                  <div
-                    style={{
-                      height: '100%',
-                      width: `${Math.min(100, ((selectedUser.portfolio?.total || 0) / thresholds.october.total) * 100)}%`,
-                      background: 'var(--theme-primary)',
-                      borderRadius: '3px'
-                    }}
-                  />
-                </div>
+            {/* Threshold check */}
+            <div style={{ marginBottom: '1.5rem' }}>
+              <div style={{ fontSize: '0.82rem', color: 'var(--color-text-muted)', marginBottom: '0.4rem', textTransform: 'uppercase' }}>
+                Prize Threshold Progress
               </div>
-
-              {/* Overall Season Threshold Progress */}
-              <div
-                style={{
-                  background: 'rgba(255, 255, 255, 0.03)',
-                  padding: '0.9rem',
-                  borderRadius: 'var(--radius-md)',
-                  border: '1px solid var(--theme-border)'
-                }}
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.82rem', marginBottom: '0.4rem' }}>
-                  <span>Season Overall: {selectedUser.total || 0} / {thresholds.overall.points} pts</span>
-                  <span style={{ color: selectedUser.overall?.eligible ? 'var(--color-success)' : 'var(--color-text-muted)' }}>
-                    {selectedUser.overall?.eligible ? 'Eligible ✓' : 'In Progress'}
-                  </span>
-                </div>
-                <div style={{ width: '100%', height: '6px', background: 'rgba(255, 255, 255, 0.1)', borderRadius: '3px', overflow: 'hidden' }}>
-                  <div
-                    style={{
-                      height: '100%',
-                      width: `${Math.min(100, ((selectedUser.total || 0) / thresholds.overall.points) * 100)}%`,
-                      background: '#10b981',
-                      borderRadius: '3px'
-                    }}
-                  />
-                </div>
+              <div style={{ fontSize: '0.8rem', marginBottom: '0.3rem' }}>
+                October Portfolio: {selectedUser.portfolio?.total || 0} / {thresholds.october.total} pts ({selectedUser.portfolio?.eligible ? 'Eligible' : 'In progress'})
+              </div>
+              <div style={{ fontSize: '0.8rem' }}>
+                Season Total: {selectedUser.total || 0} / {thresholds.overall.points} pts ({selectedUser.overall?.eligible ? 'Eligible' : 'In progress'})
               </div>
             </div>
 
-            {/* Portfolio Week Breakdown */}
-            <div style={{ marginBottom: '2.5rem' }}>
-              <h4 style={{ fontSize: '1rem', marginBottom: '0.8rem', color: 'var(--color-white)' }}>
-                Portfolio Breakdown (Total: {selectedUser.portfolio?.total || 0}/50)
-              </h4>
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
-                  gap: '0.6rem'
-                }}
-              >
-                <div style={{ background: 'rgba(255, 255, 255, 0.03)', padding: '0.7rem', borderRadius: 'var(--radius-sm)' }}>
-                  <div style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)' }}>Fork Template</div>
-                  <div style={{ fontSize: '1.05rem', fontWeight: 700 }}>{selectedUser.portfolio?.fork || 0}/5</div>
-                </div>
-                <div style={{ background: 'rgba(255, 255, 255, 0.03)', padding: '0.7rem', borderRadius: 'var(--radius-sm)' }}>
-                  <div style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)' }}>3+ Commits</div>
-                  <div style={{ fontSize: '1.05rem', fontWeight: 700 }}>{selectedUser.portfolio?.commits || 0}/5</div>
-                </div>
-                <div style={{ background: 'rgba(255, 255, 255, 0.03)', padding: '0.7rem', borderRadius: 'var(--radius-sm)' }}>
-                  <div style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)' }}>Live Pages Site</div>
-                  <div style={{ fontSize: '1.05rem', fontWeight: 700 }}>{selectedUser.portfolio?.live || 0}/10</div>
-                </div>
-                <div style={{ background: 'rgba(255, 255, 255, 0.03)', padding: '0.7rem', borderRadius: 'var(--radius-sm)' }}>
-                  <div style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)' }}>Showcase PR</div>
-                  <div style={{ fontSize: '1.05rem', fontWeight: 700 }}>{selectedUser.portfolio?.showcase || 0}/10</div>
-                </div>
-                <div style={{ background: 'rgba(255, 255, 255, 0.03)', padding: '0.7rem', borderRadius: 'var(--radius-sm)' }}>
-                  <div style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)' }}>Mentor Rubric</div>
-                  <div style={{ fontSize: '1.05rem', fontWeight: 700 }}>
-                    {selectedUser.portfolio?.rubric !== null ? `${selectedUser.portfolio?.rubric}/20` : 'Pending'}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* PR History Table */}
+            {/* PR breakdown */}
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.8rem' }}>
-                <h4 style={{ fontSize: '1rem', color: 'var(--color-white)' }}>
-                  Scored Pull Requests ({selectedUser.projects?.prs?.length || 0})
-                </h4>
-                <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>
-                  Points credited on merge
-                </span>
+              <div style={{ fontSize: '0.82rem', color: 'var(--color-text-muted)', marginBottom: '0.6rem', textTransform: 'uppercase' }}>
+                Scored Pull Requests ({selectedUser.projects?.prs?.length || 0})
               </div>
-
               {(!selectedUser.projects?.prs || selectedUser.projects.prs.length === 0) ? (
-                <div style={{ padding: '2rem', textAlign: 'center', background: 'rgba(255, 255, 255, 0.02)', borderRadius: 'var(--radius-md)' }}>
-                  <p style={{ fontSize: '0.85rem' }}>No pull requests recorded yet for project months.</p>
-                </div>
+                <div style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>No pull requests scored yet.</div>
               ) : (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                   {selectedUser.projects.prs.map((pr, idx) => (
                     <div
-                      key={pr.number || idx}
+                      key={idx}
                       style={{
-                        padding: '1rem',
-                        background: 'rgba(255, 255, 255, 0.03)',
+                        padding: '0.7rem',
                         border: '1px solid var(--theme-border)',
-                        borderRadius: 'var(--radius-md)',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: '0.5rem'
+                        borderRadius: 'var(--radius-sm)',
+                        fontSize: '0.8rem'
                       }}
                     >
-                      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '0.8rem' }}>
-                        <div>
-                          <a
-                            href={pr.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{
-                              fontSize: '0.92rem',
-                              fontWeight: 600,
-                              color: 'var(--color-white)',
-                              display: 'inline-flex',
-                              alignItems: 'center',
-                              gap: '0.35rem'
-                            }}
-                          >
-                            <span>{pr.repo} #{pr.number}</span>
-                            <ExternalLink size={13} color="var(--theme-primary)" />
-                          </a>
-                          <div style={{ fontSize: '0.82rem', color: 'var(--color-text-muted)', marginTop: '0.2rem' }}>
-                            {pr.title}
-                          </div>
-                        </div>
-
-                        {/* Capped Badge or Points */}
-                        {pr.capped ? (
-                          <span
-                            className="chip chip-warning"
-                            style={{ fontSize: '0.75rem', fontWeight: 700 }}
-                            title="Only first 5 scored PRs per repo count"
-                          >
-                            capped, 0 pts
-                          </span>
-                        ) : (
-                          <span
-                            style={{
-                              fontFamily: 'var(--font-display)',
-                              fontWeight: 800,
-                              fontSize: '1.15rem',
-                              color: 'var(--theme-primary)'
-                            }}
-                          >
-                            +{pr.points} pts
-                          </span>
-                        )}
-                      </div>
-
-                      {/* Details row: Opened date, level, bonuses */}
-                      <div
-                        style={{
-                          display: 'flex',
-                          flexWrap: 'wrap',
-                          gap: '0.5rem',
-                          alignItems: 'center',
-                          fontSize: '0.75rem',
-                          color: 'var(--color-text-subtle)',
-                          marginTop: '0.3rem',
-                          borderTop: '1px solid rgba(255, 255, 255, 0.04)',
-                          paddingTop: '0.5rem'
-                        }}
-                      >
-                        <span>Opened: {pr.opened}</span>
-                        <span>•</span>
-                        <span style={{ textTransform: 'uppercase', color: 'var(--color-text-main)' }}>
-                          Level: {pr.level} ({pr.base} pts)
+                      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <a href={pr.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-white)', fontWeight: 600 }}>
+                          {pr.repo} #{pr.number}
+                        </a>
+                        <span style={{ color: pr.capped ? 'var(--color-warning)' : 'var(--theme-primary)' }}>
+                          {pr.capped ? 'capped, 0 pts' : `+${pr.points} pts`}
                         </span>
-                        {pr.firstWeek > 0 && (
-                          <span className="chip" style={{ fontSize: '0.7rem', padding: '0.1rem 0.4rem' }}>
-                            +5 First-Week
-                          </span>
-                        )}
-                        {pr.quality > 0 && (
-                          <span className="chip chip-success" style={{ fontSize: '0.7rem', padding: '0.1rem 0.4rem' }}>
-                            +{pr.quality} Quality
-                          </span>
-                        )}
-                        <span>•</span>
-                        <span style={{ color: 'var(--color-success)' }}>Merged: {pr.merged}</span>
+                      </div>
+                      <div style={{ color: 'var(--color-text-muted)', fontSize: '0.75rem', marginTop: '0.2rem' }}>
+                        Level: {pr.level} | Opened: {pr.opened} | Merged: {pr.merged}
                       </div>
                     </div>
                   ))}

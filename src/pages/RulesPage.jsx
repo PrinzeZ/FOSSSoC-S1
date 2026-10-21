@@ -1,18 +1,5 @@
 import React from 'react';
 import { useLeaderboardData } from '../hooks/useLeaderboardData';
-import {
-  Award,
-  Zap,
-  Star,
-  ShieldCheck,
-  AlertOctagon,
-  Calendar,
-  CheckCircle2,
-  HelpCircle,
-  Clock,
-  Sparkles,
-  Info
-} from 'lucide-react';
 
 export default function RulesPage() {
   const { data } = useLeaderboardData();
@@ -27,327 +14,118 @@ export default function RulesPage() {
     <div className="section-spacing" style={{ position: 'relative', zIndex: 1 }}>
       <div className="container">
         {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
-          <div className="chip" style={{ marginBottom: '1rem', padding: '0.45rem 1.1rem' }}>
-            <Award size={15} />
-            <span>Scoring Rubric & Guidelines</span>
+        <div style={{ marginBottom: '2.5rem' }}>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--theme-primary)', marginBottom: '0.4rem' }}>
+            # rules_and_scoring
           </div>
-          <h1 style={{ marginBottom: '1rem' }}>Rules & Points System</h1>
-          <p style={{ maxWidth: '720px', margin: '0 auto', fontSize: '1.05rem' }}>
-            Transparent scoring guidelines designed to reward genuine contributions, mentorship collaboration,
-            code quality, and consistency throughout the 9-week season.
+          <h1 style={{ fontSize: '2.2rem', marginBottom: '0.5rem' }}>Rules & Points</h1>
+          <p style={{ maxWidth: '640px', fontSize: '0.95rem' }}>
+            Official contribution guidelines and scoring rubric for FOSSSoC-S1.
           </p>
         </div>
 
-        {/* Level Points Breakdown */}
-        <div style={{ marginBottom: '4rem' }}>
-          <h2 style={{ fontSize: '1.8rem', marginBottom: '1.5rem', textAlign: 'center' }}>
-            Issue Difficulty Levels
+        {/* Level points */}
+        <div style={{ marginBottom: '3rem' }}>
+          <h2 style={{ fontSize: '1.4rem', marginBottom: '1rem', fontFamily: 'var(--font-mono)' }}>
+            Issue Levels & Base Points
           </h2>
-
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-              gap: '1.5rem'
-            }}
-          >
-            {/* Easy: 10 pts */}
-            <div
-              className="glass-panel"
-              style={{
-                padding: '2rem',
-                background: 'var(--theme-card-bg)',
-                borderRadius: 'var(--radius-lg)',
-                borderTop: '4px solid #10b981'
-              }}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                <span className="chip chip-success">Easy Level</span>
-                <span
-                  style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: '1.8rem',
-                    fontWeight: 800,
-                    color: '#10b981'
-                  }}
-                >
-                  10 <span style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>pts</span>
-                </span>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
+            <div style={{ padding: '1.2rem', border: '1px solid var(--theme-border)', borderRadius: 'var(--radius-sm)', background: 'var(--theme-card-bg)', fontFamily: 'var(--font-mono)' }}>
+              <div style={{ color: 'var(--theme-primary)', fontSize: '1.1rem', fontWeight: 700, marginBottom: '0.3rem' }}>
+                Easy: 10 pts
               </div>
-              <h3 style={{ fontSize: '1.25rem', marginBottom: '0.6rem' }}>Introductory Fixes</h3>
-              <p style={{ fontSize: '0.88rem', lineHeight: 1.6 }}>
-                Small documentation guides, markdown corrections, CSS responsiveness patches, simple bug fixes, or minor utility scripts. Perfect for initial warmups.
-              </p>
-            </div>
-
-            {/* Medium: 25 pts */}
-            <div
-              className="glass-panel"
-              style={{
-                padding: '2rem',
-                background: 'var(--theme-card-bg)',
-                borderRadius: 'var(--radius-lg)',
-                borderTop: '4px solid #00bbf9'
-              }}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                <span className="chip" style={{ color: '#00bbf9', borderColor: '#00bbf9' }}>Medium Level</span>
-                <span
-                  style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: '1.8rem',
-                    fontWeight: 800,
-                    color: '#00bbf9'
-                  }}
-                >
-                  25 <span style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>pts</span>
-                </span>
-              </div>
-              <h3 style={{ fontSize: '1.25rem', marginBottom: '0.6rem' }}>Core Components</h3>
-              <p style={{ fontSize: '0.88rem', lineHeight: 1.6 }}>
-                New functional components, REST / WebSocket endpoints, state management refactors, test coverage suites, or database schema additions.
-              </p>
-            </div>
-
-            {/* Hard: 50 pts */}
-            <div
-              className="glass-panel"
-              style={{
-                padding: '2rem',
-                background: 'var(--theme-card-bg)',
-                borderRadius: 'var(--radius-lg)',
-                borderTop: '4px solid var(--theme-primary)'
-              }}
-            >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                <span className="chip" style={{ color: 'var(--theme-primary)', borderColor: 'var(--theme-primary)' }}>Hard Level</span>
-                <span
-                  style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: '1.8rem',
-                    fontWeight: 800,
-                    color: 'var(--theme-primary)'
-                  }}
-                >
-                  50 <span style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>pts</span>
-                </span>
-              </div>
-              <h3 style={{ fontSize: '1.25rem', marginBottom: '0.6rem' }}>Deep Architecture</h3>
-              <p style={{ fontSize: '0.88rem', lineHeight: 1.6 }}>
-                Major feature subsystems, protocol bridges, complex algorithmic optimizations, full-stack micro-services, or complex IoT / AI pipeline integrations.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Bonuses & Special Scoring */}
-        <div style={{ marginBottom: '4rem' }}>
-          <h2 style={{ fontSize: '1.8rem', marginBottom: '1.5rem', textAlign: 'center' }}>
-            Sprint Bonuses
-          </h2>
-
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: '1.5rem'
-            }}
-          >
-            <div
-              className="glass-panel"
-              style={{
-                padding: '2rem',
-                background: 'var(--theme-card-bg)',
-                borderRadius: 'var(--radius-lg)'
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.8rem' }}>
-                <Zap size={22} color="var(--theme-primary)" />
-                <h3 style={{ fontSize: '1.3rem' }}>First-Week Bonus (+5 pts)</h3>
-              </div>
-              <p style={{ fontSize: '0.9rem', lineHeight: 1.6, marginBottom: '0.8rem' }}>
-                Awarded to the <strong>earliest-opened scored pull request</strong> per repository submitted during
-                the first seven calendar days of the month:
-              </p>
-              <ul style={{ paddingLeft: '1.2rem', fontSize: '0.85rem', color: 'var(--color-text-muted)', lineHeight: 1.6 }}>
-                <li>November Sprint: November 1 to November 7</li>
-                <li>December Sprint: December 1 to December 7</li>
-              </ul>
-            </div>
-
-            <div
-              className="glass-panel"
-              style={{
-                padding: '2rem',
-                background: 'var(--theme-card-bg)',
-                borderRadius: 'var(--radius-lg)'
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.8rem' }}>
-                <Star size={22} color="#FFD166" />
-                <h3 style={{ fontSize: '1.3rem' }}>Mentor Quality Bonus (+5 pts)</h3>
-              </div>
-              <p style={{ fontSize: '0.9rem', lineHeight: 1.6 }}>
-                Awarded by the maintainer / mentor for pull requests with outstanding attention to detail:
-                thorough test cases, clean git commit history, descriptive PR writeups, and exceptional code elegance.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Crucial Contribution Rules */}
-        <div
-          className="glass-panel"
-          style={{
-            padding: '2.5rem 2rem',
-            marginBottom: '4rem',
-            background: 'var(--theme-card-bg)',
-            borderRadius: 'var(--radius-lg)'
-          }}
-        >
-          <h2 style={{ fontSize: '1.6rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-            <CheckCircle2 size={24} color="var(--theme-primary)" />
-            <span>Essential Contribution Policies</span>
-          </h2>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
-            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.8rem' }}>
-              <div style={{ marginTop: '0.2rem', color: 'var(--theme-primary)' }}>•</div>
-              <div>
-                <strong style={{ color: 'var(--color-white)' }}>Max 5 Scored PRs Per Repo:</strong>
-                <span style={{ color: 'var(--color-text-muted)', fontSize: '0.92rem', marginLeft: '0.4rem' }}>
-                  To promote breadth of learning across multiple technologies, only the first 5 scored pull requests per repository count toward points. Further merged PRs are praised but labeled <code>capped, 0 pts</code>.
-                </span>
+              <div style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>
+                Mentor sets the level. Small bug fixes, documentation, minor UI adjustments.
               </div>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.8rem' }}>
-              <div style={{ marginTop: '0.2rem', color: 'var(--theme-primary)' }}>•</div>
-              <div>
-                <strong style={{ color: 'var(--color-white)' }}>Merged PR Credit Rule:</strong>
-                <span style={{ color: 'var(--color-text-muted)', fontSize: '0.92rem', marginLeft: '0.4rem' }}>
-                  Points are credited strictly after maintainer review and merge. A PR counts toward the month it was opened (e.g. opened Nov 29, merged Dec 2 counts toward November).
-                </span>
+            <div style={{ padding: '1.2rem', border: '1px solid var(--theme-border)', borderRadius: 'var(--radius-sm)', background: 'var(--theme-card-bg)', fontFamily: 'var(--font-mono)' }}>
+              <div style={{ color: 'var(--theme-primary)', fontSize: '1.1rem', fontWeight: 700, marginBottom: '0.3rem' }}>
+                Medium: 25 pts
+              </div>
+              <div style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>
+                Mentor sets the level. Feature implementations, component logic, API updates.
               </div>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.8rem' }}>
-              <div style={{ marginTop: '0.2rem', color: 'var(--theme-primary)' }}>•</div>
-              <div>
-                <strong style={{ color: 'var(--color-white)' }}>Zero Tolerance for Spam / AI Plagiarism:</strong>
-                <span style={{ color: 'var(--color-text-muted)', fontSize: '0.92rem', marginLeft: '0.4rem' }}>
-                  Unreviewed raw AI dumps, trivial whitespace changes, or copy-pasted solutions will be closed with 0 points and may result in exclusion from the leaderboard.
-                </span>
+            <div style={{ padding: '1.2rem', border: '1px solid var(--theme-border)', borderRadius: 'var(--radius-sm)', background: 'var(--theme-card-bg)', fontFamily: 'var(--font-mono)' }}>
+              <div style={{ color: 'var(--theme-primary)', fontSize: '1.1rem', fontWeight: 700, marginBottom: '0.3rem' }}>
+                Hard: 50 pts
+              </div>
+              <div style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>
+                Mentor sets the level. Architecture rewrites, complex subsystems, critical integrations.
               </div>
             </div>
           </div>
         </div>
 
-        {/* Prize Eligibility Thresholds */}
-        <div style={{ marginBottom: '4rem' }}>
-          <h2 style={{ fontSize: '1.8rem', marginBottom: '1.5rem', textAlign: 'center' }}>
+        {/* Bonuses & Caps */}
+        <div style={{ marginBottom: '3rem' }}>
+          <h2 style={{ fontSize: '1.4rem', marginBottom: '1rem', fontFamily: 'var(--font-mono)' }}>
+            Bonuses & Capping Rules
+          </h2>
+          <div style={{ border: '1px solid var(--theme-border)', borderRadius: 'var(--radius-sm)', background: 'var(--theme-card-bg)', padding: '1.5rem', fontFamily: 'var(--font-mono)', fontSize: '0.88rem', lineHeight: 1.8 }}>
+            <div><strong style={{ color: 'var(--color-white)' }}>First-week bonus (+5 pts):</strong> Awarded on your earliest-opened scored PR in each repo, if opened in the first week of the month (1-7 Nov for Build Month; 1-7 Dec for Christmas Eve Month).</div>
+            <div><strong style={{ color: 'var(--color-white)' }}>Quality bonus (+5 pts):</strong> Granted via maintainer's label for high code quality, tests, or documentation.</div>
+            <div><strong style={{ color: 'var(--color-white)' }}>5 PRs per repo cap:</strong> Only the first 5 scored PRs per repository count towards points. Further PRs are capped at 0 pts.</div>
+            <div><strong style={{ color: 'var(--color-white)' }}>Merge credit rule:</strong> Points are credited only after merge; a PR counts for the month it was opened.</div>
+            <div><strong style={{ color: 'var(--color-white)' }}>Spam or invalid:</strong> 0 points. Automated or copy-pasted low-effort submissions are disqualified.</div>
+          </div>
+        </div>
+
+        {/* Prize Eligibility */}
+        <div style={{ marginBottom: '3rem' }}>
+          <h2 style={{ fontSize: '1.4rem', marginBottom: '1rem', fontFamily: 'var(--font-mono)' }}>
             Prize Eligibility Thresholds
           </h2>
-
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-              gap: '1.5rem',
-              marginBottom: '2rem'
-            }}
-          >
-            <div
-              className="glass-panel"
-              style={{
-                padding: '1.8rem',
-                background: 'var(--theme-card-bg)',
-                borderRadius: 'var(--radius-md)'
-              }}
-            >
-              <h4 style={{ fontSize: '1.15rem', marginBottom: '0.6rem', color: 'var(--theme-primary)' }}>
-                October Threshold
-              </h4>
-              <ul style={{ fontSize: '0.88rem', color: 'var(--color-text-muted)', lineHeight: 1.7, paddingLeft: '1.2rem' }}>
-                <li>Minimum Total: <strong>{thresholds.october.total} pts</strong></li>
-                <li>Mentor Rubric: <strong>&ge; {thresholds.october.rubric} pts</strong></li>
-                <li>Live HTTPS GitHub Pages link</li>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
+            <div style={{ padding: '1.2rem', border: '1px solid var(--theme-border)', borderRadius: 'var(--radius-sm)', background: 'var(--theme-card-bg)', fontFamily: 'var(--font-mono)', fontSize: '0.85rem' }}>
+              <div style={{ color: 'var(--color-white)', fontWeight: 700, marginBottom: '0.5rem' }}>October (Portfolio Week)</div>
+              <ul style={{ paddingLeft: '1.2rem', color: 'var(--color-text-muted)', lineHeight: 1.6 }}>
+                <li>35 of 50 points total</li>
+                <li>Merged showcase PR</li>
+                <li>Live GitHub Pages site</li>
+                <li>Mentor rubric at least 10 pts</li>
               </ul>
             </div>
 
-            <div
-              className="glass-panel"
-              style={{
-                padding: '1.8rem',
-                background: 'var(--theme-card-bg)',
-                borderRadius: 'var(--radius-md)'
-              }}
-            >
-              <h4 style={{ fontSize: '1.15rem', marginBottom: '0.6rem', color: '#00F5D4' }}>
-                Monthly Sprints (Nov / Dec)
-              </h4>
-              <ul style={{ fontSize: '0.88rem', color: 'var(--color-text-muted)', lineHeight: 1.7, paddingLeft: '1.2rem' }}>
-                <li>Minimum Points: <strong>{thresholds.month.points} pts</strong> in the month</li>
-                <li>Merged PRs: <strong>&ge; {thresholds.month.prs} PRs</strong></li>
-                <li>At least <strong>{thresholds.month.mediumPlus} Medium or Hard</strong> PR</li>
+            <div style={{ padding: '1.2rem', border: '1px solid var(--theme-border)', borderRadius: 'var(--radius-sm)', background: 'var(--theme-card-bg)', fontFamily: 'var(--font-mono)', fontSize: '0.85rem' }}>
+              <div style={{ color: 'var(--color-white)', fontWeight: 700, marginBottom: '0.5rem' }}>Monthly (Nov & Dec)</div>
+              <ul style={{ paddingLeft: '1.2rem', color: 'var(--color-text-muted)', lineHeight: 1.6 }}>
+                <li>50 points in that month</li>
+                <li>At least 2 merged PRs</li>
+                <li>At least one medium or hard PR</li>
               </ul>
             </div>
 
-            <div
-              className="glass-panel"
-              style={{
-                padding: '1.8rem',
-                background: 'var(--theme-card-bg)',
-                borderRadius: 'var(--radius-md)'
-              }}
-            >
-              <h4 style={{ fontSize: '1.15rem', marginBottom: '0.6rem', color: '#FFD166' }}>
-                Overall Season Grand Prize
-              </h4>
-              <ul style={{ fontSize: '0.88rem', color: 'var(--color-text-muted)', lineHeight: 1.7, paddingLeft: '1.2rem' }}>
-                <li>Minimum Points: <strong>{thresholds.overall.points} pts</strong> overall</li>
-                <li>Active in at least <strong>{thresholds.overall.months} distinct months</strong></li>
-                <li>Contributions across at least <strong>{thresholds.overall.repos} distinct repos</strong></li>
+            <div style={{ padding: '1.2rem', border: '1px solid var(--theme-border)', borderRadius: 'var(--radius-sm)', background: 'var(--theme-card-bg)', fontFamily: 'var(--font-mono)', fontSize: '0.85rem' }}>
+              <div style={{ color: 'var(--color-white)', fontWeight: 700, marginBottom: '0.5rem' }}>Overall Season</div>
+              <ul style={{ paddingLeft: '1.2rem', color: 'var(--color-text-muted)', lineHeight: 1.6 }}>
+                <li>120 points total</li>
+                <li>Active in 2 distinct months</li>
+                <li>Contributions across 2 different repos</li>
               </ul>
             </div>
           </div>
         </div>
 
-        {/* Callout Box: 'Not prize-eligible' is not 'disqualified' */}
+        {/* Not prize-eligible callout */}
         <div
-          className="glass-panel"
           style={{
-            padding: '2rem 2.2rem',
-            background: 'rgba(59, 130, 246, 0.08)',
-            border: '1px solid rgba(59, 130, 246, 0.35)',
-            borderRadius: 'var(--radius-lg)',
-            display: 'flex',
-            alignItems: 'flex-start',
-            gap: '1.2rem'
+            padding: '1.4rem',
+            border: '1px solid var(--theme-border)',
+            borderRadius: 'var(--radius-sm)',
+            background: 'var(--theme-card-bg)',
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.85rem',
+            lineHeight: 1.6
           }}
         >
-          <div
-            style={{
-              padding: '0.6rem',
-              borderRadius: '50%',
-              background: 'rgba(59, 130, 246, 0.2)',
-              color: '#3b82f6',
-              flexShrink: 0
-            }}
-          >
-            <Info size={26} />
+          <div style={{ color: 'var(--color-white)', fontWeight: 700, marginBottom: '0.3rem' }}>
+            Note on Prize Eligibility
           </div>
-
-          <div>
-            <h3 style={{ fontSize: '1.25rem', color: 'var(--color-white)', marginBottom: '0.5rem' }}>
-              Important Note: "Not prize-eligible" is NOT "disqualified"
-            </h3>
-            <p style={{ fontSize: '0.92rem', lineHeight: 1.6, color: 'var(--color-text-main)' }}>
-              Prize eligibility solely defines the criteria for winning top physical prizes and cash awards at the grand finale.
-              Every single contributor who participates, gets PRs merged, or builds a portfolio remains an active and valued
-              member of FOSSSoC, earns verified community certificates, and accumulates genuine GitHub contributions for their future careers!
-            </p>
+          <div style={{ color: 'var(--color-text-muted)' }}>
+            "Not prize-eligible" is not "disqualified". It simply denotes whether the minimum criteria to receive seasonal prizes have been met. If nobody qualifies in a category, no winner is awarded. All merged contributions remain valid open source commits.
           </div>
         </div>
       </div>

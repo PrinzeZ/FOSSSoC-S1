@@ -1,43 +1,30 @@
 import React, { useState } from 'react';
 import { useProjectsData } from '../hooks/useProjectsData';
-import { UNLOCK_DATES } from '../constants/config';
-import {
-  FolderGit2,
-  Lock,
-  Unlock,
-  ExternalLink,
-  Code2,
-  Tag,
-  Calendar,
-  Layers,
-  Sparkles
-} from 'lucide-react';
+import { UNLOCK_DATES } from '../config';
+import { Lock, Unlock, ExternalLink } from 'lucide-react';
 
 export default function ProjectsPage() {
-  const { data, loading, error, isUnlockedBypass } = useProjectsData();
+  const { data, loading, isUnlockedBypass } = useProjectsData();
   const [selectedMonth, setSelectedMonth] = useState('october');
   const [selectedField, setSelectedField] = useState('All');
 
-  // Check month lock status
   const isMonthLocked = (monthKey) => {
     if (isUnlockedBypass) return false;
     const unlockDateStr = UNLOCK_DATES[monthKey];
     if (!unlockDateStr) return false;
-    const unlockTime = new Date(unlockDateStr).getTime();
-    return new Date().getTime() < unlockTime;
+    return new Date().getTime() < new Date(unlockDateStr).getTime();
   };
 
   const monthConfig = {
     october: { title: 'October', subtitle: 'Portfolio Week', unlockText: 'Unlocked' },
-    november: { title: 'November', subtitle: 'Campus & Utilities', unlockText: 'November 1' },
-    december: { title: 'December', subtitle: 'Winter & Deep Tech', unlockText: 'December 1' }
+    november: { title: 'November', subtitle: 'Build Month', unlockText: 'November 1' },
+    december: { title: 'December', subtitle: 'Christmas Eve Month', unlockText: 'December 1' }
   };
 
   const currentMonthData = data ? data[selectedMonth] : null;
   const repos = currentMonthData?.repos || [];
   const isLocked = isMonthLocked(selectedMonth);
 
-  // Extract all distinct fields
   const allFields = ['All'];
   if (data) {
     Object.values(data).forEach((m) => {
@@ -58,38 +45,38 @@ export default function ProjectsPage() {
     <div className="section-spacing" style={{ position: 'relative', zIndex: 1 }}>
       <div className="container">
         {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
-          <div className="chip" style={{ marginBottom: '1rem', padding: '0.45rem 1.1rem' }}>
-            <FolderGit2 size={15} />
-            <span>Curated Open-Source Repositories</span>
+        <div style={{ marginBottom: '2.5rem' }}>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--theme-primary)', marginBottom: '0.4rem' }}>
+            # repositories
           </div>
-          <h1 style={{ marginBottom: '1rem' }}>Projects Directory</h1>
-          <p style={{ maxWidth: '680px', margin: '0 auto', fontSize: '1.05rem' }}>
-            Explore repositories maintained by FOSS TKMCE for Season 1. Filter by monthly sprint,
-            field of engineering, or tech stack to start hacking.
+          <h1 style={{ fontSize: '2.2rem', marginBottom: '0.5rem' }}>Projects Directory</h1>
+          <p style={{ maxWidth: '640px', fontSize: '0.95rem' }}>
+            Official repositories maintained by FOSS TKMCE for Season 1. Only issues tagged by mentors count towards points.
           </p>
 
           {isUnlockedBypass && (
             <div
-              className="chip chip-warning"
-              style={{ marginTop: '1rem', padding: '0.4rem 0.9rem' }}
+              style={{
+                marginTop: '0.8rem',
+                padding: '0.3rem 0.6rem',
+                border: '1px solid var(--color-warning)',
+                borderRadius: 'var(--radius-sm)',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.4rem',
+                fontSize: '0.75rem',
+                fontFamily: 'var(--font-mono)',
+                color: 'var(--color-warning)'
+              }}
             >
-              <Unlock size={14} />
-              <span>Admin Preview Active: All months unlocked (?unlock=1)</span>
+              <Unlock size={12} />
+              <span>Preview active: locked months unlocked via ?unlock=1</span>
             </div>
           )}
         </div>
 
-        {/* Month Selector Tabs */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: '0.8rem',
-            marginBottom: '2.5rem',
-            flexWrap: 'wrap'
-          }}
-        >
+        {/* Month Selector */}
+        <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
           {['october', 'november', 'december'].map((monthKey) => {
             const isActive = selectedMonth === monthKey;
             const locked = isMonthLocked(monthKey);
@@ -102,41 +89,30 @@ export default function ProjectsPage() {
                   setSelectedMonth(monthKey);
                   setSelectedField('All');
                 }}
-                className="glass-panel"
                 style={{
+                  padding: '0.55rem 1.1rem',
+                  border: '1px solid ' + (isActive ? 'var(--theme-primary)' : 'var(--theme-border)'),
+                  borderRadius: 'var(--radius-sm)',
+                  background: isActive ? 'var(--theme-card-bg)' : 'transparent',
+                  color: isActive ? 'var(--color-white)' : 'var(--color-text-muted)',
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.85rem',
+                  cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.75rem',
-                  padding: '0.8rem 1.5rem',
-                  borderRadius: 'var(--radius-md)',
-                  background: isActive ? 'var(--theme-badge-bg)' : 'var(--theme-card-bg)',
-                  borderColor: isActive ? 'var(--theme-primary)' : 'var(--theme-border)',
-                  color: isActive ? 'var(--color-white)' : 'var(--color-text-muted)',
-                  cursor: 'pointer',
-                  transition: 'all var(--transition-fast)'
+                  gap: '0.5rem'
                 }}
               >
-                {locked ? <Lock size={16} color="var(--color-warning)" /> : <FolderGit2 size={16} color="var(--theme-primary)" />}
-                <div style={{ textAlign: 'left' }}>
-                  <div style={{ fontWeight: 700, fontSize: '1rem' }}>{cfg.title}</div>
-                  <div style={{ fontSize: '0.72rem', opacity: 0.8 }}>{cfg.subtitle}</div>
-                </div>
+                {locked ? <Lock size={13} color="var(--color-warning)" /> : null}
+                <span>{cfg.title}</span>
+                <span style={{ fontSize: '0.72rem', color: 'var(--color-text-subtle)' }}>({cfg.subtitle})</span>
               </button>
             );
           })}
         </div>
 
-        {/* Field Filter Chips */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexWrap: 'wrap',
-            gap: '0.5rem',
-            marginBottom: '3rem'
-          }}
-        >
+        {/* Field Filters */}
+        <div style={{ display: 'flex', gap: '0.4rem', marginBottom: '2rem', flexWrap: 'wrap' }}>
           {allFields.map((field) => {
             const isFieldActive = selectedField === field;
             return (
@@ -144,15 +120,14 @@ export default function ProjectsPage() {
                 key={field}
                 onClick={() => setSelectedField(field)}
                 style={{
-                  padding: '0.4rem 1rem',
-                  borderRadius: 'var(--radius-full)',
-                  fontSize: '0.82rem',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  border: isFieldActive ? '1px solid var(--theme-primary)' : '1px solid var(--theme-border)',
-                  background: isFieldActive ? 'var(--theme-primary)' : 'var(--theme-card-bg)',
-                  color: isFieldActive ? '#0b0813' : 'var(--color-text-muted)',
-                  transition: 'all var(--transition-fast)'
+                  padding: '0.25rem 0.65rem',
+                  borderRadius: 'var(--radius-sm)',
+                  border: '1px solid ' + (isFieldActive ? 'var(--theme-primary)' : 'var(--theme-border)'),
+                  background: isFieldActive ? 'var(--theme-primary)' : 'transparent',
+                  color: isFieldActive ? '#000000' : 'var(--color-text-muted)',
+                  fontSize: '0.78rem',
+                  fontFamily: 'var(--font-mono)',
+                  cursor: 'pointer'
                 }}
               >
                 {field}
@@ -161,195 +136,134 @@ export default function ProjectsPage() {
           })}
         </div>
 
-        {/* Repos Grid / Locked View */}
+        {/* Content */}
         {loading ? (
-          <div className="glass-panel" style={{ padding: '4rem', textAlign: 'center' }}>
-            <p>Loading projects list...</p>
+          <div style={{ padding: '3rem', textAlign: 'center', fontFamily: 'var(--font-mono)', fontSize: '0.85rem' }}>
+            Loading repositories...
           </div>
         ) : isLocked ? (
-          /* Locked Month Blur View */
+          /* Blurred locked card */
           <div
             style={{
-              position: 'relative',
-              borderRadius: 'var(--radius-lg)',
-              overflow: 'hidden',
-              minHeight: '380px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
+              padding: '3rem 2rem',
+              border: '1px solid var(--theme-border)',
+              borderRadius: 'var(--radius-sm)',
+              background: 'var(--theme-card-bg)',
+              textAlign: 'center',
+              fontFamily: 'var(--font-mono)'
             }}
           >
-            {/* Blurred Mock Cards Background */}
-            <div
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-                filter: 'blur(14px) brightness(0.4)',
-                opacity: 0.6,
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-                gap: '1.5rem',
-                pointerEvents: 'none'
-              }}
-            >
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="glass-panel" style={{ height: '220px', background: 'var(--theme-card-bg)' }} />
-              ))}
+            <div style={{ color: 'var(--color-warning)', marginBottom: '0.5rem', display: 'flex', justifyContent: 'center' }}>
+              <Lock size={24} />
             </div>
-
-            {/* Lock Modal Card */}
-            <div
-              className="glass-panel"
-              style={{
-                position: 'relative',
-                zIndex: 2,
-                padding: '3rem 2.5rem',
-                textAlign: 'center',
-                maxWidth: '480px',
-                background: 'rgba(11, 8, 19, 0.92)',
-                border: '1px solid var(--color-warning)',
-                boxShadow: '0 10px 40px rgba(0, 0, 0, 0.7)'
-              }}
-            >
-              <div
-                style={{
-                  width: '64px',
-                  height: '64px',
-                  borderRadius: '50%',
-                  background: 'var(--color-warning-bg)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  margin: '0 auto 1.5rem auto',
-                  color: 'var(--color-warning)'
-                }}
-              >
-                <Lock size={30} />
-              </div>
-              <h3 style={{ fontSize: '1.5rem', marginBottom: '0.8rem' }}>
-                Unlocks on {monthConfig[selectedMonth]?.unlockText}
-              </h3>
-              <p style={{ fontSize: '0.92rem', marginBottom: '1.5rem' }}>
-                Repositories for {monthConfig[selectedMonth]?.title} will be officially revealed on{' '}
-                {monthConfig[selectedMonth]?.unlockText} at 12:00 AM IST. Prepare your skills during Portfolio Week!
-              </p>
-              <div style={{ fontSize: '0.8rem', color: 'var(--color-text-subtle)' }}>
-                Tip: Append <code>?unlock=1</code> to the URL for preview testing.
-              </div>
+            <div style={{ fontSize: '1.1rem', color: 'var(--color-white)', marginBottom: '0.3rem' }}>
+              Unlocks on {monthConfig[selectedMonth]?.unlockText}
             </div>
-          </div>
-        ) : repos.length === 0 ? (
-          /* Empty Repos Notice */
-          <div className="glass-panel" style={{ padding: '4rem', textAlign: 'center' }}>
-            <Sparkles size={36} color="var(--theme-primary)" style={{ margin: '0 auto 1rem auto' }} />
-            <h3 style={{ fontSize: '1.4rem', marginBottom: '0.5rem' }}>Announced soon</h3>
-            <p style={{ maxWidth: '450px', margin: '0 auto' }}>
-              Project repositories for this sprint will be listed here shortly. Stay tuned to the FOSS TKMCE announcements!
+            <p style={{ fontSize: '0.82rem', color: 'var(--color-text-muted)' }}>
+              Projects for {monthConfig[selectedMonth]?.title} will be revealed on {monthConfig[selectedMonth]?.unlockText}.
             </p>
           </div>
-        ) : filteredRepos.length === 0 ? (
-          <div className="glass-panel" style={{ padding: '3.5rem', textAlign: 'center' }}>
-            <p>No repository found in "{selectedMonth}" under field "{selectedField}".</p>
-          </div>
-        ) : (
-          /* Active Project Cards Grid */
+        ) : repos.length === 0 ? (
+          /* Empty repos: 'Announced soon' */
           <div
             style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-              gap: '1.6rem'
+              padding: '3rem 2rem',
+              border: '1px solid var(--theme-border)',
+              borderRadius: 'var(--radius-sm)',
+              background: 'var(--theme-card-bg)',
+              textAlign: 'center',
+              fontFamily: 'var(--font-mono)'
             }}
           >
+            <div style={{ fontSize: '1.05rem', color: 'var(--color-white)', marginBottom: '0.3rem' }}>
+              Announced soon
+            </div>
+            <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>
+              Repositories for this sprint will be published here.
+            </p>
+          </div>
+        ) : (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
             {filteredRepos.map((repo) => (
               <div
                 key={repo.name}
-                className="glass-panel"
                 style={{
-                  padding: '1.8rem',
-                  borderRadius: 'var(--radius-lg)',
+                  padding: '1.2rem',
+                  border: '1px solid var(--theme-border)',
+                  borderRadius: 'var(--radius-sm)',
                   background: 'var(--theme-card-bg)',
                   display: 'flex',
-                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  alignItems: 'flex-start',
                   gap: '1rem',
-                  transition: 'all var(--transition-smooth)'
+                  flexWrap: 'wrap'
                 }}
               >
-                {/* Header: Field badge */}
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                  <span className="chip" style={{ fontSize: '0.75rem' }}>
-                    <Tag size={12} />
-                    <span>{repo.field}</span>
-                  </span>
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '0.75rem',
-                      color: 'var(--color-text-muted)'
-                    }}
-                  >
-                    tkmfoss /
-                  </span>
-                </div>
-
-                {/* Repo Name */}
-                <h3
-                  style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: '1.35rem',
-                    color: 'var(--color-white)',
-                    lineHeight: 1.2
-                  }}
-                >
-                  {repo.name}
-                </h3>
-
-                {/* Description */}
-                <p style={{ fontSize: '0.88rem', lineHeight: 1.6, flex: 1 }}>
-                  {repo.desc}
-                </p>
-
-                {/* Tech Stack Pills */}
-                {repo.stack && repo.stack.length > 0 && (
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
-                    {repo.stack.map((tech) => (
+                <div style={{ flex: 1, minWidth: '240px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.3rem' }}>
+                    <a
+                      href={`https://github.com/tkmfoss/${repo.name}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        fontFamily: 'var(--font-mono)',
+                        fontWeight: 700,
+                        fontSize: '1.05rem',
+                        color: 'var(--theme-primary)'
+                      }}
+                    >
+                      tkmfoss/{repo.name}
+                    </a>
+                    {repo.field && (
                       <span
-                        key={tech}
                         style={{
                           fontSize: '0.72rem',
                           fontFamily: 'var(--font-mono)',
-                          padding: '0.2rem 0.5rem',
-                          borderRadius: '4px',
-                          background: 'rgba(255, 255, 255, 0.06)',
-                          color: 'var(--color-text-main)',
-                          border: '1px solid rgba(255, 255, 255, 0.08)'
+                          border: '1px solid var(--theme-border)',
+                          padding: '0.1rem 0.4rem',
+                          borderRadius: '2px',
+                          color: 'var(--color-text-muted)'
                         }}
                       >
-                        {tech}
+                        {repo.field}
                       </span>
-                    ))}
+                    )}
                   </div>
-                )}
 
-                {/* GitHub Repo Link: https://github.com/tkmfoss/<name> */}
+                  <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', marginBottom: '0.6rem' }}>
+                    {repo.desc}
+                  </p>
+
+                  {repo.stack && (
+                    <div style={{ display: 'flex', gap: '0.35rem', flexWrap: 'wrap' }}>
+                      {repo.stack.map((s) => (
+                        <span
+                          key={s}
+                          style={{
+                            fontSize: '0.72rem',
+                            fontFamily: 'var(--font-mono)',
+                            color: 'var(--color-text-subtle)',
+                            background: 'rgba(255, 255, 255, 0.03)',
+                            padding: '0.1rem 0.35rem',
+                            borderRadius: '2px'
+                          }}
+                        >
+                          {s}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
                 <a
                   href={`https://github.com/tkmfoss/${repo.name}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-secondary btn-sm"
-                  style={{
-                    marginTop: '0.5rem',
-                    width: '100%',
-                    justifyContent: 'space-between'
-                  }}
+                  style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem' }}
                 >
-                  <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                    <Code2 size={15} color="var(--theme-primary)" />
-                    <span>View Repository</span>
-                  </span>
-                  <ExternalLink size={14} />
+                  <span>Repository</span>
+                  <ExternalLink size={12} />
                 </a>
               </div>
             ))}

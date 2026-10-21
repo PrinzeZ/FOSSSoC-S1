@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 
-export default function Counter({ value = 0, duration = 1200 }) {
+export default function Counter({ value, duration = 1000 }) {
+  const numValue = parseInt(value, 10);
+
+  // Counters show a dash when the value is 0 or missing
+  if (value === undefined || value === null || isNaN(numValue) || numValue === 0) {
+    return <span>—</span>;
+  }
+
   const [count, setCount] = useState(0);
 
   useEffect(() => {
     let start = 0;
-    const end = parseInt(value, 10) || 0;
-    if (start === end) {
-      setCount(end);
-      return;
-    }
+    const end = numValue;
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) {
@@ -17,12 +20,11 @@ export default function Counter({ value = 0, duration = 1200 }) {
       return;
     }
 
-    const totalFrames = Math.round(duration / 16);
+    const totalFrames = Math.max(1, Math.round(duration / 16));
     let currentFrame = 0;
 
     const timer = setInterval(() => {
       currentFrame++;
-      // easeOutExpo
       const progress = currentFrame / totalFrames;
       const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
       const current = Math.round(start + (end - start) * ease);
@@ -36,7 +38,7 @@ export default function Counter({ value = 0, duration = 1200 }) {
     }, 16);
 
     return () => clearInterval(timer);
-  }, [value, duration]);
+  }, [numValue, duration]);
 
   return <span>{count.toLocaleString()}</span>;
 }

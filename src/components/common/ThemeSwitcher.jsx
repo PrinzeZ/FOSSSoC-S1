@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTheme, THEMES } from '../../context/ThemeContext';
-import { Sparkles, Palette } from 'lucide-react';
+import { Terminal } from 'lucide-react';
 
 export default function ThemeSwitcher() {
   const { theme, setTheme } = useTheme();
@@ -12,44 +12,40 @@ export default function ThemeSwitcher() {
     <div
       style={{
         position: 'fixed',
-        bottom: '1.5rem',
-        right: '1.5rem',
+        bottom: '1.2rem',
+        right: '1.2rem',
         zIndex: 90,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-end',
-        gap: '0.5rem'
+        gap: '0.4rem',
+        fontFamily: 'var(--font-mono)'
       }}
     >
       {isOpen && (
         <div
           role="dialog"
-          aria-label="Seasonal Theme Selector"
-          className="glass-panel"
+          aria-label="Theme selector"
           style={{
-            padding: '0.6rem',
+            padding: '0.5rem',
             display: 'flex',
             flexDirection: 'column',
-            gap: '0.4rem',
+            gap: '0.3rem',
             background: 'var(--theme-card-bg)',
-            backdropFilter: 'blur(16px)',
-            borderRadius: 'var(--radius-md)',
+            borderRadius: 'var(--radius-sm)',
             border: '1px solid var(--theme-border)',
-            boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5)',
-            minWidth: '190px'
+            minWidth: '180px'
           }}
         >
           <div
             style={{
-              padding: '0.2rem 0.5rem',
-              fontSize: '0.75rem',
-              fontWeight: 600,
-              textTransform: 'uppercase',
-              letterSpacing: '0.06em',
-              color: 'var(--color-text-muted)'
+              padding: '0.2rem 0.4rem',
+              fontSize: '0.7rem',
+              color: 'var(--color-text-subtle)',
+              textTransform: 'uppercase'
             }}
           >
-            Select Season Theme
+            Terminal Skin
           </div>
           {themeList.map((item) => {
             const isActive = theme === item.id;
@@ -63,26 +59,21 @@ export default function ThemeSwitcher() {
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.6rem',
-                  padding: '0.55rem 0.75rem',
+                  justifyContent: 'space-between',
+                  padding: '0.4rem 0.6rem',
                   borderRadius: 'var(--radius-sm)',
-                  fontSize: '0.85rem',
-                  fontWeight: isActive ? 700 : 500,
-                  color: isActive ? 'var(--color-white)' : 'var(--color-text-muted)',
-                  background: isActive ? 'var(--theme-badge-bg)' : 'transparent',
-                  border: isActive ? '1px solid var(--theme-border-hover)' : '1px solid transparent',
-                  transition: 'all var(--transition-fast)',
+                  fontSize: '0.8rem',
+                  fontFamily: 'var(--font-mono)',
+                  color: isActive ? '#000000' : 'var(--color-text-muted)',
+                  background: isActive ? 'var(--theme-primary)' : 'transparent',
+                  border: '1px solid ' + (isActive ? 'var(--theme-primary)' : 'transparent'),
+                  cursor: 'pointer',
                   textAlign: 'left',
                   width: '100%'
                 }}
               >
-                <span style={{ fontSize: '1.1rem' }}>{item.icon}</span>
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                  <span>{item.name}</span>
-                  <span style={{ fontSize: '0.7rem', color: 'var(--color-text-subtle)' }}>
-                    {item.id === 'october' ? 'Halloween Fog' : item.id === 'november' ? 'Cyber Build' : 'Winter Frost'}
-                  </span>
-                </div>
+                <span>{item.name}</span>
+                <span style={{ fontSize: '0.7rem', opacity: 0.8 }}>[{item.code}]</span>
               </button>
             );
           })}
@@ -91,36 +82,24 @@ export default function ThemeSwitcher() {
 
       <button
         onClick={() => setIsOpen(!isOpen)}
-        aria-label="Toggle theme selection modal"
+        aria-label="Toggle theme selection"
         aria-expanded={isOpen}
         style={{
           display: 'flex',
           alignItems: 'center',
           gap: '0.5rem',
-          padding: '0.55rem 0.95rem',
-          background: 'var(--theme-surface)',
-          backdropFilter: 'blur(16px)',
+          padding: '0.45rem 0.8rem',
+          background: 'var(--theme-card-bg)',
           border: '1px solid var(--theme-border)',
-          borderRadius: 'var(--radius-full)',
+          borderRadius: 'var(--radius-sm)',
           color: 'var(--color-white)',
-          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.4), 0 0 15px var(--theme-glow)',
-          fontSize: '0.85rem',
-          fontWeight: 600,
-          cursor: 'pointer',
-          transition: 'transform var(--transition-fast), border-color var(--transition-fast)'
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.transform = 'scale(1.05)';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.transform = 'scale(1)';
+          fontSize: '0.78rem',
+          fontFamily: 'var(--font-mono)',
+          cursor: 'pointer'
         }}
       >
-        <span style={{ fontSize: '1rem' }}>{THEMES[theme]?.icon || '🎨'}</span>
-        <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-          <span>{THEMES[theme]?.name || 'Theme'}</span>
-          <Palette size={14} style={{ opacity: 0.7 }} />
-        </span>
+        <Terminal size={13} color="var(--theme-primary)" />
+        <span>skin: {theme}</span>
       </button>
     </div>
   );

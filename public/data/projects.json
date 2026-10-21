@@ -4,62 +4,18 @@
     "repos": [
       {
         "name": "portfolio-template",
-        "field": "Web Dev",
-        "stack": ["HTML5", "CSS3", "JavaScript", "GitHub Pages"],
-        "desc": "Official minimalist portfolio template for FOSSSoC Season 1. Fork it, customize your showcase, deploy to GitHub Pages, and send a PR."
+        "field": "Web",
+        "stack": ["HTML", "CSS", "JavaScript", "GitHub Pages"],
+        "desc": "Official portfolio template for FOSSSoC-S1. Fork, customize profile.json, deploy to GitHub Pages, and submit a showcase PR."
       }
     ]
   },
   "november": {
-    "theme": "Community & Campus Utilities",
-    "repos": [
-      {
-        "name": "campus-connect",
-        "field": "Web Dev",
-        "stack": ["React", "FastAPI", "PostgreSQL", "TailwindCSS"],
-        "desc": "Next-gen central campus portal for student events, club announcements, and peer-to-peer notices across all departments."
-      },
-      {
-        "name": "tkm-bus-tracker",
-        "field": "Mobile",
-        "stack": ["Flutter", "Dart", "Firebase", "OpenStreetMap"],
-        "desc": "Real-time college bus tracking application with live route ETA, driver telemetry, and push notification alerts."
-      },
-      {
-        "name": "open-lab-inventory",
-        "field": "Systems",
-        "stack": ["Go", "SQLite", "HTMX", "Docker"],
-        "desc": "Lightweight embedded lab equipment and components asset tracking system with QR code check-in and checkout flows."
-      },
-      {
-        "name": "foss-bot",
-        "field": "DevOps",
-        "stack": ["Node.js", "Discord.js", "GitHub API", "Redis"],
-        "desc": "Discord and automation bot that orchestrates pull request notifications, contributor role assignments, and leaderboard triggers."
-      }
-    ]
+    "theme": "Build Month",
+    "repos": []
   },
   "december": {
-    "theme": "Winter Hack & Deep Tech",
-    "repos": [
-      {
-        "name": "tkm-notes-hub",
-        "field": "Web Dev",
-        "stack": ["Next.js", "TypeScript", "Meilisearch", "S3"],
-        "desc": "Fast semantic search and peer-reviewed lecture notes repository organized by university syllabus scheme and module."
-      },
-      {
-        "name": "curriculum-ai",
-        "field": "AI/ML",
-        "stack": ["Python", "PyTorch", "LangChain", "ChromaDB"],
-        "desc": "RAG-powered conversational assistant to query KTU engineering syllabus, previous year question papers, and course guides."
-      },
-      {
-        "name": "embedded-gateway",
-        "field": "IoT",
-        "stack": ["Rust", "ESP32", "MQTT", "Grafana"],
-        "desc": "Firmware and telemetry bridge collecting indoor environmental data and lab power consumption via ESP32 nodes."
-      }
-    ]
+    "theme": "Christmas Eve Month",
+    "repos": []
   }
 }

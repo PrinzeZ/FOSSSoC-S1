@@ -1,46 +1,36 @@
 import React, { useState } from 'react';
 import { useWinnersData } from '../hooks/useExtraData';
-import { Trophy, Sparkles, Clock, ExternalLink, Award } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 
 export default function WinnersPage() {
-  const { data, loading, error } = useWinnersData();
+  const { data, loading } = useWinnersData();
   const [activeTab, setActiveTab] = useState('overall');
 
   const tabLabels = {
-    overall: 'Overall Season',
+    overall: 'Overall',
     october: 'October (Portfolio)',
-    november: 'November Sprint',
-    december: 'December Sprint'
+    november: 'November',
+    december: 'Christmas Eve (December)'
   };
 
   const currentWinners = data ? data[activeTab] || [] : [];
-  const allEmpty = !data || Object.values(data).every((arr) => !arr || arr.length === 0);
 
   return (
     <div className="section-spacing" style={{ position: 'relative', zIndex: 1 }}>
       <div className="container">
         {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
-          <div className="chip" style={{ marginBottom: '1rem', padding: '0.45rem 1.1rem' }}>
-            <Trophy size={15} />
-            <span>Honors & Seasonal Awards</span>
+        <div style={{ marginBottom: '2.5rem' }}>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--theme-primary)', marginBottom: '0.4rem' }}>
+            # winners
           </div>
-          <h1 style={{ marginBottom: '1rem' }}>Hall of Winners</h1>
-          <p style={{ maxWidth: '680px', margin: '0 auto', fontSize: '1.05rem' }}>
-            Celebrating top open source contributors, maintainers' choice awards, and seasonal sprint champions.
+          <h1 style={{ fontSize: '2.2rem', marginBottom: '0.5rem' }}>Winners</h1>
+          <p style={{ maxWidth: '640px', fontSize: '0.95rem' }}>
+            Sprint and overall champions for FOSSSoC-S1. Prizes are to be announced.
           </p>
         </div>
 
-        {/* Tab Controls */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: '0.6rem',
-            marginBottom: '3rem',
-            flexWrap: 'wrap'
-          }}
-        >
+        {/* Tabs */}
+        <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '2rem', flexWrap: 'wrap' }}>
           {Object.entries(tabLabels).map(([key, label]) => {
             const isActive = activeTab === key;
             return (
@@ -48,15 +38,14 @@ export default function WinnersPage() {
                 key={key}
                 onClick={() => setActiveTab(key)}
                 style={{
-                  padding: '0.6rem 1.3rem',
-                  borderRadius: 'var(--radius-md)',
-                  fontSize: '0.9rem',
-                  fontWeight: isActive ? 700 : 500,
-                  background: isActive ? 'var(--theme-primary)' : 'var(--theme-card-bg)',
-                  color: isActive ? '#0b0813' : 'var(--color-text-muted)',
-                  border: isActive ? '1px solid var(--theme-primary)' : '1px solid var(--theme-border)',
-                  cursor: 'pointer',
-                  transition: 'all var(--transition-fast)'
+                  padding: '0.45rem 0.9rem',
+                  borderRadius: 'var(--radius-sm)',
+                  border: '1px solid ' + (isActive ? 'var(--theme-primary)' : 'var(--theme-border)'),
+                  background: isActive ? 'var(--theme-primary)' : 'transparent',
+                  color: isActive ? '#000000' : 'var(--color-text-muted)',
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.82rem',
+                  cursor: 'pointer'
                 }}
               >
                 {label}
@@ -67,133 +56,58 @@ export default function WinnersPage() {
 
         {/* Content */}
         {loading ? (
-          <div className="glass-panel" style={{ padding: '4rem', textAlign: 'center' }}>
-            <p>Loading winners records...</p>
+          <div style={{ padding: '3rem', textAlign: 'center', fontFamily: 'var(--font-mono)', fontSize: '0.85rem' }}>
+            Loading winners...
           </div>
         ) : currentWinners.length === 0 ? (
-          /* Empty 'To be announced' State */
+          /* Empty 'To be announced' state */
           <div
-            className="glass-panel"
             style={{
-              padding: '4.5rem 2rem',
-              textAlign: 'center',
-              maxWidth: '600px',
-              margin: '0 auto',
+              padding: '3.5rem 2rem',
+              border: '1px solid var(--theme-border)',
+              borderRadius: 'var(--radius-sm)',
               background: 'var(--theme-card-bg)',
-              borderRadius: 'var(--radius-lg)',
-              border: '1px solid var(--theme-border)'
+              textAlign: 'center',
+              fontFamily: 'var(--font-mono)'
             }}
           >
-            <div
-              style={{
-                width: '72px',
-                height: '72px',
-                borderRadius: '50%',
-                background: 'var(--theme-badge-bg)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                margin: '0 auto 1.5rem auto',
-                color: 'var(--theme-primary)'
-              }}
-            >
-              <Trophy size={36} />
-            </div>
-
-            <h3 style={{ fontSize: '1.6rem', marginBottom: '0.8rem', color: 'var(--color-white)' }}>
+            <div style={{ fontSize: '1.1rem', color: 'var(--color-white)', marginBottom: '0.3rem' }}>
               To be announced
-            </h3>
-
-            <p style={{ fontSize: '0.95rem', lineHeight: 1.6, marginBottom: '1.8rem', color: 'var(--color-text-muted)' }}>
-              The winners for <strong>{tabLabels[activeTab]}</strong> will be published following the conclusion
-              of the sprint evaluation period. Keep submitting quality pull requests and watch the live leaderboard!
-            </p>
-
-            <div
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                fontSize: '0.82rem',
-                color: 'var(--color-text-subtle)'
-              }}
-            >
-              <Clock size={14} />
-              <span>Sprint evaluations currently in progress</span>
             </div>
+            <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>
+              Winners for {tabLabels[activeTab]} will be announced after judging concludes.
+            </p>
           </div>
         ) : (
-          /* Winners Podium / List */
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-              gap: '1.5rem'
+              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+              gap: '1rem'
             }}
           >
-            {currentWinners.map((winner, idx) => (
+            {currentWinners.map((w, idx) => (
               <div
-                key={winner.user || idx}
-                className="glass-panel"
+                key={idx}
                 style={{
-                  padding: '2rem',
+                  padding: '1.2rem',
+                  border: '1px solid var(--theme-border)',
+                  borderRadius: 'var(--radius-sm)',
                   background: 'var(--theme-card-bg)',
-                  borderRadius: 'var(--radius-lg)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  textAlign: 'center',
-                  gap: '1rem',
-                  borderTop: idx === 0 ? '4px solid #FFD166' : idx === 1 ? '4px solid #E2E8F0' : '4px solid #CD7F32'
+                  fontFamily: 'var(--font-mono)'
                 }}
               >
-                <div style={{ fontSize: '2rem' }}>
-                  {idx === 0 ? '🥇' : idx === 1 ? '🥈' : '🥉'}
+                <div style={{ color: 'var(--color-text-muted)', fontSize: '0.75rem', marginBottom: '0.3rem' }}>
+                  Rank #{idx + 1}
                 </div>
-
-                <img
-                  src={`https://github.com/${winner.user}.png?size=120`}
-                  alt={winner.name}
-                  style={{
-                    width: '64px',
-                    height: '64px',
-                    borderRadius: '50%',
-                    border: '2px solid var(--theme-border)'
-                  }}
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                  }}
-                />
-
-                <div>
-                  <h4 style={{ fontSize: '1.2rem', marginBottom: '0.2rem' }}>{winner.name}</h4>
-                  <a
-                    href={`https://github.com/${winner.user}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '0.3rem',
-                      color: 'var(--theme-primary)',
-                      fontSize: '0.85rem'
-                    }}
-                  >
-                    <span>@{winner.user}</span>
-                    <ExternalLink size={13} />
-                  </a>
+                <div style={{ color: 'var(--color-white)', fontWeight: 700, fontSize: '1.05rem' }}>
+                  {w.name}
                 </div>
-
-                <div
-                  style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: '1.4rem',
-                    fontWeight: 800,
-                    color: 'var(--color-white)',
-                    marginTop: 'auto'
-                  }}
-                >
-                  {winner.points} pts
+                <div style={{ fontSize: '0.85rem', color: 'var(--theme-primary)', marginBottom: '0.6rem' }}>
+                  @{w.user}
+                </div>
+                <div style={{ fontSize: '0.9rem', color: 'var(--color-white)' }}>
+                  {w.points} pts
                 </div>
               </div>
             ))}
