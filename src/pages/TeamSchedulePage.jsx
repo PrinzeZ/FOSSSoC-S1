@@ -295,18 +295,17 @@ export default function TeamSchedulePage() {
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-primary"
-              style={{ fontFamily: 'var(--font-mono)', fontSize: '0.88rem', padding: '0.65rem 1.5rem' }}
             >
-              <span>Register</span>
+              <span>[ Register ]</span>
               <ExternalLink size={14} />
             </a>
           ) : (
             <button
               disabled
-              className="btn btn-secondary"
-              style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', opacity: 0.6, cursor: 'not-allowed', padding: '0.65rem 1.5rem' }}
+              className="btn btn-disabled"
+              title="Registration link will be announced soon"
             >
-              Registration link coming soon
+              <span>[ Registration: Coming Soon ]</span>
             </button>
           )}
         </div>

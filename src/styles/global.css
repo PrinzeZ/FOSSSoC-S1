@@ -118,48 +118,71 @@ button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.6rem;
-  padding: 0.8rem 1.6rem;
-  font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: 0.95rem;
+  gap: 0.5rem;
+  padding: 0.55rem 1.25rem;
+  min-height: 2.5rem;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.85rem;
   border-radius: var(--radius-md);
-  transition: all var(--transition-smooth);
+  transition: all var(--transition-fast);
   position: relative;
-  overflow: hidden;
   text-decoration: none;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+  box-sizing: border-box;
 }
 
 .btn-primary {
   background: var(--theme-primary);
   color: #0b0813;
-  font-weight: 700;
-  box-shadow: 0 4px 20px var(--theme-glow);
+  font-weight: 600;
+  border: 1px solid var(--theme-primary);
+  box-shadow: 0 0 14px var(--theme-glow);
 }
 
 .btn-primary:hover {
   background: var(--theme-primary-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 28px var(--theme-glow);
+  border-color: var(--theme-primary-hover);
+  color: #0b0813;
+  transform: translateY(-1px);
 }
 
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--color-white);
+  background: var(--theme-card-bg);
+  color: var(--color-text-main);
   border: 1px solid var(--theme-border);
-  backdrop-filter: blur(10px);
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--theme-surface-hover);
   border-color: var(--theme-primary);
   color: var(--theme-primary);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
+}
+
+.btn-disabled,
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--color-text-muted);
+  border: 1px dashed var(--theme-border);
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+.btn-disabled:hover,
+.btn:disabled:hover {
+  transform: none;
+  border-color: var(--theme-border);
+  color: var(--color-text-muted);
 }
 
 .btn-sm {
-  padding: 0.45rem 0.9rem;
-  font-size: 0.85rem;
+  min-height: 2rem;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.8rem;
   border-radius: var(--radius-sm);
 }
 

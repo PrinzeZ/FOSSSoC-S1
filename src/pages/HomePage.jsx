@@ -103,46 +103,59 @@ export default function HomePage() {
               Open to students of TKMCE and external participants worldwide.
             </p>
 
-            {/* Countdown Badge - Centered */}
-            <div style={{ marginBottom: '1.8rem', display: 'flex', justifyContent: 'center' }}>
-              <Countdown targetDate={KICKOFF_ISO} />
-            </div>
-
-            {/* Action Buttons - Centered */}
+            {/* Hero Actions (Countdown Badge + Navigation Buttons) - Centered Stack */}
             <div
               style={{
                 display: 'flex',
-                flexWrap: 'wrap',
-                gap: '0.75rem',
+                flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                marginBottom: '3rem'
+                gap: '1rem',
+                marginBottom: '3rem',
+                width: '100%'
               }}
             >
-              {REG_FORM_URL ? (
-                <a
-                  href={REG_FORM_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-primary"
-                  style={{ padding: '0.65rem 1.4rem' }}
-                >
-                  <span>Register</span>
-                  <ExternalLink size={13} />
-                </a>
-              ) : (
-                <button disabled className="btn" style={{ padding: '0.65rem 1.4rem' }}>
-                  Registration link coming soon
-                </button>
-              )}
+              {/* Countdown Badge */}
+              <Countdown targetDate={KICKOFF_ISO} />
 
-              <Link to="/portfolio" className="btn btn-secondary" style={{ padding: '0.65rem 1.3rem' }}>
-                <span>[ Portfolio Week ]</span>
-              </Link>
+              {/* Action Buttons Row */}
+              <div
+                style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: '0.75rem',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                {REG_FORM_URL ? (
+                  <a
+                    href={REG_FORM_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-primary"
+                  >
+                    <span>[ Register ]</span>
+                    <ExternalLink size={13} />
+                  </a>
+                ) : (
+                  <button
+                    disabled
+                    className="btn btn-disabled"
+                    title="Registration link will be announced soon"
+                  >
+                    <span>[ Registration: Coming Soon ]</span>
+                  </button>
+                )}
 
-              <Link to="/leaderboard" className="btn btn-secondary" style={{ padding: '0.65rem 1.3rem' }}>
-                <span>[ Leaderboard ]</span>
-              </Link>
+                <Link to="/portfolio" className="btn btn-secondary">
+                  <span>[ Portfolio Week ]</span>
+                </Link>
+
+                <Link to="/leaderboard" className="btn btn-secondary">
+                  <span>[ Leaderboard ]</span>
+                </Link>
+              </div>
             </div>
 
             {/* Terminal Status Box - Centered below hero */}
