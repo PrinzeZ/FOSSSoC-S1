@@ -268,3 +268,17 @@ button {
 .bounce-subtle {
   animation: bounceSubtle 2s ease-in-out infinite;
 }
+
+/* Ensure page content always fills past full viewport so footer is only reached on scroll down */
+.app-main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 4.5rem + 80px);
+}
+
+@media (max-width: 768px) {
+  .app-main-content {
+    min-height: calc(100svh - 4.5rem + 60px);
+  }
+}

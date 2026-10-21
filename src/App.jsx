@@ -108,7 +108,7 @@ export default function App() {
       <Navbar />
 
       {/* Main Page Area */}
-      <main style={{ flex: 1 }}>
+      <main className="app-main-content">
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}
@@ -116,6 +116,7 @@ export default function App() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.15 }}
+            style={{ flex: 1, display: 'flex', flexDirection: 'column' }}
           >
             <Routes location={location} key={location.pathname}>
               <Route path="/" element={<HomePage />} />

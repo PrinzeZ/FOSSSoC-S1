@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useLeaderboardData } from '../hooks/useLeaderboardData';
+import { useTheme } from '../context/ThemeContext';
 import { TIER_CONFIG } from '../rules';
 import {
   Search,
@@ -13,6 +14,8 @@ import {
 
 export default function LeaderboardPage() {
   const { data, loading, error, refetch, isDemoMode } = useLeaderboardData();
+  const { theme, themes } = useTheme();
+  const currentTheme = themes[theme] || themes.october;
   const [activeTab, setActiveTab] = useState('overall');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedUser, setSelectedUser] = useState(null);
@@ -73,14 +76,44 @@ export default function LeaderboardPage() {
     <div className="section-spacing" style={{ position: 'relative', zIndex: 1 }}>
       <div className="container">
         {/* Header */}
-        <div style={{ marginBottom: '2.5rem' }}>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--theme-primary)', marginBottom: '0.4rem' }}>
-            # season_standings
+        <div style={{ marginBottom: '2.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
+          <div>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--theme-primary)', marginBottom: '0.4rem' }}>
+              # season_standings
+            </div>
+            <h1 style={{ fontSize: '2.2rem', marginBottom: '0.5rem' }}>Leaderboard</h1>
+            <p style={{ maxWidth: '640px', fontSize: '0.95rem' }}>
+              Standings computed from merged pull requests and portfolio evaluations. Click a row to inspect breakdown.
+            </p>
           </div>
-          <h1 style={{ fontSize: '2.2rem', marginBottom: '0.5rem' }}>Leaderboard</h1>
-          <p style={{ maxWidth: '640px', fontSize: '0.95rem' }}>
-            Standings computed from merged pull requests and portfolio evaluations. Click a row to inspect breakdown.
-          </p>
+
+          {/* Theme Board Badge */}
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              padding: '0.4rem 0.85rem',
+              borderRadius: 'var(--radius-sm)',
+              border: '1px solid var(--theme-border)',
+              background: 'var(--theme-card-bg)',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.78rem'
+            }}
+          >
+            <span
+              style={{
+                width: '7px',
+                height: '7px',
+                borderRadius: '50%',
+                background: 'var(--theme-primary)',
+                boxShadow: '0 0 8px var(--theme-primary)',
+                display: 'inline-block'
+              }}
+            />
+            <span style={{ color: 'var(--color-text-subtle)' }}>ACTIVE THEME:</span>
+            <span style={{ color: 'var(--theme-primary)', fontWeight: 700 }}>{currentTheme.themeName}</span>
+          </div>
         </div>
 
         {/* Tab Controls, Search & Refresh */}
@@ -102,9 +135,9 @@ export default function LeaderboardPage() {
           <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
             {[
               { id: 'overall', label: 'Overall' },
-              { id: 'october', label: 'October (Portfolio)' },
-              { id: 'november', label: 'November' },
-              { id: 'december', label: 'December' }
+              { id: 'october', label: 'October (Halloween)' },
+              { id: 'november', label: 'November (Build Month)' },
+              { id: 'december', label: 'December (Christmas Eve)' }
             ].map((t) => {
               const isActive = activeTab === t.id;
               return (

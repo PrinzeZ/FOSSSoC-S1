@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { CONFIG } from '../../config';
+import { useTheme } from '../../context/ThemeContext';
 import { Menu, X, ExternalLink } from 'lucide-react';
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { theme, themes } = useTheme();
+  const currentTheme = themes[theme] || themes.october;
 
   const navLinks = [
     { to: '/', label: 'Home' },
@@ -137,16 +140,48 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Right Action: Register CTA - Strictly nowrap & flex-shrink: 0 */}
+        {/* Right Action: Theme Board Badge + Register CTA */}
         <div
           style={{
             display: 'none',
             alignItems: 'center',
+            gap: '0.75rem',
             flexShrink: 0,
             whiteSpace: 'nowrap'
           }}
           className="desktop-nav"
         >
+          {/* Theme Board Badge */}
+          <div
+            className="navbar-theme-board"
+            title={`Active seasonal theme: ${currentTheme.themeName} (${currentTheme.name})`}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.4rem',
+              padding: '0.28rem 0.65rem',
+              borderRadius: 'var(--radius-sm)',
+              border: '1px solid var(--theme-border)',
+              background: 'rgba(255, 255, 255, 0.03)',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.74rem',
+              color: 'var(--color-text-muted)'
+            }}
+          >
+            <span
+              style={{
+                width: '6px',
+                height: '6px',
+                borderRadius: '50%',
+                background: 'var(--theme-primary)',
+                boxShadow: '0 0 6px var(--theme-primary)',
+                display: 'inline-block'
+              }}
+            />
+            <span style={{ color: 'var(--color-text-subtle)' }}>theme:</span>
+            <span style={{ color: 'var(--color-white)', fontWeight: 600 }}>{currentTheme.themeName}</span>
+          </div>
+
           {CONFIG.REG_FORM_URL ? (
             <a
               href={CONFIG.REG_FORM_URL}
@@ -173,26 +208,65 @@ export default function Navbar() {
           )}
         </div>
 
-        {/* Mobile Hamburger Button */}
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Toggle navigation menu"
-          aria-expanded={mobileMenuOpen}
-          className="mobile-toggle"
+        {/* Mobile Header: Theme Pill + Hamburger Button */}
+        <div
+          className="mobile-toggle-wrapper"
           style={{
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center',
-            padding: '0.5rem',
-            color: 'var(--color-white)',
-            border: '1px solid var(--theme-border)',
-            borderRadius: 'var(--radius-sm)',
-            cursor: 'pointer',
-            flexShrink: 0
+            gap: '0.6rem'
           }}
         >
-          {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
+          {/* Mobile Theme Pill */}
+          <div
+            className="mobile-theme-pill"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.35rem',
+              padding: '0.22rem 0.55rem',
+              borderRadius: 'var(--radius-sm)',
+              border: '1px solid var(--theme-border)',
+              background: 'rgba(255, 255, 255, 0.03)',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.7rem',
+              color: 'var(--color-text-muted)',
+              whiteSpace: 'nowrap'
+            }}
+          >
+            <span
+              style={{
+                width: '5px',
+                height: '5px',
+                borderRadius: '50%',
+                background: 'var(--theme-primary)',
+                display: 'inline-block'
+              }}
+            />
+            <span style={{ color: 'var(--color-white)', fontWeight: 600 }}>{currentTheme.themeName}</span>
+          </div>
+
+          {/* Mobile Hamburger Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle navigation menu"
+            aria-expanded={mobileMenuOpen}
+            className="mobile-toggle"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '0.5rem',
+              color: 'var(--color-white)',
+              border: '1px solid var(--theme-border)',
+              borderRadius: 'var(--radius-sm)',
+              cursor: 'pointer',
+              flexShrink: 0
+            }}
+          >
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Drawer Menu */}
@@ -213,6 +287,25 @@ export default function Navbar() {
             boxShadow: '0 10px 30px rgba(0,0,0,0.8)'
           }}
         >
+          {/* Theme Indicator in Mobile Menu */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '0.45rem 0.65rem',
+              marginBottom: '0.4rem',
+              borderRadius: 'var(--radius-sm)',
+              background: 'rgba(255, 255, 255, 0.03)',
+              border: '1px solid var(--theme-border)',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.75rem'
+            }}
+          >
+            <span style={{ color: 'var(--color-text-subtle)' }}>ACTIVE THEME:</span>
+            <span style={{ color: 'var(--theme-primary)', fontWeight: 600 }}>{currentTheme.themeName}</span>
+          </div>
+
           {navLinks.map((link) => (
             <NavLink
               key={link.to}
@@ -259,7 +352,11 @@ export default function Navbar() {
       <style>{`
         @media (min-width: 1040px) {
           .desktop-nav { display: flex !important; }
-          .mobile-toggle { display: none !important; }
+          .mobile-toggle-wrapper { display: none !important; }
+        }
+        @media (max-width: 1039px) {
+          .desktop-nav { display: none !important; }
+          .mobile-toggle-wrapper { display: flex !important; }
         }
         @media (max-width: 440px) {
           .navbar-brand-sub { display: none !important; }

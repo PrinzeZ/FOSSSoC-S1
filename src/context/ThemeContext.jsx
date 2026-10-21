@@ -6,6 +6,7 @@ export const THEMES = {
   october: {
     id: 'october',
     name: 'October',
+    themeName: 'Halloween',
     subtitle: 'ASCII Fog & Bats',
     code: 'OCT',
     primary: '#FF7700'
@@ -13,6 +14,7 @@ export const THEMES = {
   november: {
     id: 'november',
     name: 'November',
+    themeName: 'Build Month',
     subtitle: 'Blueprint & Traces',
     code: 'NOV',
     primary: '#00F5D4'
@@ -20,6 +22,7 @@ export const THEMES = {
   december: {
     id: 'december',
     name: 'December',
+    themeName: 'Christmas Eve',
     subtitle: 'ASCII Snow Grid',
     code: 'DEC',
     primary: '#EF233C'
