@@ -34,7 +34,7 @@ export function getAutoThemeByDate() {
 }
 
 export function ThemeProvider({ children }) {
-  const [theme, setThemeState] = useState(() => {
+  const resolveTheme = () => {
     try {
       const urlParams = new URLSearchParams(window.location.search);
       const queryTheme = urlParams.get('theme')?.toLowerCase();
@@ -51,22 +51,27 @@ export function ThemeProvider({ children }) {
       }
     } catch (e) {}
 
-    try {
-      const saved = localStorage.getItem('fosssoc_theme');
-      if (saved && THEMES[saved]) {
-        return saved;
-      }
-    } catch (e) {}
-
     return getAutoThemeByDate();
-  });
+  };
+
+  const [theme, setThemeState] = useState(resolveTheme);
+
+  // Sync theme on navigation or popstate (e.g. if query param changes)
+  useEffect(() => {
+    const handleLocationChange = () => {
+      setThemeState(resolveTheme());
+    };
+    window.addEventListener('popstate', handleLocationChange);
+    window.addEventListener('hashchange', handleLocationChange);
+    return () => {
+      window.removeEventListener('popstate', handleLocationChange);
+      window.removeEventListener('hashchange', handleLocationChange);
+    };
+  }, []);
 
   const setTheme = (newTheme) => {
     if (THEMES[newTheme]) {
       setThemeState(newTheme);
-      try {
-        localStorage.setItem('fosssoc_theme', newTheme);
-      } catch (e) {}
     }
   };
 

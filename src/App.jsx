@@ -4,7 +4,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Navbar from './components/common/Navbar';
 import Footer from './components/common/Footer';
 import SeasonalCanvas from './components/common/SeasonalCanvas';
-import ThemeSwitcher from './components/common/ThemeSwitcher';
 
 import HomePage from './pages/HomePage';
 import PortfolioPage from './pages/PortfolioPage';
@@ -109,9 +108,6 @@ export default function App() {
           </motion.div>
         </AnimatePresence>
       </main>
-
-      {/* Floating Theme Switcher */}
-      <ThemeSwitcher />
 
       {/* Footer */}
       <Footer />
