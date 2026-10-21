@@ -65,17 +65,26 @@ export default function HomePage() {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          padding: '2.5rem 0 1.5rem 0',
+          padding: '2.5rem 0 3.5rem 0',
           borderBottom: '1px solid var(--theme-border)',
           position: 'relative',
           boxSizing: 'border-box'
         }}
       >
-        <div className="container" style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+        <div
+          className="container"
+          style={{
+            flex: 1,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100%'
+          }}
+        >
           <div
             style={{
-              maxWidth: '820px',
-              margin: 'auto',
+              maxWidth: '840px',
               textAlign: 'center',
               display: 'flex',
               flexDirection: 'column',
@@ -169,28 +178,31 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-
-          {/* Scroll Down Hint at bottom of hero viewport */}
-          <a
-            href="#about"
-            className="hero-scroll-hint"
-            style={{
-              marginTop: 'auto',
-              paddingTop: '2.5rem',
-              display: 'inline-flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: '0.35rem',
-              color: 'var(--color-text-subtle)',
-              fontSize: '0.75rem',
-              fontFamily: 'var(--font-mono)',
-              textDecoration: 'none'
-            }}
-          >
-            <span>scroll down to explore</span>
-            <ChevronDown size={15} className="bounce-subtle" color="var(--theme-primary)" />
-          </a>
         </div>
+
+        {/* Scroll Down Hint pinned at bottom of hero viewport */}
+        <a
+          href="#about"
+          className="hero-scroll-hint"
+          style={{
+            position: 'absolute',
+            bottom: '1.4rem',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            display: 'inline-flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '0.35rem',
+            color: 'var(--color-text-subtle)',
+            fontSize: '0.75rem',
+            fontFamily: 'var(--font-mono)',
+            textDecoration: 'none',
+            zIndex: 2
+          }}
+        >
+          <span>scroll down to explore</span>
+          <ChevronDown size={15} className="bounce-subtle" color="var(--theme-primary)" />
+        </a>
       </section>
 
       {/* About Section - Spacious, Structured, and Informative */}
@@ -455,8 +467,7 @@ export default function HomePage() {
             display: none !important;
           }
           .hero-scroll-hint {
-            padding-top: 1.25rem !important;
-            padding-bottom: 0.25rem !important;
+            bottom: 0.85rem !important;
           }
         }
       `}</style>
