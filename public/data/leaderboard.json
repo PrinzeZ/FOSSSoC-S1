@@ -1,5 +1,5 @@
 {
-  "updated": null,
+  "updated": "2026-10-23T05:58:32.458Z",
   "thresholds": {
     "october": {
       "total": 35,
@@ -16,6 +16,53 @@
       "repos": 2
     }
   },
-  "users": [],
-  "hall": []
+  "users": [
+    {
+      "user": "kev-n25",
+      "name": "Kevin",
+      "department": "CSE",
+      "year": 2,
+      "portfolio": {
+        "fork": 5,
+        "commits": 5,
+        "live": 10,
+        "showcase": 0,
+        "auto": 20,
+        "rubric": null,
+        "total": 20,
+        "eligible": false
+      },
+      "projects": {
+        "total": 0,
+        "merged": 0,
+        "pending": 0,
+        "prs": []
+      },
+      "months": {
+        "2026-10": {
+          "points": 20,
+          "prs": 0,
+          "mediumPlus": 0,
+          "eligible": false
+        }
+      },
+      "overall": {
+        "points": 20,
+        "activeMonths": 0,
+        "repos": 0,
+        "eligible": false
+      },
+      "total": 20,
+      "tier": "none"
+    }
+  ],
+  "hall": [
+    {
+      "github": "kev-n25",
+      "name": "Kevin Reji",
+      "site": "https://kev-n25.github.io/portfolio-template/",
+      "department": "CSE",
+      "year": 3
+    }
+  ]
 }
