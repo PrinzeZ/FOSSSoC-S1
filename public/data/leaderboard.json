@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T10:04:21.078Z",
+  "updated": "2026-10-24T18:44:09.599Z",
   "thresholds": {
     "october": {
       "total": 35,
@@ -17,6 +17,123 @@
     }
   },
   "users": [
+    {
+      "user": "Hari-c137",
+      "name": "Hariprasad Aji",
+      "college": "Model Engineering College",
+      "department": "CSE",
+      "year": 2,
+      "portfolio": {
+        "fork": 5,
+        "commits": 0,
+        "live": 0,
+        "showcase": 10,
+        "auto": 15,
+        "rubric": null,
+        "total": 15,
+        "eligible": false
+      },
+      "projects": {
+        "total": 0,
+        "merged": 0,
+        "pending": 0,
+        "prs": []
+      },
+      "months": {
+        "2026-10": {
+          "points": 15,
+          "prs": 1,
+          "mediumPlus": 0,
+          "eligible": false
+        }
+      },
+      "overall": {
+        "points": 15,
+        "activeMonths": 1,
+        "repos": 0,
+        "eligible": false
+      },
+      "total": 15,
+      "tier": "participant"
+    },
+    {
+      "user": "Bhadra-S07",
+      "name": "Bhadra S",
+      "college": "TKMCE",
+      "department": "Computer Science and Engineering",
+      "year": 2,
+      "portfolio": {
+        "fork": 5,
+        "commits": 0,
+        "live": 0,
+        "showcase": 0,
+        "auto": 5,
+        "rubric": null,
+        "total": 5,
+        "eligible": false
+      },
+      "projects": {
+        "total": 0,
+        "merged": 0,
+        "pending": 0,
+        "prs": []
+      },
+      "months": {
+        "2026-10": {
+          "points": 5,
+          "prs": 0,
+          "mediumPlus": 0,
+          "eligible": false
+        }
+      },
+      "overall": {
+        "points": 5,
+        "activeMonths": 0,
+        "repos": 0,
+        "eligible": false
+      },
+      "total": 5,
+      "tier": "none"
+    },
+    {
+      "user": "shivanisreejith1",
+      "name": "Shivani s",
+      "college": "TKMCE",
+      "department": "Cse",
+      "year": 3,
+      "portfolio": {
+        "fork": 5,
+        "commits": 0,
+        "live": 0,
+        "showcase": 0,
+        "auto": 5,
+        "rubric": null,
+        "total": 5,
+        "eligible": false
+      },
+      "projects": {
+        "total": 0,
+        "merged": 0,
+        "pending": 0,
+        "prs": []
+      },
+      "months": {
+        "2026-10": {
+          "points": 5,
+          "prs": 0,
+          "mediumPlus": 0,
+          "eligible": false
+        }
+      },
+      "overall": {
+        "points": 5,
+        "activeMonths": 0,
+        "repos": 0,
+        "eligible": false
+      },
+      "total": 5,
+      "tier": "none"
+    },
     {
       "user": "aari-r",
       "name": "Aariz Rais",
@@ -1929,45 +2046,6 @@
       "tier": "none"
     },
     {
-      "user": "Hari-c137",
-      "name": "Hariprasad Aji",
-      "college": "Model Engineering College",
-      "department": "CSE",
-      "year": 2,
-      "portfolio": {
-        "fork": 0,
-        "commits": 0,
-        "live": 0,
-        "showcase": 0,
-        "auto": 0,
-        "rubric": null,
-        "total": 0,
-        "eligible": false
-      },
-      "projects": {
-        "total": 0,
-        "merged": 0,
-        "pending": 0,
-        "prs": []
-      },
-      "months": {
-        "2026-10": {
-          "points": 0,
-          "prs": 0,
-          "mediumPlus": 0,
-          "eligible": false
-        }
-      },
-      "overall": {
-        "points": 0,
-        "activeMonths": 0,
-        "repos": 0,
-        "eligible": false
-      },
-      "total": 0,
-      "tier": "none"
-    },
-    {
       "user": "Hari2136",
       "name": "Harinand K",
       "college": "TKMCE",
@@ -3762,45 +3840,6 @@
       "tier": "none"
     },
     {
-      "user": "shivanisreejith1",
-      "name": "Shivani s",
-      "college": "TKMCE",
-      "department": "Cse",
-      "year": 3,
-      "portfolio": {
-        "fork": 0,
-        "commits": 0,
-        "live": 0,
-        "showcase": 0,
-        "auto": 0,
-        "rubric": null,
-        "total": 0,
-        "eligible": false
-      },
-      "projects": {
-        "total": 0,
-        "merged": 0,
-        "pending": 0,
-        "prs": []
-      },
-      "months": {
-        "2026-10": {
-          "points": 0,
-          "prs": 0,
-          "mediumPlus": 0,
-          "eligible": false
-        }
-      },
-      "overall": {
-        "points": 0,
-        "activeMonths": 0,
-        "repos": 0,
-        "eligible": false
-      },
-      "total": 0,
-      "tier": "none"
-    },
-    {
       "user": "Sidharanjini-TM",
       "name": "Sidharanjini T M",
       "college": "T K M College of Engineering",
@@ -4269,5 +4308,14 @@
       "tier": "none"
     }
   ],
-  "hall": []
+  "hall": [
+    {
+      "github": "Hari-c137",
+      "name": "Hariprasad Aji",
+      "site": "https://hari-c137.github.io/portfolio-template/",
+      "college": "",
+      "department": "CSE",
+      "year": 2
+    }
+  ]
 }
