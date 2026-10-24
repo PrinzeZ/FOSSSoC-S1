@@ -68,6 +68,7 @@ export default function LeaderboardPage() {
     return (
       (r.name && r.name.toLowerCase().includes(q)) ||
       (r.user && r.user.toLowerCase().includes(q)) ||
+      (r.college && r.college.toLowerCase().includes(q)) ||
       (r.department && r.department.toLowerCase().includes(q))
     );
   });
@@ -344,10 +345,17 @@ export default function LeaderboardPage() {
                             onError={(e) => { e.currentTarget.style.display = 'none'; }}
                           />
                           <div>
-                            <span style={{ color: 'var(--color-white)', fontWeight: 600 }}>{row.name}</span>
-                            <span style={{ color: 'var(--color-text-muted)', marginLeft: '0.4rem', fontSize: '0.78rem' }}>
-                              @{row.user}
-                            </span>
+                            <div>
+                              <span style={{ color: 'var(--color-white)', fontWeight: 600 }}>{row.name}</span>
+                              <span style={{ color: 'var(--color-text-muted)', marginLeft: '0.4rem', fontSize: '0.78rem' }}>
+                                @{row.user}
+                              </span>
+                            </div>
+                            {(row.college || row.department || row.year) && (
+                              <div style={{ fontSize: '0.72rem', color: 'var(--color-text-subtle)', marginTop: '0.15rem' }}>
+                                {[row.college, row.department, row.year ? `Y${row.year}` : null].filter(Boolean).join(' • ')}
+                              </div>
+                            )}
                           </div>
                         </div>
                       </td>
@@ -424,14 +432,26 @@ export default function LeaderboardPage() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem', borderBottom: '1px solid var(--theme-border)', paddingBottom: '1rem' }}>
               <div>
                 <div style={{ fontSize: '1.2rem', color: 'var(--color-white)', fontWeight: 700 }}>{selectedUser.name}</div>
-                <a
-                  href={`https://github.com/${selectedUser.user}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ color: 'var(--theme-primary)', fontSize: '0.85rem', display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}
-                >
-                  @{selectedUser.user} <ExternalLink size={12} />
-                </a>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.2rem' }}>
+                  <a
+                    href={`https://github.com/${selectedUser.user}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: 'var(--theme-primary)', fontSize: '0.85rem', display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}
+                  >
+                    @{selectedUser.user} <ExternalLink size={12} />
+                  </a>
+                  {selectedUser.college && (
+                    <span style={{ fontSize: '0.75rem', padding: '0.1rem 0.4rem', border: '1px solid var(--theme-border)', borderRadius: 'var(--radius-sm)', color: 'var(--color-text-muted)' }}>
+                      {selectedUser.college}
+                    </span>
+                  )}
+                </div>
+                {(selectedUser.department || selectedUser.year) && (
+                  <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', marginTop: '0.3rem' }}>
+                    {[selectedUser.department, selectedUser.year ? `Year ${selectedUser.year}` : null].filter(Boolean).join(' • ')}
+                  </div>
+                )}
               </div>
               <button
                 onClick={() => setSelectedUser(null)}

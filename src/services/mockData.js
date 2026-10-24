@@ -430,6 +430,7 @@ export function generateDemoLeaderboard() {
     return {
       user: u.user,
       name: u.name,
+      college: u.college || 'TKMCE',
       department: u.dept,
       year: u.year,
       total: grandTotal,
@@ -480,6 +481,7 @@ export function generateDemoLeaderboard() {
         github: 'karthik-menon',
         name: 'Karthik Menon',
         site: 'https://karthik-menon.github.io/portfolio',
+        college: 'TKMCE',
         department: 'Computer Science & Engineering',
         year: 3
       },
@@ -487,6 +489,7 @@ export function generateDemoLeaderboard() {
         github: 'ananya-s',
         name: 'Ananya Sharma',
         site: 'https://ananya-sharma.dev',
+        college: 'TKMCE',
         department: 'Electronics & Communication',
         year: 2
       },
@@ -494,6 +497,7 @@ export function generateDemoLeaderboard() {
         github: 'rahul-v',
         name: 'Rahul Verma',
         site: 'https://rahulverma-tkm.github.io',
+        college: 'TKMCE',
         department: 'Mechanical Engineering',
         year: 4
       },
@@ -501,6 +505,7 @@ export function generateDemoLeaderboard() {
         github: 'arjun-krishna',
         name: 'Arjun Krishna',
         site: 'https://arjunkrishna.web.app',
+        college: 'CET Trivandrum',
         department: 'Electrical & Electronics',
         year: 1
       },
@@ -508,6 +513,7 @@ export function generateDemoLeaderboard() {
         github: 'devika-nair',
         name: 'Devika Nair',
         site: 'https://devika-nair.me',
+        college: 'TKMCE',
         department: 'Civil Engineering',
         year: 2
       },
@@ -515,6 +521,7 @@ export function generateDemoLeaderboard() {
         github: 'siddharth-r',
         name: 'Siddharth Ramesh',
         site: 'https://sid-ramesh.github.io/showcase',
+        college: 'NIT Calicut',
         department: 'Chemical Engineering',
         year: 3
       },
@@ -522,6 +529,7 @@ export function generateDemoLeaderboard() {
         github: 'aisha-mariam',
         name: 'Aisha Mariam',
         site: 'https://aishamariam.dev',
+        college: 'TKMCE',
         department: 'Computer Science & Engineering',
         year: 1
       },
@@ -529,6 +537,7 @@ export function generateDemoLeaderboard() {
         github: 'vishnu-prasad',
         name: 'Vishnu Prasad',
         site: 'https://vishnu-prasad.tech',
+        college: 'BITS Pilani (Goa)',
         department: 'Electronics & Communication',
         year: 4
       }

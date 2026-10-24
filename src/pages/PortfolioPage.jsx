@@ -22,6 +22,7 @@ export default function PortfolioPage() {
     return (
       (u.name && u.name.toLowerCase().includes(q)) ||
       (u.user && u.user.toLowerCase().includes(q)) ||
+      (u.college && u.college.toLowerCase().includes(q)) ||
       (u.department && u.department.toLowerCase().includes(q))
     );
   });
@@ -33,6 +34,7 @@ export default function PortfolioPage() {
     const q = hallFilter.toLowerCase();
     return (
       (item.name && item.name.toLowerCase().includes(q)) ||
+      (item.college && item.college.toLowerCase().includes(q)) ||
       (item.department && item.department.toLowerCase().includes(q)) ||
       (item.github && item.github.toLowerCase().includes(q))
     );
@@ -208,10 +210,15 @@ export default function PortfolioPage() {
                       fontSize: '0.82rem'
                     }}
                   >
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.6rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.3rem' }}>
                       <span style={{ color: 'var(--color-white)', fontWeight: 600 }}>{u.name}</span>
                       <span style={{ color: 'var(--color-text-muted)' }}>@{u.user}</span>
                     </div>
+                    {(u.college || u.department || u.year) && (
+                      <div style={{ fontSize: '0.72rem', color: 'var(--color-text-subtle)', marginBottom: '0.6rem' }}>
+                        {[u.college, u.department, u.year ? `Y${u.year}` : null].filter(Boolean).join(' • ')}
+                      </div>
+                    )}
                     <div style={{ display: 'flex', gap: '0.3rem', flexWrap: 'wrap', marginBottom: '0.8rem', fontSize: '0.72rem' }}>
                       <span style={{ border: '1px solid var(--theme-border)', padding: '0.1rem 0.4rem' }}>
                         fork: {port.fork ? '5' : '0'}/5
@@ -310,7 +317,7 @@ export default function PortfolioPage() {
                 >
                   <div style={{ color: 'var(--color-white)', fontWeight: 600, fontSize: '0.95rem' }}>{item.name}</div>
                   <div style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)', marginBottom: '0.8rem' }}>
-                    {item.department} {item.year ? `• Year ${item.year}` : ''}
+                    {[item.college, item.department, item.year ? `Year ${item.year}` : null].filter(Boolean).join(' • ')}
                   </div>
                   <a
                     href={item.site}

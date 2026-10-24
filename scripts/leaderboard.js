@@ -73,7 +73,7 @@ async function loadHall() {
         try {
             const j = await (await fetch(f.download_url)).json();
             if (/^https:\/\/[\w-]+\.github\.io\//i.test(j.site))
-                hall.push({ github: j.github, name: j.name, site: j.site, department: j.department, year: j.year });
+                hall.push({ github: j.github, name: j.name, site: j.site, college: j.college || '', department: j.department, year: j.year });
         } catch { }
     }
     return hall;
@@ -111,10 +111,10 @@ async function portfolio(login, tpl, showPR, rubric, ov) {
     const rubric = loadRubric(), ov = readJSON('data/overrides.json', {});
     const users = {};
     const U = (login) => (users[low(login)] ??= {
-        user: login, name: login, department: '', year: null,
+        user: login, name: login, college: '', department: '', year: null,
         portfolio: null, projects: { total: 0, merged: 0, pending: 0, prs: [] }
     });
-    for (const p of people) Object.assign(U(p.github), { user: p.github, name: p.name, department: p.department, year: p.year });
+    for (const p of people) Object.assign(U(p.github), { user: p.github, name: p.name, college: p.college || '', department: p.department, year: p.year });
 
     // ---- Portfolio Week
     let tpl = null;
