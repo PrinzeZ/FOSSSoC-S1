@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T18:44:09.599Z",
+  "updated": "2026-10-24T20:02:31.269Z",
   "thresholds": {
     "october": {
       "total": 35,
@@ -25,12 +25,12 @@
       "year": 2,
       "portfolio": {
         "fork": 5,
-        "commits": 0,
+        "commits": 5,
         "live": 0,
         "showcase": 10,
-        "auto": 15,
+        "auto": 20,
         "rubric": null,
-        "total": 15,
+        "total": 20,
         "eligible": false
       },
       "projects": {
@@ -41,19 +41,19 @@
       },
       "months": {
         "2026-10": {
-          "points": 15,
+          "points": 20,
           "prs": 1,
           "mediumPlus": 0,
           "eligible": false
         }
       },
       "overall": {
-        "points": 15,
+        "points": 20,
         "activeMonths": 1,
         "repos": 0,
         "eligible": false
       },
-      "total": 15,
+      "total": 20,
       "tier": "participant"
     },
     {
