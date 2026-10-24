@@ -168,7 +168,7 @@ Stores the seasonal prize recipients. If empty, the page automatically presents 
 ```
 
 ### 4. `public/data/team.json`
-Defines community coordinators, faculty advisors, and mentors. Zero personal phone numbers or email addresses are stored or displayed.
+Defines community coordinators, faculty advisors, mentors, and organizers along with their roles and contact details.
 
 ---
 

@@ -5,7 +5,8 @@ import {
   ChevronDown,
   ChevronUp,
   ExternalLink,
-  Github
+  Github,
+  Phone
 } from 'lucide-react';
 
 export default function TeamSchedulePage() {
@@ -89,7 +90,7 @@ export default function TeamSchedulePage() {
         {hasTeamEntries && (
           <div style={{ marginBottom: '5rem' }}>
             <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-              <h2 style={{ fontSize: '1.8rem', textAlign: 'center' }}>Organizers & Mentors</h2>
+              <h2 style={{ fontSize: '1.8rem', textAlign: 'center' }}>Maintainers</h2>
             </div>
             <div
               style={{
@@ -165,32 +166,64 @@ export default function TeamSchedulePage() {
                           {member.focus}
                         </div>
                       )}
-                      {(member.department || member.year) && (
+                      {member.department && (
                         <div style={{ fontSize: '0.75rem', color: 'var(--color-text-subtle)', marginTop: '0.25rem', fontFamily: 'var(--font-mono)' }}>
-                          {[member.department, member.year ? `Year ${member.year}` : ''].filter(Boolean).join(' • ')}
+                          {member.department}
                         </div>
                       )}
-                      {member.github && (
-                        <a
-                          href={`https://github.com/${member.github}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                      {((member.phone || member.mobile) || member.github) && (
+                        <div
                           style={{
-                            display: 'inline-flex',
+                            display: 'flex',
                             alignItems: 'center',
-                            gap: '0.35rem',
-                            fontSize: '0.78rem',
-                            color: 'var(--color-text-muted)',
-                            marginTop: '0.65rem',
-                            fontFamily: 'var(--font-mono)',
-                            textDecoration: 'none'
+                            flexWrap: 'wrap',
+                            gap: '0.85rem',
+                            marginTop: '0.65rem'
                           }}
-                          onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--theme-primary)'; }}
-                          onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--color-text-muted)'; }}
                         >
-                          <Github size={13} />
-                          <span>@{member.github}</span>
-                        </a>
+                          {member.github && (
+                            <a
+                              href={`https://github.com/${member.github}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '0.35rem',
+                                fontSize: '0.78rem',
+                                color: 'var(--color-text-muted)',
+                                fontFamily: 'var(--font-mono)',
+                                textDecoration: 'none',
+                                transition: 'color 0.2s ease'
+                              }}
+                              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--theme-primary)'; }}
+                              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--color-text-muted)'; }}
+                            >
+                              <Github size={13} />
+                              <span>@{member.github}</span>
+                            </a>
+                          )}
+                          {(member.phone || member.mobile) && (
+                            <a
+                              href={`tel:${String(member.phone || member.mobile).replace(/[^0-9+]/g, '')}`}
+                              style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '0.35rem',
+                                fontSize: '0.78rem',
+                                color: 'var(--color-text-muted)',
+                                fontFamily: 'var(--font-mono)',
+                                textDecoration: 'none',
+                                transition: 'color 0.2s ease'
+                              }}
+                              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--theme-primary)'; }}
+                              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--color-text-muted)'; }}
+                            >
+                              <Phone size={13} />
+                              <span>{member.phone || member.mobile}</span>
+                            </a>
+                          )}
+                        </div>
                       )}
                     </div>
                   </div>

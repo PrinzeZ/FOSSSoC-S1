@@ -3,11 +3,58 @@
     {
       "name": "Rasal Musthafa",
       "role": "Maintainer",
-      "focus": "Website and leaderboard",
       "github": "ras-al",
-      "avatar": "https://avatars.githubusercontent.com/ras-al",
-      "department": "CSE",
-      "year": 3
+      "phone": "8590918069",
+      "avatar": "https://avatars.githubusercontent.com/ras-al"
+    },
+    {
+      "name": "Hrudul Krishna K V",
+      "role": "Maintainer",
+      "github": "hrudulmmn",
+      "phone": "9207611718",
+      "avatar": "https://avatars.githubusercontent.com/hrudulmmn"
+    },
+    {
+      "name": "Muhammed Fayiz",
+      "role": "Maintainer",
+      "github": "mhdfayiiz",
+      "phone": "8606575509",
+      "avatar": "https://avatars.githubusercontent.com/mhdfayiiz"
+    },
+    {
+      "name": "Athulyathej U",
+      "role": "Maintainer",
+      "github": "athulyathej",
+      "phone": "8921751013",
+      "avatar": "https://avatars.githubusercontent.com/athulyathej"
+    },
+    {
+      "name": "Mohammed Nihal Reyasath",
+      "role": "Maintainer",
+      "github": "nillubtw",
+      "phone": "+918848558635",
+      "avatar": "https://avatars.githubusercontent.com/nillubtw"
+    },
+    {
+      "name": "Ibraheem Mohammed Basheer",
+      "role": "Maintainer",
+      "github": "PrinzeZ",
+      "phone": "8891980654",
+      "avatar": "https://avatars.githubusercontent.com/PrinzeZ"
+    },
+    {
+      "name": "Adwaith Krishna M H",
+      "role": "Maintainer",
+      "github": "adwaith620",
+      "phone": "7306300613",
+      "avatar": "https://avatars.githubusercontent.com/adwaith620"
+    },
+    {
+      "name": "Athil Rahuman A S",
+      "role": "Maintainer",
+      "github": "ath-il",
+      "phone": "8547546635",
+      "avatar": "https://avatars.githubusercontent.com/ath-il"
     }
   ],
   "mentors": []
